@@ -1,379 +1,481 @@
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" >
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="google-adsense-account" content="ca-pub-7451740321967766" />
-    <title>Home | Esportive</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link
-        href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap"
-        rel="stylesheet"
-    />
-    <link
-        rel="stylesheet"
-        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
-    />
-    <style>
-        body {
-            font-family: 'Zalando Sans Expanded', sans-serif;
-            background-color: #121212;
-            color: #eee;
-        }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BGMI Esports Style - Mobile Friendly</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
+  <style>
+    body, html {
+      margin: 0; height: 100%;
+      font-family: 'Zalando Sans Expanded', sans-serif;
+      color: #eee;
+      background: url('https://media.giphy.com/media/pHEiu1rj2Rk2k/giphy.gif') no-repeat center center fixed;
+      background-size: cover;
+      display: flex; flex-direction: column;
+      overflow-x: hidden;
+    }
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      backdrop-filter: blur(10px);
+      z-index: -1;
+    }
+    header {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 64px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-bottom: 2px solid #ff3b3b;
+      box-shadow: 0 2px 15px rgba(255,59,59,0.7);
+      display: flex;
+      align-items: center;
+      padding: 0 1rem;
+      justify-content: space-between;
+      z-index: 1000;
+      border-radius: 0 0 20px 20px;
+    }
+    header img.logo {
+      height: 40px;
+      filter: drop-shadow(0 0 8px #ff3b3b);
+      user-select: none;
+    }
+    #menu-toggle {
+      font-size: 1.8rem;
+      color: #ff3b3b;
+      background: none;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+      z-index: 1101;
+    }
+    #menu-toggle:focus {
+      outline: 2px solid #ff3b3b;
+      outline-offset: 2px;
+    }
 
-        /* Glassmorphism base */
-        .glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 16px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
-        }
+    /* Sidebar */
+    #sidebar {
+      position: fixed; top: 64px; left: 0;
+      width: 280px; height: 100vh;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(20px);
+      border-right: 1px solid rgba(255,59,59,0.5);
+      box-shadow: 2px 0 30px rgba(255,59,59,0.6);
+      padding: 2rem 1.5rem;
+      transform: translateX(-100%);
+      transition: transform 0.3s ease;
+      z-index: 1100;
+      overflow-y: auto;
+      user-select: none;
+    }
+    #sidebar.open {
+      transform: translateX(0);
+    }
 
-        /* Navbar glass */
-        header {
-            background: rgba(0, 0, 0, 0.3) !important;
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-            z-index: 50;
-        }
+    #sidebar ul {
+      padding: 0; margin: 0; list-style: none;
+    }
+    #sidebar li + li { margin-top: 1.25rem; }
 
-        /* Sidebar glass */
-        #sidebar {
-            background: rgba(0, 0, 0, 0.2);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            padding-top: 6rem;
-            width: 250px;
-        }
+    #sidebar a, #sidebar button {
+      font-size: 1.125rem;
+      font-weight: 600;
+      color: #eee;
+      text-decoration: none;
+      display: block;
+      padding: 0.75rem 0;
+      background: none;
+      border: none;
+      width: 100%;
+      text-align: left;
+      cursor: pointer;
+      transition: color 0.3s ease;
+    }
+    #sidebar a:hover, #sidebar button:hover {
+      color: #ff3b3b;
+    }
+    #social-links {
+      margin-top: 0.5rem;
+      padding-left: 1rem;
+    }
+    #social-links a {
+      font-size: 1rem;
+      color: #ccc;
+      margin-bottom: 0.5rem;
+      transition: color 0.3s ease;
+    }
+    #social-links a:hover {
+      color: #ff3b3b;
+    }
+    #socials-toggle i {
+      transition: transform 0.3s ease;
+    }
+    #socials-toggle.open i {
+      transform: rotate(180deg);
+    }
 
-        /* Hero section glass */
-        .hero-glass {
-            background: rgba(255, 255, 255, 0.05);
-            backdrop-filter: blur(25px);
-            -webkit-backdrop-filter: blur(25px);
-            border-radius: 20px;
-            padding: 2rem;
-            max-width: 800px;
-            box-shadow: 0 0 40px rgba(255, 0, 0, 0.3);
-        }
+    /* Overlay to dim background and detect outside clicks */
+    #overlay {
+      position: fixed; inset: 0;
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(5px);
+      z-index: 1050;
+      display: none;
+    }
+    #overlay.active {
+      display: block;
+    }
 
-        /* Card glass style */
-        .card-glass {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
+    main {
+      margin-top: 64px;
+      margin-left: 0;
+      padding: 1.5rem 1rem 4rem 1rem;
+      max-width: 100%;
+      user-select: none;
+      transition: margin-left 0.3s ease;
+    }
+    @media(min-width: 1024px) {
+      #sidebar {
+        transform: translateX(0);
+      }
+      #overlay {
+        display: none !important;
+      }
+      main {
+        margin-left: 280px;
+        max-width: calc(100% - 280px);
+        padding: 2rem;
+      }
+      #menu-toggle {
+        display: none;
+      }
+    }
 
-        .card-glass:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 0 25px rgba(255, 0, 0, 0.5);
-        }
+    /* Hero */
+    .hero {
+      position: relative;
+      background: rgba(255,255,255,0.07);
+      backdrop-filter: blur(25px);
+      border-radius: 25px;
+      box-shadow: 0 0 60px #ff3b3baa;
+      margin-bottom: 3rem;
+      text-align: center;
+      padding: 2.5rem 2rem 4rem 2rem;
+      color: #ff3b3b;
+      user-select: text;
+    }
+    .hero > div {
+      background: rgba(0,0,0,0.5);
+      padding: 1.2rem 2rem;
+      border-radius: 20px;
+      box-shadow: 0 0 30px #ff3b3bcc;
+      margin: 0 auto;
+      max-width: 720px;
+    }
+    .hero h1 {
+      font-weight: 900;
+      font-size: 2.8rem;
+      letter-spacing: 0.15em;
+      margin-bottom: 1rem;
+      text-shadow: 0 0 12px #ff3b3b;
+    }
+    .hero p {
+      font-size: 1.1rem;
+      color: #eee;
+      margin-bottom: 0.5rem;
+    }
+    .hero a {
+      background: rgba(255,59,59,0.15);
+      color: white;
+      font-weight: 700;
+      font-size: 1.15rem;
+      padding: 0.85rem 3rem;
+      border-radius: 9999px;
+      border: 2px solid #ff3b3b;
+      box-shadow: 0 0 25px #ff3b3baa;
+      text-decoration: none;
+      display: inline-block;
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+      user-select: none;
+      user-drag: none;
+    }
+    .hero a:hover {
+      background-color: #ff3b3b;
+      box-shadow: 0 0 40px #ff3b3b;
+    }
 
-        /* Footer glass */
-        footer {
-            background: rgba(0, 0, 0, 0.3);
-            backdrop-filter: blur(18px);
-            -webkit-backdrop-filter: blur(18px);
-            border-top: 1px solid rgba(255, 255, 255, 0.15);
-            padding: 1.5rem 0;
-        }
+    /* Featured Tournaments */
+    #tournaments-container {
+      display: flex;
+      gap: 1rem;
+      overflow-x: auto;
+      padding-bottom: 1rem;
+      scroll-padding-left: 1rem;
+      user-select: none;
+    }
+    .tournament-card {
+      min-width: 250px;
+      background: rgba(255,255,255,0.08);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      border: 1.5px solid rgba(255,59,59,0.4);
+      box-shadow: 0 4px 24px rgba(255,59,59,0.25);
+      padding: 1.5rem;
+      color: #eee;
+      cursor: pointer;
+      transition: box-shadow 0.3s ease, transform 0.3s ease;
+      display: flex;
+      flex-direction: column;
+    }
+    .tournament-card:hover,
+    .tournament-card:focus-visible {
+      outline: none;
+      transform: translateY(-6px);
+      box-shadow: 0 8px 40px rgba(255,59,59,0.6);
+      border-color: #ff3b3b;
+    }
+    .tournament-card h3 {
+      margin: 0 0 1rem 0;
+      font-weight: 900;
+      font-size: 1.25rem;
+      user-select: text;
+      color: #ff3b3b;
+      text-shadow: 0 0 10px #ff3b3b;
+    }
+    .tournament-card p {
+      font-size: 0.95rem;
+      color: #ddd;
+      user-select: text;
+      flex-grow: 1;
+    }
 
-        /* Buttons */
-        button,
-        a.button-glass {
-            background: rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            border-radius: 9999px;
-            border: 1px solid rgba(255, 255, 255, 0.25);
-            transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
-            padding: 0.5rem 1.25rem;
-            color: white;
-            font-weight: 600;
-            display: inline-block;
-            text-align: center;
-            text-decoration: none;
-        }
+    /* Supported Games */
+    .supported-games {
+      margin-top: 2rem;
+      margin-bottom: 3rem;
+      max-width: 100%;
+      overflow-x: auto;
+      display: flex;
+      gap: 1rem;
+      user-select: none;
+    }
+    .supported-games img {
+      flex-shrink: 0;
+      width: 92px;
+      height: 92px;
+      object-fit: contain;
+      border-radius: 14px;
+      box-shadow: 0 0 16px rgba(255, 59, 59, 0.5);
+      background: rgba(0,0,0,0.25);
+      border: 1.5px solid rgba(255,59,59,0.4);
+      transition: box-shadow 0.3s ease;
+      cursor: pointer;
+    }
+    .supported-games img:hover {
+      box-shadow: 0 0 32px #ff3b3b;
+    }
 
-        button:hover,
-        a.button-glass:hover {
-            background: rgba(255, 0, 0, 0.6);
-            border-color: rgba(255, 0, 0, 0.8);
-            color: white;
-        }
+    /* Esportive Feed */
+    #videos-container {
+      margin-bottom: 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
+      gap: 1rem;
+      user-select: none;
+    }
+    #videos-container > div {
+      background: rgba(0,0,0,0.3);
+      border-radius: 16px;
+      min-height: 160px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #999;
+      font-style: italic;
+      box-shadow: 0 0 15px rgba(255,59,59,0.3);
+      transition: box-shadow 0.3s ease;
+    }
+    #videos-container > div:hover {
+      box-shadow: 0 0 30px #ff3b3b;
+    }
 
-        /* Scroll container tweaks */
-        #tournaments-container,
-        #videos-container {
-            padding-bottom: 1rem;
-        }
-
-        #tournaments-container > div,
-        #videos-container > div {
-            min-width: 250px;
-            min-height: 150px;
-            border-radius: 12px;
-        }
-
-        /* Social links toggle */
-        #social-links a {
-            color: #ddd;
-        }
-
-        #social-links a:hover {
-            color: #ff3b3b;
-        }
-
-        /* Responsive fix for sidebar height and container spacing */
-        @media (max-width: 1024px) {
-            #sidebar {
-                width: 100%;
-                height: auto;
-                position: fixed;
-                bottom: 0;
-                top: auto;
-                border-right: none;
-                border-top: 1px solid rgba(255, 255, 255, 0.1);
-                padding: 1rem 2rem;
-                backdrop-filter: blur(20px);
-            }
-        }
-    </style>
+    /* Footer */
+    footer {
+      text-align: center;
+      padding: 2rem 1rem;
+      color: #ccc;
+      letter-spacing: 0.1em;
+      user-select: none;
+      font-size: 0.85rem;
+      background: rgba(0, 0, 0, 0.25);
+      border-top: 1px solid rgba(255, 59, 59, 0.3);
+    }
+    footer a {
+      color: #ff3b3b;
+      text-decoration: none;
+      font-weight: 700;
+      margin: 0 0.7rem;
+      transition: color 0.3s ease;
+      user-select: text;
+    }
+    footer a:hover {
+      color: #fff;
+    }
+  </style>
 </head>
-<body class="flex flex-col min-h-screen bg-[#121212] text-white">
-    <div>
-        <!-- Navbar -->
-        <header class="fixed top-0 left-0 right-0 flex items-center justify-between px-4 py-6 lg:py-8 glass">
-            <div class="flex items-center">
-                <button id="menu-toggle" class="text-xl text-white focus:outline-none">
-                    <i id="menu-icon" class="fas fa-bars transition-transform duration-300"></i>
-                </button>
-            </div>
-            <div class="flex-grow flex justify-center">
-                <img src="assets/navbar/logo.png" alt="Esportive Logo" class="h-8 lg:h-10" />
-            </div>
-            <div class="flex items-center">
-                <a href="login.html" class="text-2xl text-white focus:outline-none">
-                    <i class="fas fa-user-circle"></i>
-                </a>
-            </div>
-        </header>
+<body>
+  <header>
+    <button id="menu-toggle" aria-label="Toggle Menu" aria-haspopup="true" aria-expanded="false">
+      <i id="menu-icon" class="fas fa-bars"></i>
+    </button>
+    <img src="assets/navbar/logo.png" alt="Esportive Logo" class="logo" />
+    <div style="width: 2rem;"></div>
+  </header>
 
-        <!-- Full-screen Side Menu -->
-        <div
-            id="sidebar"
-            class="fixed top-0 left-0 h-full text-white glass flex flex-col p-8 z-40"
-            style="padding-top: 6rem"
-        >
-            <ul>
-                <li class="mb-2">
-                    <a href="mailto:support@espotive.in" class="text-xl font-semibold block py-2 hover:text-red-500"
-                        >Contact Us</a
-                    >
-                </li>
-                <li class="mb-2">
-                    <a href="mailto:work@espotive.in" class="text-xl font-semibold block py-2 hover:text-red-500"
-                        >Work With Us</a
-                    >
-                </li>
-                <li class="mb-2">
-                    <button
-                        id="socials-toggle"
-                        class="text-xl font-semibold w-full text-left py-2 flex items-center justify-between hover:text-red-500"
-                    >
-                        Our Socials
-                        <i class="fas fa-chevron-down text-base transition-transform duration-300"></i>
-                    </button>
-                    <ul
-                        id="social-links"
-                        class="pl-4 mt-1 hidden space-y-2"
-                    >
-                        <li><a href="#" class="text-base block hover:text-red-500">Instagram</a></li>
-                        <li><a href="#" class="text-base block hover:text-red-500">Discord</a></li>
-                        <li><a href="#" class="text-base block hover:text-red-500">YouTube</a></li>
-                        <li><a href="#" class="text-base block hover:text-red-500">X</a></li>
-                        <li><a href="#" class="text-base block hover:text-red-500">WhatsApp Channel</a></li>
-                    </ul>
-                </li>
-            </ul>
-        </div>
+  <nav id="sidebar" aria-label="Sidebar Navigation" role="navigation" tabindex="-1">
+    <ul>
+      <li><a href="mailto:support@espotive.in">Contact Us</a></li>
+      <li><a href="mailto:work@espotive.in">Work With Us</a></li>
+      <li>
+        <button id="socials-toggle" aria-expanded="false" aria-controls="social-links">
+          Our Socials <i class="fas fa-chevron-down"></i>
+        </button>
+        <ul id="social-links" hidden>
+          <li><a href="#">Instagram</a></li>
+          <li><a href="#">Discord</a></li>
+          <li><a href="#">YouTube</a></li>
+          <li><a href="#">X</a></li>
+          <li><a href="#">WhatsApp Channel</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
 
-        <!-- Hero Section -->
-        <div
-            class="relative container mx-auto p-8 pt-24 min-h-[400px] flex items-center justify-center rounded-lg hero-glass shadow-lg"
-            style="background-image: url('https://cdn.discordapp.com/attachments/1104103276703658087/1419828076585418753/Red_and_White_Futuristic_Esport_Game_Presentation_20250923_045805_0000_edit_157421879103998.png?ex=68d32d70&is=68d1dbf0&hm=3aca3539e7a12be0085f68458b1dcca545dd3269cceeee6469a29706166e676d&'); background-size: cover; background-position: center;"
-        >
-            <div class="z-10 text-center flex flex-col items-center gap-4">
-                <div class="flex items-center space-x-2">
-                    <div class="w-1.5 h-6 bg-red-600 rounded"></div>
-                    <h1 class="text-xl font-bold whitespace-nowrap">Find Tournaments.</h1>
-                </div>
-                <p class="text-gray-300 text-sm max-w-2xl">
-                    Esportive is India's e-sports tournament finder. Simply browse, choose, and register externally.
-                </p>
-                <a href="login.html" class="button-glass mt-4 w-max mx-auto">Sign in To Browse</a>
-            </div>
+  <main>
+    <section class="hero" aria-label="Hero Section">
+      <div>
+        <div class="flex items-center space-x-2 justify-center mb-4">
+          <div class="w-2 h-8 bg-red-600 rounded"></div>
+          <h1>Find Tournaments.</h1>
         </div>
+        <p>Esportive is India's e-sports tournament finder. Simply browse, choose, and register externally.</p>
+        <a href="login.html" class="btn-glass" aria-label="Sign in to browse">Sign in To Browse</a>
+      </div>
+    </section>
 
-        <!-- Featured Tournaments Section -->
-        <div class="container mx-auto p-8">
-            <div class="flex flex-col items-start mb-6">
-                <div class="flex items-center space-x-2">
-                    <div class="w-1.5 h-6 bg-red-600 rounded"></div>
-                    <h2 class="text-xl font-bold whitespace-nowrap">Featured Tournaments</h2>
-                </div>
-            </div>
-            <div
-                id="tournaments-container"
-                class="mt-4 flex overflow-x-auto gap-4 py-2"
-                aria-label="Featured Tournaments"
-            >
-                <!-- Tournament cards dynamically inserted here -->
-                <div class="text-gray-400 animate-pulse glass p-4 rounded-lg min-w-[250px]">
-                    Loading featured tournaments...
-                </div>
-            </div>
-        </div>
+    <section aria-label="Featured Tournaments">
+      <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Featured Tournaments</h2>
+      <div id="tournaments-container" role="list" tabindex="0" aria-live="polite" class="tournaments">
+        <article role="listitem" tabindex="0" class="tournament-card">
+          <h3>Red Zone Showdown</h3>
+          <p>Join the ultimate BGMI tournament with $10,000 prize pool! Open to all players.</p>
+        </article>
+        <article role="listitem" tabindex="0" class="tournament-card">
+          <h3>Victory Royale Clash</h3>
+          <p>Team up and battle for glory in this exciting BGMI squad tournament.</p>
+        </article>
+        <article role="listitem" tabindex="0" class="tournament-card">
+          <h3>Esportive Invitational</h3>
+          <p>Exclusive invitational featuring top streamers and pros. Watch the action live!</p>
+        </article>
+      </div>
+    </section>
 
-        <!-- Supported Games Section -->
-        <div class="container mx-auto p-8">
-            <div class="flex flex-col items-start mb-6">
-                <div class="flex items-center space-x-2">
-                    <div class="w-1.5 h-6 bg-red-600 rounded"></div>
-                    <h2 class="text-xl font-bold whitespace-nowrap">Supported Games</h2>
-                </div>
-            </div>
-            <div class="mt-4 grid grid-cols-4 gap-4 justify-items-center">
-                <img
-                    src="assets/games/bgmi.png"
-                    alt="BGMI"
-                    class="w-full h-24 object-contain glass p-2 rounded-lg"
-                />
-                <img
-                    src="assets/games/codm.png"
-                    alt="CODM"
-                    class="w-full h-24 object-contain glass p-2 rounded-lg"
-                />
-                <img
-                    src="assets/games/freefire.png"
-                    alt="Free Fire"
-                    class="w-full h-24 object-contain glass p-2 rounded-lg"
-                />
-                <img
-                    src="assets/games/coc.png"
-                    alt="Clash of Clans"
-                    class="w-full h-24 object-contain glass p-2 rounded-lg"
-                />
-                <img
-                    src="assets/games/brawl_stars.png"
-                    alt="Brawl Stars"
-                    class="w-full h-24 object-contain glass p-2 rounded-lg"
-                />
-                <img
-                    src="assets/games/pokemon_unite.png"
-                    alt="Pokemon Unite"
-                    class="w-full h-24 object-contain glass p-2 rounded-lg"
-                />
-                <img
-                    src="assets/games/clash_royale.png"
-                    alt="Clash Royale"
-                    class="w-full h-24 object-contain glass p-2 rounded-lg"
-                />
-            </div>
-        </div>
+    <section aria-label="Supported Games">
+      <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Supported Games</h2>
+      <div class="supported-games" role="list">
+        <img src="assets/games/bgmi.png" alt="BGMI" role="listitem" />
+        <img src="assets/games/codm.png" alt="CODM" role="listitem" />
+        <img src="assets/games/freefire.png" alt="Free Fire" role="listitem" />
+        <img src="assets/games/coc.png" alt="Clash of Clans" role="listitem" />
+        <img src="assets/games/brawl_stars.png" alt="Brawl Stars" role="listitem" />
+        <img src="assets/games/pokemon_unite.png" alt="Pokemon Unite" role="listitem" />
+        <img src="assets/games/clash_royale.png" alt="Clash Royale" role="listitem" />
+      </div>
+    </section>
 
-        <!-- Esportive Feed Section -->
-        <div class="container mx-auto p-8">
-            <div class="flex flex-col items-start mb-6">
-                <div class="flex items-center space-x-2">
-                    <div class="w-1.5 h-6 bg-red-600 rounded"></div>
-                    <h2 class="text-xl font-bold whitespace-nowrap">Esportive Feed</h2>
-                </div>
-            </div>
-            <div
-                id="videos-container"
-                class="mt-4 flex overflow-x-auto gap-4 py-2 md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-3 xl:grid-cols-4 md:overflow-visible"
-                aria-label="Latest Videos"
-            >
-                <div class="text-gray-400 animate-pulse glass p-4 rounded-lg min-w-[250px] min-h-[150px]">
-                    Loading latest videos...
-                </div>
-            </div>
-        </div>
+    <section aria-label="Esportive Feed">
+      <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Esportive Feed</h2>
+      <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <div>Loading latest videos...</div>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <hr class="border-gray-700 mx-auto w-full my-4" />
+    <div class="flex flex-wrap justify-center space-x-4 mb-2 text-xs">
+      <a href="pages/privacy-policy.html" class="hover:text-white">Privacy Policy</a>
+      <a href="pages/terms-of-use.html" class="hover:text-white">Terms Of Use</a>
+      <a href="pages/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
+      <a href="pages/faq.html" class="hover:text-white">FAQ</a>
     </div>
-
-    <!-- Footer Section -->
-    <footer class="mt-auto text-center text-gray-400 glass">
-        <hr class="border-t border-gray-700 mx-auto w-full my-4" />
-        <div class="container mx-auto flex flex-col items-center justify-center space-y-2">
-            <div class="flex flex-wrap justify-center space-x-4 mb-2 text-xs">
-                <a href="pages/privacy-policy.html" class="hover:text-red-600">Privacy Policy</a>
-                <a href="pages/terms-of-use.html" class="hover:text-red-600">Terms Of Use</a>
-                <a href="pages/cookie-policy.html" class="hover:text-red-600">Cookie Policy</a>
-                <a href="pages/faq.html" class="hover:text-red-600">FAQ</a>
-            </div>
-            <div class="flex justify-center space-x-4 text-base mb-2">
-                <a href="https://www.instagram.com" class="hover:text-red-600"
-                    ><i class="fab fa-instagram"></i
-                ></a>
-                <a href="https://www.discord.com" class="hover:text-red-600"
-                    ><i class="fab fa-discord"></i
-                ></a>
-                <a href="https://www.youtube.com" class="hover:text-red-600"
-                    ><i class="fab fa-youtube"></i
-                ></a>
-                <a href="https://www.x.com" class="hover:text-red-600"
-                    ><i class="fab fa-x"></i
-                ></a>
-            </div>
-            <p class="text-xs">&copy; 2025 Esportive. All rights reserved.</p>
-            <div class="flex justify-center items-center py-4 space-x-4">
-                <img src="assets/navbar/logo.png" alt="Esportive Logo" class="h-6" />
-                <span class="text-gray-500 font-bold text-sm">PART OF</span>
-                <img src="assets/footer/flm.png" alt="FLM Logo" class="h-6" />
-            </div>
-        </div>
-    </footer>
-
-    <!-- Cookie Consent Pop-up -->
-    <div
-        id="cookie-consent"
-        class="fixed bottom-0 left-0 right-0 p-4 z-50 bg-gray-900 text-white text-center shadow-lg rounded-t-lg hidden"
-    >
-        <div
-            class="container mx-auto flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0 md:space-x-6"
-        >
-            <p class="text-sm">
-                We use cookies to improve your experience. By continuing, you agree to our
-                <a href="pages/cookie-policy.html" class="text-red-600 hover:underline">Cookie Policy</a>.
-            </p>
-            <div class="flex space-x-2">
-                <button
-                    id="accept-cookies"
-                    class="bg-red-600 text-white px-4 py-2 rounded-full text-sm hover:bg-red-700 transition-colors"
-                >
-                    Accept
-                </button>
-                <button
-                    id="decline-cookies"
-                    class="border border-red-600 text-red-600 px-4 py-2 rounded-full text-sm hover:bg-red-600 hover:text-white transition-colors"
-                >
-                    Decline
-                </button>
-            </div>
-        </div>
+    <div class="flex justify-center space-x-6 text-xl mb-2">
+      <a href="https://www.instagram.com" class="hover:text-white"><i class="fab fa-instagram"></i></a>
+      <a href="https://www.discord.com" class="hover:text-white"><i class="fab fa-discord"></i></a>
+      <a href="https://www.youtube.com" class="hover:text-white"><i class="fab fa-youtube"></i></a>
+      <a href="https://www.x.com" class="hover:text-white"><i class="fab fa-x"></i></a>
     </div>
-    <script src="js/script.js"></script>
+    <p class="text-xs">&copy; 2025 Esportive. All rights reserved.</p>
+    <div class="flex justify-center items-center py-4 space-x-4">
+      <img src="assets/navbar/logo.png" alt="Esportive Logo" class="h-6" />
+      <span class="text-gray-500 font-bold text-sm">PART OF</span>
+      <img src="assets/footer/flm.png" alt="FLM Logo" class="h-6" />
+    </div>
+  </footer>
+
+  <script>
+    const menuToggle = document.getElementById('menu-toggle');
+    const sidebar = document.getElementById('sidebar');
+    const socialsToggle = document.getElementById('socials-toggle');
+    const socialLinks = document.getElementById('social-links');
+    const menuIcon = document.getElementById('menu-icon');
+
+    menuToggle.addEventListener('click', () => {
+      sidebar.classList.toggle('open');
+      menuIcon.classList.toggle('fa-bars');
+      menuIcon.classList.toggle('fa-times');
+    });
+
+    socialsToggle.addEventListener('click', () => {
+      const expanded = socialsToggle.getAttribute('aria-expanded') === 'true' || false;
+      socialsToggle.setAttribute('aria-expanded', String(!expanded));
+      socialLinks.hidden = !socialLinks.hidden;
+      socialsToggle.classList.toggle('open');
+    });
+
+    // Close sidebar on clicking a link for better UX on mobile
+    sidebar.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        if (sidebar.classList.contains('open')) {
+          sidebar.classList.remove('open');
+          menuIcon.classList.add('fa-bars');
+          menuIcon.classList.remove('fa-times');
+        }
+      });
+    });
+
+    // Close sidebar on clicking outside
+    document.addEventListener('click', (e) => {
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
+        sidebar.classList.remove('open');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
+      }
+    });
+  </script>
 </body>
 </html>
