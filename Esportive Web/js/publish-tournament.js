@@ -4,14 +4,15 @@ import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-    apiKey: "AIzaSyDthHTw69Olq2yM1YBRZqLor93zlQkJ3NY",
-    authDomain: "esportive-463db.firebaseapp.com",
-    projectId: "esportive-463db",
-    storageBucket: "esportive-463db.firebasestorage.app",
-    messagingSenderId: "461834147360",
-    appId: "1:461834147360:web:3228bd4a45928a003fce45",
-    measurementId: "G-4QKQ9YC8ML"
-};
+    apiKey: "AIzaSyDB9gtUd2KcBB9bEkD8Jzj_kyFE20GE7OA",
+    authDomain: "espotive.firebaseapp.com",
+    databaseURL: "https://espotive-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "espotive",
+    storageBucket: "espotive.firebasestorage.app",
+    messagingSenderId: "439864037476",
+    appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
+    measurementId: "G-Q2W9WHLCCR"
+  };
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
