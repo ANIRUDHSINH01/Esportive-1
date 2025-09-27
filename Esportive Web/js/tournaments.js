@@ -12,7 +12,7 @@ const firebaseConfig = {
     authDomain: "espotive.firebaseapp.com",
     databaseURL: "https://espotive-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "espotive",
-    storageBucket: "espotive.appspot.com", // fixed bucket
+    storageBucket: "espotive.firebasestorage.app", // fixed bucket
     messagingSenderId: "439864037476",
     appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
     measurementId: "G-Q2W9WHLCCR"
