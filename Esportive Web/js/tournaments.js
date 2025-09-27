@@ -2,17 +2,21 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebas
 import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
 import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
 
-// Your web app's Firebase configuration
+// ✅ Your Google Sheets CSV link (published to web)
+const googleSheetsUrl = 
+  "https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0";
+
+// ✅ Firebase config
 const firebaseConfig = {
     apiKey: "AIzaSyDB9gtUd2KcBB9bEkD8Jzj_kyFE20GE7OA",
     authDomain: "espotive.firebaseapp.com",
     databaseURL: "https://espotive-default-rtdb.asia-southeast1.firebasedatabase.app",
     projectId: "espotive",
-    storageBucket: "espotive.firebasestorage.app",
+    storageBucket: "espotive.appspot.com", // fixed bucket
     messagingSenderId: "439864037476",
     appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
     measurementId: "G-Q2W9WHLCCR"
-  };
+};
 
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
@@ -23,7 +27,7 @@ const analytics = getAnalytics(app);
 const detailsIcons = {
     "Event Name": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m1-3a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
     "Game": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/></svg>`,
-    "Prize Pool": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.567-3 3.5s1.343 3.5 3 3.5 3-1.567 3-3.5-1.343-3.5-3-3.5z"/></svg>`,
+    "PrizePool": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.567-3 3.5s1.343 3.5 3 3.5 3-1.567 3-3.5-1.343-3.5-3-3.5z"/></svg>`,
     "Slots": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3"/></svg>`,
     "Format": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>`,
     "Close Date": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/></svg>`,
@@ -42,13 +46,12 @@ const detailRow = (label, value, link = false) => `
     </li>
 `;
 
-// Listen for auth state changes to update UI
+// Auth state
 onAuthStateChanged(auth, (user) => {
     const profileContainer = document.getElementById('profile-container');
     const profileDropdown = document.getElementById('profile-dropdown');
     
     if (user) {
-        // User is signed in, update UI
         if (user.photoURL) {
             profileContainer.innerHTML = `
                 <img src="${user.photoURL}" alt="User Profile" class="h-8 w-8 rounded-full border-2 border-red-600 cursor-pointer">
@@ -63,12 +66,10 @@ onAuthStateChanged(auth, (user) => {
             profileDropdown.classList.toggle('hidden');
         });
     } else {
-        // User is not signed in, redirect to index.html
         window.location.href = 'index.html';
     }
 });
 
-// Add event listener to Logout button and other DOM functionalities
 document.addEventListener('DOMContentLoaded', () => {
     const logoutButton = document.getElementById('logout-btn');
     if (logoutButton) {
@@ -108,7 +109,7 @@ document.addEventListener('DOMContentLoaded', () => {
         socialsToggle.querySelector('i').classList.toggle('rotate-180');
     });
 
-    // Parse CSV data and validate required fields
+    // ✅ Parse CSV
     const parseCSV = (csv) => {
         const lines = csv.split('\n').filter(line => line.trim() !== '');
         if (lines.length === 0) {
@@ -117,7 +118,18 @@ document.addEventListener('DOMContentLoaded', () => {
         }
         
         const headers = lines[0].split(',').map(header => header.trim());
-        const requiredFields = ['Event Name', 'PrizePool', 'ImageURL', 'Slots', 'Format', 'Close Date', 'Organization', 'Social Link', 'Registration', 'Game'];
+        const requiredFields = [
+            'Event Name',
+            'PrizePool', // matches your sheet
+            'ImageURL',
+            'Slots',
+            'Format',
+            'Close Date',
+            'Organization',
+            'Social Link',
+            'Registration',
+            'Game'
+        ];
         
         const parsedData = lines.slice(1).map(line => {
             const values = line.split(',').map(value => value.trim());
@@ -131,13 +143,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return parsedData.filter(row => {
             const isValid = requiredFields.every(field => row[field] && row[field].length > 0);
             if (!isValid) {
-                console.error("Skipping a tournament row due to missing required fields:", row);
+                console.error("Skipping row due to missing required fields:", row);
             }
             return isValid;
         });
     };
 
-    // Create a tournament card with enhanced details UI
+    // Card creation
     const createCard = (tournament) => {
         const card = document.createElement('div');
         card.className = 'bg-gray-900 rounded-lg p-4 flex flex-col items-center text-center tournament-card relative';
@@ -147,12 +159,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 <div class="absolute inset-0">
                     <img src="${tournament.ImageURL}" alt="${tournament['Event Name']}" class="h-full w-full object-contain p-4" data-card-image>
                 </div>
-                <div class="absolute inset-0 p-4 hidden bg-gray-900/90 rounded-lg border border-gray-800 text-left overflow-auto" data-card-details style="max-height: 100%;">
+                <div class="absolute inset-0 p-4 hidden bg-gray-900/90 rounded-lg border border-gray-800 text-left overflow-auto" data-card-details>
                     <p class="text-base font-bold mb-3 text-red-500">Tournament Details:</p>
                     <ul>
                         ${detailRow("Event Name", tournament['Event Name'])}
                         ${detailRow("Game", tournament.Game)}
-                        ${detailRow("Prize Pool", tournament.PrizePool)}
+                        ${detailRow("PrizePool", tournament.PrizePool)}
                         ${detailRow("Slots", tournament.Slots)}
                         ${detailRow("Format", tournament.Format)}
                         ${detailRow("Close Date", tournament['Close Date'])}
@@ -174,15 +186,14 @@ document.addEventListener('DOMContentLoaded', () => {
         return card;
     };
 
-    // Render tournament cards
     const renderTournaments = (tournaments) => {
         tournamentsContainer.innerHTML = '';
         if (tournaments.length === 0) {
-            tournamentsContainer.innerHTML = '<p class="text-center text-gray-500">No tournaments found for this game.</p>';
+            tournamentsContainer.innerHTML = '<p class="text-center text-gray-500">No tournaments found.</p>';
             return;
         }
-        tournaments.forEach(tournament => {
-            const card = createCard(tournament);
+        tournaments.forEach(t => {
+            const card = createCard(t);
             tournamentsContainer.appendChild(card);
         });
         document.querySelectorAll('[data-details-toggle]').forEach(button => {
@@ -197,7 +208,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Populate game filter dropdown
     const createFilterDropdown = () => {
         const games = [
             'BGMI',
@@ -208,9 +218,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'Brawl Stars',
             'Pokemon Unite'
         ];
-        
         gameFilter.innerHTML = '<option value="">All Games</option>';
-        
         games.forEach(game => {
             const option = document.createElement('option');
             option.value = game;
@@ -219,7 +227,6 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     };
 
-    // Fetch tournaments from Google Sheets CSV and render
     const fetchTournaments = async () => {
         try {
             const response = await fetch(googleSheetsUrl);
@@ -228,8 +235,7 @@ document.addEventListener('DOMContentLoaded', () => {
             
             createFilterDropdown();
             
-            const initialTournaments = allTournaments.slice(0, 10);
-            renderTournaments(initialTournaments);
+            renderTournaments(allTournaments.slice(0, 10));
 
             gameFilter.addEventListener('change', (e) => {
                 const gameToFilter = e.target.value;
@@ -240,7 +246,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 renderTournaments(filtered.slice(0, 10));
             });
         } catch (error) {
-            console.error("Error fetching tournaments from Google Sheets:", error);
+            console.error("Error fetching tournaments:", error);
         }
     };
 
