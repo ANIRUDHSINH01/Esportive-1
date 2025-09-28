@@ -3,18 +3,19 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Esportive Tournaments - Details Popup</title>
+  <title>Esportive - Tournaments</title>
   <script src="https://cdn.tailwindcss.com"></script>
   <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@700;900&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     body {
+      margin: 0;
+      font-family: 'Zalando Sans Expanded', sans-serif;
+      color: #eee;
       background: url('https://media.giphy.com/media/pHEiu1rj2Rk2k/giphy.gif') no-repeat center center fixed;
       background-size: cover;
-      font-family: 'Zalando Sans Expanded', sans-serif;
-      margin: 0; color: #eee;
-      height: 100vh;
-      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
     }
     body::before {
       content: "";
@@ -23,8 +24,64 @@
       backdrop-filter: blur(10px);
       z-index: -1;
     }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem;
+      position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.08);
+      border-bottom: 1px solid rgba(255,59,59,0.12);
+      box-shadow: 0 1.5px 8px rgba(255,59,59,0.10);
+      z-index: 1000;
+      border-radius: 0 0 20px 20px;
+      user-select: none;
+    }
+    header img.logo {
+      height: 42px;
+      filter: drop-shadow(0 0 8px #ff3b3b);
+      cursor: default;
+    }
+    #profile-container, #profile-dropdown {
+      position: relative;
+    }
+    #profile-container img, #profile-container i {
+      width: 2rem; height: 2rem; border-radius: 9999px;
+      border: 2px solid #ff3b3b;
+      cursor: pointer;
+    }
+    #profile-dropdown {
+      position: absolute;
+      top: 2.5rem; right: 0;
+      min-width: 150px;
+      background: rgba(23,23,24,0.96);
+      box-shadow: 0 1px 8px rgba(255,59,59,0.15);
+      border-radius: 12px;
+      border: 1px solid rgba(255,59,59,0.15);
+      padding: 0.4rem 0;
+      display: none;
+      user-select: none;
+      z-index: 1010;
+    }
+    #profile-dropdown.show {
+      display: block;
+    }
+    #profile-dropdown a, #profile-dropdown button {
+      display: block;
+      color: #eee;
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      text-align: left;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+    #profile-dropdown a:hover, #profile-dropdown button:hover {
+      background: #ff3b3b;
+      color: #fff;
+    }
+
     main {
-      padding: 4rem 1.5rem 3rem 1.5rem;
+      padding: 5rem 1.5rem 3rem 1.5rem;
       max-width: 1080px;
       margin: 0 auto;
       user-select: none;
@@ -40,6 +97,26 @@
       user-select: text;
       text-shadow: 0 1px 6px rgba(255, 59, 59, 0.20);
     }
+    #game-filter {
+      display: block;
+      width: 100%;
+      max-width: 320px;
+      margin: 0 auto 1.8rem auto;
+      padding: 0.5rem 1rem;
+      font-weight: 700;
+      color: #ff3b3b;
+      background: rgba(255,255,255,0.06);
+      border: 2px solid #ff3b3b;
+      border-radius: 10px;
+      cursor: pointer;
+      user-select: text;
+      transition: border-color 0.3s;
+    }
+    #game-filter:hover, #game-filter:focus {
+      border-color: #ff6b6b;
+      outline: none;
+    }
+
     #tournaments-container {
       display: flex;
       flex-wrap: nowrap;
@@ -53,9 +130,14 @@
         flex-direction: column;
         overflow-x: visible;
       }
+      main {
+        padding-left: 1rem;
+        padding-right: 1rem;
+      }
     }
+
     .tournament-card {
-      min-width: 270px;
+      min-width: 260px;
       background: rgba(255,255,255,0.1);
       backdrop-filter: blur(16px);
       border-radius: 18px;
@@ -74,7 +156,6 @@
       box-shadow: 0 0 24px rgba(255, 59, 59, 0.38);
       border-color: #ff3b3b;
       transform: translateY(-6px) scale(1.03);
-      outline: none;
     }
     .tournament-card img {
       max-height: 150px;
@@ -92,11 +173,13 @@
       margin-bottom: 0.25rem;
       color: #ff3b3b;
       text-shadow: 0 1px 6px rgba(255, 59, 59, 0.25);
+      text-align: center;
     }
     .tournament-card p {
       font-size: 1rem;
       color: #ddd;
       margin-bottom: 1rem;
+      text-align: center;
     }
     .buttons-row {
       display: flex;
@@ -126,9 +209,9 @@
     a.register-btn:hover {
       background-color: #ff3b3b;
       box-shadow: 0 0 15px #ff3b3baa;
-      color: white;
     }
-    /* Modal Overlay global styles */
+
+    /* Modal Styles */
     #details-modal {
       position: fixed;
       inset: 0;
@@ -142,8 +225,7 @@
     #details-modal.active {
       display: flex;
     }
-    /* Modal Content */
-    #details-modal .modal-content {
+    .modal-content {
       background: rgba(18,18,20,0.96);
       border-radius: 22px;
       max-width: 500px;
@@ -156,26 +238,27 @@
       user-select: text;
       position: relative;
     }
-    #details-modal .modal-content::-webkit-scrollbar {
+    .modal-content::-webkit-scrollbar {
       width: 8px;
     }
-    #details-modal .modal-content::-webkit-scrollbar-thumb {
+    .modal-content::-webkit-scrollbar-thumb {
       background: rgba(255,59,59,0.6);
       border-radius: 3px;
     }
-    #details-modal ul {
-      padding-left: 0;
+    ul.details-list {
       list-style: none;
+      padding-left: 0;
       margin-top: 1rem;
     }
-    #details-modal ul li {
+    ul.details-list li {
       display: flex;
       align-items: center;
       gap: 0.7rem;
       padding: 0.5rem 0;
       border-bottom: 1px solid rgba(255, 59, 59, 0.1);
+      user-select: text;
     }
-    #details-modal ul li:last-child {
+    ul.details-list li:last-child {
       border-bottom: none;
     }
     .details-label {
@@ -208,8 +291,18 @@
   </style>
 </head>
 <body>
+  <header>
+    <div id="profile-container" title="User Profile"></div>
+    <img src="../assets/navbar/logo.png" alt="Esportive Logo" class="logo" />
+    <div id="profile-dropdown" class="hidden" role="menu">
+      <a href="publish-tournament.html" role="menuitem" tabindex="0">Publish Tournament</a>
+      <button id="logout-btn" role="menuitem" tabindex="0">Logout</button>
+    </div>
+  </header>
+
   <main>
     <h1>Featured Tournaments</h1>
+    <select id="game-filter" aria-label="Select game filter"></select>
     <div id="tournaments-container" role="list" tabindex="0"></div>
   </main>
 
@@ -218,11 +311,32 @@
     <div class="modal-content">
       <button id="close-modal-btn" aria-label="Close details">&times;</button>
       <h2 id="modal-title" class="text-2xl font-bold mb-4 text-red-500"></h2>
-      <ul id="modal-details-list"></ul>
+      <ul class="details-list" id="modal-details-list"></ul>
     </div>
   </div>
 
   <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+
+    // Firebase config
+    const firebaseConfig = {
+      apiKey: "AIzaSyDB9gtUd2KcBB9bEkD8Jzj_kyFE20GE7OA",
+      authDomain: "espotive.firebaseapp.com",
+      projectId: "espotive",
+      storageBucket: "espotive.firebasestorage.app",
+      messagingSenderId: "439864037476",
+      appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
+      measurementId: "G-Q2W9WHLCCR"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth();
+    getAnalytics(app);
+
+    const googleSheetCSV = "https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0";
+
     const detailsIcons = {
       "Event Name": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M9 12l2 2 4-4M7 12l5 5"/></svg>`,
       "Game": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 6v6l4 2"/></svg>`,
@@ -234,20 +348,12 @@
       "Social Link": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M15 7a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-4-6a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-6-4h.01"/></svg>`
     };
 
-    const modal = document.getElementById('details-modal');
-    const modalTitle = document.getElementById('modal-title');
-    const modalDetailsList = document.getElementById('modal-details-list');
-    const closeModalBtn = document.getElementById('close-modal-btn');
-    const tournamentsContainer = document.getElementById('tournaments-container');
-
-    const googleSheetCSV = "https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0";
-
     function detailRow(label, value, isLink = false) {
       return `
         <li>
           ${detailsIcons[label] || ''}
           <span class="details-label">${label}:</span>
-          ${isLink ? `<a href="${value}" target="_blank" rel="noopener">${value}</a>` : `<span>${value}</span>`}
+          ${isLink ? `<a href="${value}" target="_blank" rel="noopener noreferrer">${value}</a>` : `<span>${value}</span>`}
         </li>
       `;
     }
@@ -271,26 +377,16 @@
       return card;
     }
 
-    function openDetailsModal(tournament) {
-      modalTitle.textContent = tournament['Event Name'];
-      modalDetailsList.innerHTML = `
-        ${detailRow("Event Name", tournament['Event Name'])}
-        ${detailRow("Game", tournament.Game)}
-        ${detailRow("PrizePool", tournament.PrizePool)}
-        ${detailRow("Slots", tournament.Slots)}
-        ${detailRow("Format", tournament.Format)}
-        ${detailRow("Close Date", tournament['Close Date'])}
-        ${detailRow("Organization", tournament.Organization)}
-        ${detailRow("Social Link", tournament['Social Link'], true)}
-      `;
-      modal.classList.add('active');
-      closeModalBtn.focus();
-      document.body.style.overflow = 'hidden';
-    }
-
-    function closeDetailsModal() {
-      modal.classList.remove('active');
-      document.body.style.overflow = '';
+    function renderTournaments(tournaments) {
+      const container = document.getElementById('tournaments-container');
+      container.innerHTML = '';
+      if (!tournaments.length) {
+        container.innerHTML = '<p class="text-center text-gray-400">No tournaments found.</p>';
+        return;
+      }
+      tournaments.forEach(t => {
+        container.appendChild(createTournamentCard(t));
+      });
     }
 
     function parseCSV(csvText) {
@@ -304,40 +400,91 @@
       });
     }
 
-    async function fetchTournaments() {
-      try {
-        const res = await fetch(googleSheetCSV);
-        const csvText = await res.text();
-        const tournaments = parseCSV(csvText);
-        if (!tournaments.length) {
-          tournamentsContainer.innerHTML = '<p class="text-center text-gray-400">No tournaments found.</p>';
-          return;
-        }
-        tournamentsContainer.innerHTML = '';
-        tournaments.forEach(t => {
-          tournamentsContainer.appendChild(createTournamentCard(t));
-        });
-      } catch (e) {
-        tournamentsContainer.innerHTML = '<p class="text-center text-red-600">Failed to load tournaments.</p>';
-        console.error(e);
-      }
+    function openDetailsModal(tournament) {
+      const modal = document.getElementById('details-modal');
+      const modalTitle = document.getElementById('modal-title');
+      const modalDetailsList = document.getElementById('modal-details-list');
+      modalTitle.textContent = tournament['Event Name'];
+      modalDetailsList.innerHTML = `
+        ${detailRow('Event Name', tournament['Event Name'])}
+        ${detailRow('Game', tournament.Game)}
+        ${detailRow('PrizePool', tournament.PrizePool)}
+        ${detailRow('Slots', tournament.Slots)}
+        ${detailRow('Format', tournament.Format)}
+        ${detailRow('Close Date', tournament['Close Date'])}
+        ${detailRow('Organization', tournament.Organization)}
+        ${detailRow('Social Link', tournament['Social Link'], true)}
+      `;
+      modal.classList.add('active');
+      document.body.style.overflow = 'hidden';
+      document.getElementById('close-modal-btn').focus();
     }
 
-    closeModalBtn.onclick = closeDetailsModal;
-
-    // Close modal on outside click or pressing Escape
-    modal.addEventListener('click', e => {
-      if (e.target === modal) closeDetailsModal();
-    });
-    window.addEventListener('keydown', e => {
-      if (e.key === 'Escape' && modal.classList.contains('active')) closeDetailsModal();
-    });
-
-    // Initialize Firebase Auth elsewhere per your config; user profile handling omitted here for clarity
+    function closeDetailsModal() {
+      const modal = document.getElementById('details-modal');
+      modal.classList.remove('active');
+      document.body.style.overflow = '';
+    }
 
     window.addEventListener('DOMContentLoaded', () => {
-      fetchTournaments();
+      // Initialize Firebase Auth UI
+      const profileContainer = document.getElementById('profile-container');
+      const profileDropdown = document.getElementById('profile-dropdown');
+      onAuthStateChanged(auth, (user) => {
+        if (user) {
+          if (user.photoURL) {
+            profileContainer.innerHTML = `<img src="${user.photoURL}" alt="Profile Picture" />`;
+          } else {
+            profileContainer.innerHTML = `<i class="fas fa-user-circle"></i>`;
+          }
+          profileContainer.onclick = () => profileDropdown.classList.toggle('hidden');
+        } else {
+          window.location.href = 'index.html';
+        }
+      });
+      document.getElementById('logout-btn').onclick = async () => {
+        try {
+          await signOut(auth);
+          window.location.href = 'index.html';
+        } catch (err) {
+          console.error(err);
+        }
+      };
+
+      // Fetch and render tournaments
+      const url = "https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0";
+      fetch(url)
+        .then(res => res.text())
+        .then(text => {
+          const tournaments = parseCSV(text);
+          renderTournaments(tournaments);
+        })
+        .catch(() => {
+          document.getElementById('tournaments-container').innerHTML = '<p class="text-center text-red-600">Failed to load tournaments.</p>';
+        });
+
+      // Modal close handlers
+      const closeBtn = document.getElementById('close-modal-btn');
+      closeBtn.onclick = closeDetailsModal;
+
+      const modal = document.getElementById('details-modal');
+      modal.addEventListener('click', e => {
+        if (e.target === modal) closeDetailsModal();
+      });
+
+      window.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) closeDetailsModal();
+      });
     });
   </script>
+
+  <!-- Modal HTML -->
+  <div id="details-modal" role="dialog" aria-modal="true" tabindex="-1" aria-labelledby="modal-title" class="fixed inset-0 bg-black bg-opacity-70 backdrop-blur-sm flex items-center justify-center z-[9999] hidden">
+    <div class="modal-content bg-[#121214cc] rounded-xl p-6 max-w-xl max-h-[80vh] overflow-y-auto relative text-white shadow-[0_0_10px_3px_rgba(255,59,59,0.6)]">
+      <button id="close-modal-btn" aria-label="Close details" class="absolute top-3 right-4 text-2xl font-bold text-red-500 hover:text-white transition">×</button>
+      <h2 id="modal-title" class="text-3xl font-extrabold mb-6 text-red-500"></h2>
+      <ul id="modal-details-list" class="list-none p-0 m-0"></ul>
+    </div>
+  </div>
 </body>
 </html>
