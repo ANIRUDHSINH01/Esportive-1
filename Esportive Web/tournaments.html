@@ -432,45 +432,43 @@
                 </ul>
 
                 <!-- Social Share -->
-<div class="mb-3">
-  <p class="text-xs text-gray-400 mb-1">Share this tournament:</p>
-  <div class="flex space-x-2">
-    <!-- WhatsApp -->
-    <a 
-      href="https://api.whatsapp.com/send?text=${encodeURIComponent(`Join ${t['Event Name']} on Esportive! ${window.location.href}`)}" 
-      target="_blank" 
-      class="text-xs bg-white/20 backdrop-blur-md hover:bg-white/30 px-3 py-1 rounded-lg flex items-center transition duration-200"
-    >
-      <i class="fab fa-whatsapp text-green-500 mr-1"></i> WhatsApp
-    </a>
 
-    <!-- Discord -->
-    <a 
-      href="https://discord.com/channels/@me" 
-      target="_blank" 
-      class="text-xs bg-white/20 backdrop-blur-md hover:bg-white/30 px-3 py-1 rounded-lg flex items-center transition duration-200"
-    >
-      <i class="fab fa-discord text-indigo-500 mr-1"></i> Discord
-    </a>
+  <div class="mb-3 flex space-x-3 justify-center">
+  <!-- WhatsApp -->
+  <a 
+    href="https://api.whatsapp.com/send?text=${encodeURIComponent(`Join ${t['Event Name']} on Esportive! ${window.location.href}`)}" 
+    target="_blank" 
+    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition duration-200"
+  >
+    <i class="fab fa-whatsapp text-green-500 text-lg"></i>
+  </a>
 
-    <!-- Instagram -->
-    <a 
-      href="https://www.instagram.com/" 
-      target="_blank" 
-      class="text-xs bg-white/20 backdrop-blur-md hover:bg-white/30 px-3 py-1 rounded-lg flex items-center transition duration-200"
-    >
-      <i class="fab fa-instagram text-pink-500 mr-1"></i> Instagram
-    </a>
+  <!-- Discord -->
+  <a 
+    href="https://discord.com/channels/@me" 
+    target="_blank" 
+    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition duration-200"
+  >
+    <i class="fab fa-discord text-indigo-500 text-lg"></i>
+  </a>
 
-    <!-- X / Twitter -->
-    <a 
-      href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`Join ${t['Event Name']} on Esportive!`)}&url=${encodeURIComponent(window.location.href)}" 
-      target="_blank" 
-      class="text-xs bg-white/20 backdrop-blur-md hover:bg-white/30 px-3 py-1 rounded-lg flex items-center transition duration-200"
-    >
-      <i class="fa-brands fa-x text-blue-500 mr-1"></i> X
-    </a>
-  </div>
+  <!-- Instagram -->
+  <a 
+    href="https://www.instagram.com/" 
+    target="_blank" 
+    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition duration-200"
+  >
+    <i class="fab fa-instagram text-pink-500 text-lg"></i>
+  </a>
+
+  <!-- X / Twitter -->
+  <a 
+    href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`Join ${t['Event Name']} on Esportive!`)}&url=${encodeURIComponent(window.location.href)}" 
+    target="_blank" 
+    class="w-10 h-10 flex items-center justify-center rounded-full bg-white/20 backdrop-blur-md hover:bg-white/30 transition duration-200"
+  >
+    <i class="fa-brands fa-x text-blue-500 text-lg"></i>
+  </a>
 </div>
 
                 <!-- Countdown -->
