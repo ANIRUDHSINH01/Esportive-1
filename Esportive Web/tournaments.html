@@ -225,15 +225,64 @@
     const auth = getAuth(app);
 
     const detailsIcons = {
-      "Event Name": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m1-3a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
-      Game: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/></svg>`,
-      PrizePool: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.567-3 3.5s1.343 3.5 3 3.5 3-1.567 3-3.5-1.343-3.5-3-3.5z"/></svg>`,
-      Slots: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3"/></svg>`,
-      Format: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>`,
-      "Close Date": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/></svg>`,
-      Organization: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v3a4 4 0 004 4h10a4 4 0 004-4V7"/></svg>`,
-      "Social Link": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 7a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-4-6a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-6-4h.01"/></svg>`,
-    };
+  "Event Name": `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Trophy icon -->
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 21h6M12 17v4m-3-4a4 4 0 01-4-4V7h14v6a4 4 0 01-4 4"/>
+    </svg>
+  </div>`,
+
+  Game: `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Game controller -->
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 12v.01M10 12v.01M14 12v.01M18 12v.01M12 14v.01M5 8h14a2 2 0 012 2v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4a2 2 0 012-2z"/>
+    </svg>
+  </div>`,
+
+  PrizePool: `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Coin / money -->
+      <circle cx="12" cy="12" r="9" stroke-width="2"/>
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v8m-4-4h8"/>
+    </svg>
+  </div>`,
+
+  Slots: `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Player slot / avatar icon -->
+      <circle cx="12" cy="8" r="3"/>
+      <path d="M5 20c0-3.333 5-5 7-5s7 1.667 7 5"/>
+    </svg>
+  </div>`,
+
+  Format: `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Bracket / tournament icon -->
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 18h16M12 6v12"/>
+    </svg>
+  </div>`,
+
+  "Close Date": `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Calendar with clock -->
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/>
+    </svg>
+  </div>`,
+
+  Organization: `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Team / organization -->
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2l3 7h7l-5.5 4 2 7-6-4-6 4 2-7-5.5-4h7z"/>
+    </svg>
+  </div>`,
+
+  "Social Link": `<div class="inline w-6 h-6 mr-2 p-1 rounded-lg bg-white/20 backdrop-blur-md flex items-center justify-center">
+    <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <!-- Share / link icon -->
+      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 8l5 5-5 5M10 12h10"/>
+    </svg>
+  </div>`,
+};
 
     const detailRow = (label, value, link = false) => `
       <li class="flex items-start py-2 border-b border-gray-700 last:border-0">
