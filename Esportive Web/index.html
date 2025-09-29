@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Esportive</title>
   <script src="https://cdn.tailwindcss.com"></script>
-  <script src="js/script.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
@@ -330,11 +329,49 @@
       user-select: text;
     }
     footer a:hover { color: #fff; }
+    /* Cookie consent popup */
+    #cookie-consent {
+      position: fixed;
+      bottom: 2rem;
+      left: 2rem;
+      right: 2rem;
+      background: rgba(0,0,0,0.95);
+      color: #fff;
+      padding: 1.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 20px rgba(255,59,59,0.18);
+      z-index: 1000;
+      display: none;
+      max-width: 350px;
+      margin: auto;
+    }
+    #cookie-consent.visible {
+      display: block;
+    }
+    #cookie-consent button {
+      margin-top: 1rem;
+      margin-right: 0.5rem;
+      padding: 0.5rem 1.25rem;
+      background: #ff3b3b;
+      color: #fff;
+      border: none;
+      border-radius: 0.5rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.3s;
+    }
+    #cookie-consent button:last-child {
+      background: #333;
+      color: #fff;
+    }
+    #cookie-consent button:hover {
+      background: #e00;
+    }
   </style>
 </head>
 <body>
 <div id="root">
-  <!-- Modern Navbar -->
+  <!-- Navbar -->
   <header>
     <div class="flex items-center space-x-3">
       <img src="assets/navbar/logo.png" alt="Esportive Logo" class="logo h-10 select-none pointer-events-none" />
@@ -354,12 +391,12 @@
         </ul>
       </div>
     </nav>
-    <!-- Mobile Hamburger Menu -->
+    <!-- Hamburger for mobile -->
     <button id="menu-toggle" aria-label="Toggle Menu" class="lg:hidden text-2xl text-red-600 focus:outline-none">
       <i id="menu-icon" class="fas fa-bars"></i>
     </button>
   </header>
-  <!-- Mobile Sidebar -->
+  <!-- Sidebar mobile -->
   <nav id="sidebar" aria-label="Sidebar Navigation" role="navigation" tabindex="-1">
     <ul>
       <li><a href="mailto:support@espotive.in">Contact Us</a></li>
@@ -386,24 +423,13 @@
           <h1>Find Tournaments.</h1>
         </div>
         <p>Esportive is India's e-sports tournament finder. Simply browse, choose, and register externally.</p>
-        <a href="login.html" class="btn-glass" aria-label="Sign in to browse">Signin</a>
+        <a href="login.html" class="btn-glass" aria-label="Sign in to browse">Sign in To Browse</a>
       </div>
     </section>
     <section aria-label="Featured Tournaments">
       <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Featured Tournaments</h2>
       <div id="tournaments-container" role="list" tabindex="0" aria-live="polite" class="tournaments">
-        <article role="listitem" tabindex="0" class="tournament-card">
-          <h3>Red Zone Showdown</h3>
-          <p>Join the ultimate BGMI tournament with $10,000 prize pool! Open to all players.</p>
-        </article>
-        <article role="listitem" tabindex="0" class="tournament-card">
-          <h3>Victory Royale Clash</h3>
-          <p>Team up and battle for glory in this exciting BGMI squad tournament.</p>
-        </article>
-        <article role="listitem" tabindex="0" class="tournament-card">
-          <h3>Esportive Invitational</h3>
-          <p>Exclusive invitational featuring top streamers and pros. Watch the action live!</p>
-        </article>
+        <!-- Tournament cards loaded by JS -->
       </div>
     </section>
     <section aria-label="Supported Games">
@@ -419,10 +445,10 @@
       </div>
     </section>
     <section aria-label="Esportive Feed">
-  <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Esportive Feed</h2>
-  <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-    <!-- Video cards will be loaded here by js/script.js -->
-  </div>
+      <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Esportive Feed</h2>
+      <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+        <!-- Video cards loaded by JS -->
+      </div>
     </section>
   </main>
   <footer>
@@ -446,48 +472,16 @@
       <img src="assets/footer/flm.png" alt="FLM Logo" class="h-6" />
     </div>
   </footer>
+  <!-- Cookie Consent Popup -->
+  <div id="cookie-consent" class="hidden">
+    <p class="mb-2">
+      We use cookies to improve your experience. By continuing, you accept our
+      <a href="pages/cookie-policy.html" class="underline text-red-400">Cookie Policy</a>.
+    </p>
+    <button id="accept-cookies">Accept</button>
+    <button id="decline-cookies">Decline</button>
+  </div>
 </div>
 <script src="js/script.js"></script>
-  <script>
-  const menuToggle = document.getElementById('menu-toggle');
-  const sidebar = document.getElementById('sidebar');
-  const socialsToggle = document.getElementById('socials-toggle');
-  const socialLinks = document.getElementById('social-links');
-  const menuIcon = document.getElementById('menu-icon');
-
-  menuToggle.addEventListener('click', () => {
-    sidebar.classList.toggle('translate-x-0');
-    sidebar.classList.toggle('-translate-x-full');
-    menuIcon.classList.toggle('fa-bars');
-    menuIcon.classList.toggle('fa-times');
-  });
-
-  socialsToggle.addEventListener('click', () => {
-    const expanded = socialsToggle.getAttribute('aria-expanded') === 'true' || false;
-    socialsToggle.setAttribute('aria-expanded', String(!expanded));
-    socialLinks.hidden = !socialLinks.hidden;
-    socialsToggle.classList.toggle('open');
-  });
-
-  // Close sidebar on clicking a link for better UX on mobile
-  sidebar.querySelectorAll('a').forEach(link => {
-    link.addEventListener('click', () => {
-      sidebar.classList.remove('translate-x-0');
-      sidebar.classList.add('-translate-x-full');
-      menuIcon.classList.add('fa-bars');
-      menuIcon.classList.remove('fa-times');
-    });
-  });
-
-  // Close sidebar on clicking outside
-  document.addEventListener('click', (e) => {
-    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('translate-x-0')) {
-      sidebar.classList.remove('translate-x-0');
-      sidebar.classList.add('-translate-x-full');
-      menuIcon.classList.add('fa-bars');
-      menuIcon.classList.remove('fa-times');
-    }
-  });
-</script>
 </body>
 </html>
