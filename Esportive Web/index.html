@@ -15,11 +15,11 @@
       font-family: 'Zalando Sans Expanded', sans-serif;
       color: #eee;
       overflow-x: hidden;
-      background: #000001;
+      background: #16181c;
       background-image:
-        repeating-linear-gradient(to right, rgba(148, 149, 156, 0.3) 0 3px, transparent 3px 78px),
-        repeating-linear-gradient(to bottom, rgba(148, 149, 156, 0.3) 0 3px, transparent 3px 78px),
-        linear-gradient(135deg, #1a1a1a 0%, #000001 100%);
+        repeating-linear-gradient(to right, rgba(148, 149, 156, 0.21) 0 3px, transparent 3px 78px),
+        repeating-linear-gradient(to bottom, rgba(148, 149, 156, 0.18) 0 3px, transparent 3px 78px),
+        linear-gradient(135deg, #23243a 0%, #16181c 100%);
       background-size: 78px 78px;
       animation: moveGrid 15s linear infinite;
       box-sizing: border-box;
@@ -32,8 +32,8 @@
       content: "";
       position: fixed;
       inset: 0;
-      background: rgba(0,0,0,0.7);
-      backdrop-filter: blur(10px);
+      background: rgba(0,0,0,0.6);
+      backdrop-filter: blur(16px);
       z-index: -1;
     }
     #root {
@@ -41,137 +41,20 @@
       display: flex;
       flex-direction: column;
     }
-    header {
-      background: rgba(0,0,0,0.8);
-      position: fixed;
-      top: 0; left: 0; right: 0;
-      z-index: 50;
-      border-bottom: 1px solid #ff3b3b;
-      border-radius: 0 0 20px 20px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      padding: 0 1rem;
-      height: 64px;
-      width: 100%;
+    /* Glassmorphism utility for all cards/sections */
+    .glass {
+      background: rgba(30, 32, 41, 0.43);
+      box-shadow: 0 4px 32px rgba(255,59,59,0.10);
+      border-radius: 22px;
+      border: 1.5px solid rgba(255,59,59,0.13);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
     }
-    header img.logo {
-      height: 40px;
-      user-select: none;
-      pointer-events: none;
-    }
-    .desktop-nav a, .desktop-nav button {
-      font-size: 1.08rem;
-      font-weight: 600;
-      color: #eee;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color 0.3s;
-      outline: none;
-    }
-    .desktop-nav a:hover, .desktop-nav button:hover {
-      color: #ff3b3b;
-    }
-    .desktop-nav .group:hover ul {
-      display: block;
-    }
-    .desktop-nav ul {
-      display: none;
-      position: absolute;
-      top: 2rem;
-      left: 0;
-      background: rgba(0,0,0,0.95);
-      border-radius: 12px;
-      min-width: 180px;
-      padding: 0.5rem 1rem;
-      box-shadow: 0 2px 12px rgba(255,59,59,0.13);
-      z-index: 100;
-    }
-    .desktop-nav ul li { margin: 0.5rem 0; }
-    .desktop-nav ul a { color: #eee; font-size: 1rem; }
-    .desktop-nav ul a:hover { color: #ff3b3b; }
-    #menu-toggle {
-      font-size: 1.8rem;
-      color: #ff3b3b;
-      background: none;
-      border: none;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.3s ease;
-      z-index: 1101;
-      display: flex;
-      align-items: center;
-    }
-    #sidebar {
-      position: fixed;
-      top: 64px;
-      left: 0;
-      width: 280px;
-      height: calc(100vh - 64px);
-      background: rgba(0,0,0,0.85);
-      backdrop-filter: blur(20px);
-      border-right: 1px solid rgba(255,59,59,0.09);
-      box-shadow: 2px 0 16px rgba(255,59,59,0.09);
-      padding: 2rem 1.5rem;
-      z-index: 40;
-      transform: translateX(-100%);
-      transition: transform 0.3s ease;
-      overflow-y: auto;
-    }
-    #sidebar.translate-x-0 {
-      transform: translateX(0);
-    }
-    #sidebar ul { padding: 0; margin: 0; list-style: none;}
-    #sidebar li + li { margin-top: 1.25rem;}
-    #sidebar a, #sidebar button {
-      font-size: 1.125rem;
-      font-weight: 600;
-      color: #eee;
-      text-decoration: none;
-      display: block;
-      padding: 0.75rem 0;
-      background: none;
-      border: none;
-      width: 100%;
-      text-align: left;
-      cursor: pointer;
-      transition: color 0.3s ease;
-    }
-    #sidebar a:hover, #sidebar button:hover {
-      color: #ff3b3b;
-    }
-    #social-links { margin-top: 0.5rem; padding-left: 1rem;}
-    #social-links a {
-      font-size: 1rem;
-      color: #ccc;
-      margin-bottom: 0.5rem;
-      transition: color 0.3s ease;
-    }
-    #social-links a:hover { color: #ff3b3b; }
-    #socials-toggle i { transition: transform 0.3s ease;}
-    #socials-toggle.open i { transform: rotate(180deg); }
-    main {
-      flex: 1 0 auto;
-      margin-top: 64px;
-      margin-left: 0;
-      padding: 1.5rem 1rem 4rem 1rem;
-      max-width: 100%;
-      user-select: none;
-      transition: margin-left 0.3s ease;
-    }
-    @media(min-width: 1024px) {
-      #sidebar { display: none !important; }
-      main { margin-left: 0; max-width: 100%; padding: 2rem;}
-      #menu-toggle { display: none;}
-      .desktop-nav { display: flex !important; }
-    }
+
+    /* Hero */
     .hero {
+      @apply glass;
       position: relative;
-      background: rgba(255,255,255,0.07);
-      backdrop-filter: blur(25px);
-      border-radius: 25px;
-      box-shadow: 0 0 20px 2px rgba(255,59,59,0.13);
       margin-bottom: 3rem;
       text-align: center;
       padding: 2.5rem 2rem 2.5rem 2rem;
@@ -179,27 +62,27 @@
       user-select: text;
     }
     .hero > div {
-      background: rgba(0,0,0,0.34);
-      padding: 1.2rem 2rem;
-      border-radius: 20px;
-      box-shadow: 0 0 8px 1px rgba(255,59,59,0.11);
+      background: rgba(0,0,0,0.21);
+      padding: 1.1rem 2rem;
+      border-radius: 18px;
+      box-shadow: 0 0 8px 1px rgba(255,59,59,0.07);
       margin: 0 auto;
       max-width: 720px;
     }
     .hero h1 {
       font-weight: 900;
-      font-size: 1rem;
+      font-size: 1.20rem;
       letter-spacing: 0.12em;
       margin-bottom: 1rem;
       text-shadow: 0 1px 5px rgba(255,59,59,0.18);
     }
     .hero p {
       font-size: 1.1rem;
-      color: #eee;
+      color: #f3f3f3;
       margin-bottom: 0.5rem;
     }
     .hero a {
-      background: rgba(255,59,59,0.11);
+      background: rgba(255,59,59,0.19);
       color: white;
       font-weight: 700;
       font-size: 1.08rem;
@@ -217,65 +100,97 @@
       background-color: #ff3b3b;
       box-shadow: 0 0 20px rgba(255,59,59,0.19);
     }
+
+    /* Tournament Card Glass UI */
+    .tournament-card {
+      @apply glass;
+      min-width: 270px;
+      max-width: 340px;
+      margin: 0.5rem 0;
+      padding: 1.7rem 1.3rem 1.2rem 1.3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      box-shadow: 0 4px 18px rgba(255,59,59,0.13);
+      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
+      cursor: pointer;
+    }
+    .tournament-card:hover,
+    .tournament-card:focus-visible {
+      outline: none;
+      transform: translateY(-4px) scale(1.031);
+      box-shadow: 0 12px 36px rgba(255,59,59,0.19);
+      border-color: #ff3b3b;
+    }
+    .tournament-card h3 {
+      margin: 0 0 0.7rem 0;
+      font-weight: 900;
+      font-size: 1.28rem;
+      user-select: text;
+      color: #ff3b3b;
+      text-shadow: 0 1px 5px rgba(255,59,59,0.18);
+    }
+    .tournament-card .game {
+      font-size: 1rem;
+      color: #eee;
+      margin-bottom: 0.25rem;
+      font-weight: 700;
+    }
+    .tournament-card .prize {
+      background: rgba(255,59,59,0.21);
+      color: #fff;
+      font-size: 1.08rem;
+      margin: 0.7rem 0 0.2rem 0;
+      padding: 0.3rem 1.1rem;
+      border-radius: 9999px;
+      font-weight: bold;
+      display: inline-block;
+      border: 2px solid #ff3b3b;
+    }
+    .tournament-card .desc {
+      color: #ccc;
+      font-size: .97rem;
+      margin-bottom: 0.25rem;
+    }
+    .tournament-card button, .tournament-card .register-btn {
+      margin-top: 1rem;
+      padding: 0.65rem 0;
+      background: rgba(255,59,59,0.13);
+      color: #fff;
+      border-radius: 9999px;
+      border: 2px solid #ff3b3b;
+      font-weight: 700;
+      text-align: center;
+      width: 100%;
+      box-shadow: 0 0 10px 1px rgba(255,59,59,0.13);
+      transition: background 0.3s, color 0.3s;
+    }
+    .tournament-card button:hover, .tournament-card .register-btn:hover {
+      background: #ff3b3b;
+      color: #fff;
+    }
+    /* Tournament container layout */
     #tournaments-container {
       display: flex;
-      gap: 1rem;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-start;
+      align-items: stretch;
       overflow-x: auto;
       padding-bottom: 1rem;
       scroll-padding-left: 1rem;
       user-select: none;
     }
-    .tournament-card {
-      min-width: 250px;
-      background: rgba(255,255,255,0.08);
-      backdrop-filter: blur(15px);
-      border-radius: 20px;
-      border: 1px solid rgba(255,59,59,0.13);
-      box-shadow: 0 2px 8px rgba(255,59,59,0.13);
-      padding: 1.5rem;
-      color: #eee;
-      cursor: pointer;
-      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
-      display: flex;
-      flex-direction: column;
-    }
-    .tournament-card:hover,
-    .tournament-card:focus-visible {
-      outline: none;
-      transform: translateY(-4px);
-      box-shadow: 0 6px 16px rgba(255,59,59,0.17);
-      border-color: #ff3b3b;
-    }
-    .tournament-card h3 {
-      margin: 0 0 1rem 0;
-      font-weight: 900;
-      font-size: 1.22rem;
-      user-select: text;
-      color: #ff3b3b;
-      text-shadow: 0 1px 5px rgba(255,59,59,0.18);
-    }
-    .tournament-card p {
-      font-size: 0.97rem;
-      color: #ddd;
-      user-select: text;
-      flex-grow: 1;
-    }
-    .supported-games {
-      margin-top: 2rem;
-      margin-bottom: 3rem;
-      max-width: 100%;
-      overflow-x: auto;
-      display: flex;
-      gap: 1rem;
-      user-select: none;
-    }
+
+    /* Supported games logo glass */
     .supported-games img {
+      @apply glass;
       flex-shrink: 0;
       width: 92px;
       height: 92px;
       object-fit: contain;
       border-radius: 14px;
-      background: rgba(0,0,0,0.25);
+      background: rgba(0,0,0,0.15);
       border: 1px solid rgba(255,59,59,0.13);
       box-shadow: 0 1px 6px rgba(255,59,59,0.13);
       transition: box-shadow 0.3s;
@@ -284,29 +199,37 @@
     .supported-games img:hover {
       box-shadow: 0 2px 14px rgba(255,59,59,0.17);
     }
+
+    /* Esportive Feed Video Card Glass */
     #videos-container {
       margin-bottom: 3rem;
       display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(250px,1fr));
-      gap: 1rem;
+      grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
+      gap: 1.2rem;
       user-select: none;
     }
     #videos-container > div {
-      background: rgba(0,0,0,0.21);
-      border-radius: 16px;
+      @apply glass;
+      background: rgba(0,0,0,0.18);
+      border-radius: 18px;
       min-height: 160px;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
-      color: #999;
+      color: #bbb;
       font-style: italic;
       box-shadow: 0 1px 7px rgba(255,59,59,0.13);
       transition: box-shadow 0.3s;
+      overflow: hidden;
     }
     #videos-container > div:hover {
-      box-shadow: 0 2px 11px rgba(255,59,59,0.17);
+      box-shadow: 0 2px 14px rgba(255,59,59,0.17);
     }
+
+    /* Footer glass */
     footer {
+      @apply glass;
       flex-shrink: 0;
       text-align: center;
       padding: 2rem 1rem 1rem 1rem;
@@ -314,9 +237,8 @@
       letter-spacing: 0.08em;
       user-select: none;
       font-size: 0.9rem;
-      background: rgba(0, 0, 0, 0.19);
+      background: rgba(27, 27, 39, 0.29);
       border-top: 1px solid rgba(255, 59, 59, 0.08);
-      width: 100%;
       margin-top: auto;
       box-sizing: border-box;
     }
@@ -331,6 +253,7 @@
     footer a:hover { color: #fff; }
     /* Cookie consent popup */
     #cookie-consent {
+      @apply glass;
       position: fixed;
       bottom: 2rem;
       left: 2rem;
@@ -416,7 +339,7 @@
     </ul>
   </nav>
   <main>
-    <section class="hero" aria-label="Hero Section">
+    <section class="hero glass" aria-label="Hero Section">
       <div>
         <div class="flex items-center space-x-2 justify-center mb-4">
           <div class="w-2 h-8 bg-red-600 rounded"></div>
@@ -429,7 +352,7 @@
     <section aria-label="Featured Tournaments">
       <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Featured Tournaments</h2>
       <div id="tournaments-container" role="list" tabindex="0" aria-live="polite" class="tournaments">
-        <!-- Tournament cards loaded by JS -->
+        <!-- Tournament cards loaded by JS as <article class="tournament-card glass">...</article> -->
       </div>
     </section>
     <section aria-label="Supported Games">
@@ -447,7 +370,7 @@
     <section aria-label="Esportive Feed">
       <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Esportive Feed</h2>
       <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Video cards loaded by JS -->
+        <!-- Video cards loaded by JS, each a glass card -->
       </div>
     </section>
   </main>
@@ -473,7 +396,7 @@
     </div>
   </footer>
   <!-- Cookie Consent Popup -->
-  <div id="cookie-consent" class="hidden">
+  <div id="cookie-consent" class="hidden glass">
     <p class="mb-2">
       We use cookies to improve your experience. By continuing, you accept our
       <a href="pages/cookie-policy.html" class="underline text-red-400">Cookie Policy</a>.
