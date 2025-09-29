@@ -472,9 +472,18 @@
 </div>
 
                 <!-- Countdown -->
-                <div class="text-center text-xs text-gray-400">
-                  ${isExpired ? "❌ Registration closed" : `⏳ Closes in: ${countdownText}`}
-                </div>
+                <div class="text-center text-xs text-white/80 bg-white/10 backdrop-blur-md rounded-md px-2 py-1 inline-flex items-center justify-center space-x-1">
+  ${isExpired 
+    ? `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+       </svg>
+       <span class="font-semibold text-red-400">Registration closed</span>`
+    : `<svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4 text-yellow-300 animate-pulse" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3"/>
+       </svg>
+       <span class="font-semibold text-yellow-300">Closes in: ${countdownText}</span>`
+  }
+</div>
               </div>
             </div>
           </div>
