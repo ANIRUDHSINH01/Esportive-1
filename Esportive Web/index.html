@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,12 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Esportive</title>
   <script src="https://cdn.tailwindcss.com"></script>
+  <script src="js/script.js"></script>
   <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@700;900&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     html, body {
       margin: 0;
-      height: 100%;
+      padding: 0;
+      min-height: 100vh;
       font-family: 'Zalando Sans Expanded', sans-serif;
       color: #eee;
       overflow-x: hidden;
@@ -22,16 +23,11 @@
         linear-gradient(135deg, #1a1a1a 0%, #000001 100%);
       background-size: 78px 78px;
       animation: moveGrid 15s linear infinite;
-      display: flex;
-      flex-direction: column;
+      box-sizing: border-box;
     }
     @keyframes moveGrid {
-      0% {
-        background-position: 0 0, 0 0, 0 0;
-      }
-      100% {
-        background-position: 78px 78px, 78px 78px, 0 0;
-      }
+      0% { background-position: 0 0, 0 0, 0 0; }
+      100% { background-position: 78px 78px, 78px 78px, 0 0; }
     }
     body::before {
       content: "";
@@ -41,8 +37,11 @@
       backdrop-filter: blur(10px);
       z-index: -1;
     }
-
-    /* Modern Navbar */
+    #root {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
     header {
       background: rgba(0,0,0,0.8);
       position: fixed;
@@ -55,15 +54,62 @@
       justify-content: space-between;
       padding: 0 1rem;
       height: 64px;
+      width: 100%;
     }
-    
-    /* Sidebar for mobile */
+    header img.logo {
+      height: 40px;
+      user-select: none;
+      pointer-events: none;
+    }
+    .desktop-nav a, .desktop-nav button {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #eee;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+      outline: none;
+    }
+    .desktop-nav a:hover, .desktop-nav button:hover {
+      color: #ff3b3b;
+    }
+    .desktop-nav .group:hover ul {
+      display: block;
+    }
+    .desktop-nav ul {
+      display: none;
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      background: rgba(0,0,0,0.95);
+      border-radius: 12px;
+      min-width: 180px;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 12px rgba(255,59,59,0.13);
+      z-index: 100;
+    }
+    .desktop-nav ul li { margin: 0.5rem 0; }
+    .desktop-nav ul a { color: #eee; font-size: 1rem; }
+    .desktop-nav ul a:hover { color: #ff3b3b; }
+    #menu-toggle {
+      font-size: 1.8rem;
+      color: #ff3b3b;
+      background: none;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+      z-index: 1101;
+      display: flex;
+      align-items: center;
+    }
     #sidebar {
       position: fixed;
       top: 64px;
       left: 0;
       width: 280px;
-      height: 100vh;
+      height: calc(100vh - 64px);
       background: rgba(0,0,0,0.85);
       backdrop-filter: blur(20px);
       border-right: 1px solid rgba(255,59,59,0.09);
@@ -72,6 +118,7 @@
       z-index: 40;
       transform: translateX(-100%);
       transition: transform 0.3s ease;
+      overflow-y: auto;
     }
     #sidebar.translate-x-0 {
       transform: translateX(0);
@@ -105,63 +152,8 @@
     #social-links a:hover { color: #ff3b3b; }
     #socials-toggle i { transition: transform 0.3s ease;}
     #socials-toggle.open i { transform: rotate(180deg); }
-
-    /* Desktop nav styles (for Tailwind nav) */
-    .desktop-nav a, .desktop-nav button {
-      font-size: 1.08rem;
-      font-weight: 600;
-      color: #eee;
-      background: none;
-      border: none;
-      cursor: pointer;
-      transition: color 0.3s;
-      outline: none;
-    }
-    .desktop-nav a:hover, .desktop-nav button:hover {
-      color: #ff3b3b;
-    }
-    .desktop-nav .group:hover ul {
-      display: block;
-    }
-    .desktop-nav ul {
-      display: none;
-      position: absolute;
-      top: 2rem;
-      left: 0;
-      background: rgba(0,0,0,0.95);
-      border-radius: 12px;
-      min-width: 180px;
-      padding: 0.5rem 1rem;
-      box-shadow: 0 2px 12px rgba(255,59,59,0.13);
-      z-index: 100;
-    }
-    .desktop-nav ul li {
-      margin: 0.5rem 0;
-    }
-    .desktop-nav ul a {
-      color: #eee;
-      font-size: 1rem;
-    }
-    .desktop-nav ul a:hover {
-      color: #ff3b3b;
-    }
-
-    /* Hamburger */
-    #menu-toggle {
-      font-size: 1.8rem;
-      color: #ff3b3b;
-      background: none;
-      border: none;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.3s ease;
-      z-index: 1101;
-      display: flex;
-      align-items: center;
-    }
-
-    /* Responsive adjustments */
     main {
+      flex: 1 0 auto;
       margin-top: 64px;
       margin-left: 0;
       padding: 1.5rem 1rem 4rem 1rem;
@@ -175,7 +167,6 @@
       #menu-toggle { display: none;}
       .desktop-nav { display: flex !important; }
     }
-
     .hero {
       position: relative;
       background: rgba(255,255,255,0.07);
@@ -227,8 +218,6 @@
       background-color: #ff3b3b;
       box-shadow: 0 0 20px rgba(255,59,59,0.19);
     }
-
-    /* Featured Tournaments */
     #tournaments-container {
       display: flex;
       gap: 1rem;
@@ -272,7 +261,6 @@
       user-select: text;
       flex-grow: 1;
     }
-
     .supported-games {
       margin-top: 2rem;
       margin-bottom: 3rem;
@@ -297,8 +285,6 @@
     .supported-games img:hover {
       box-shadow: 0 2px 14px rgba(255,59,59,0.17);
     }
-
-    /* Esportive Feed */
     #videos-container {
       margin-bottom: 3rem;
       display: grid;
@@ -321,17 +307,19 @@
     #videos-container > div:hover {
       box-shadow: 0 2px 11px rgba(255,59,59,0.17);
     }
-
-    /* Footer */
     footer {
+      flex-shrink: 0;
       text-align: center;
-      padding: 2rem 1rem;
+      padding: 2rem 1rem 1rem 1rem;
       color: #ccc;
       letter-spacing: 0.08em;
       user-select: none;
       font-size: 0.9rem;
       background: rgba(0, 0, 0, 0.19);
       border-top: 1px solid rgba(255, 59, 59, 0.08);
+      width: 100%;
+      margin-top: auto;
+      box-sizing: border-box;
     }
     footer a {
       color: #ff3b3b;
@@ -345,10 +333,11 @@
   </style>
 </head>
 <body>
+<div id="root">
   <!-- Modern Navbar -->
   <header>
     <div class="flex items-center space-x-3">
-      
+      <img src="assets/navbar/logo.png" alt="Esportive Logo" class="logo h-10 select-none pointer-events-none" />
       <span class="text-lg font-bold text-red-600 tracking-wide">Esportive</span>
     </div>
     <nav class="desktop-nav hidden lg:flex items-center space-x-6 font-semibold text-gray-200 relative">
@@ -370,7 +359,6 @@
       <i id="menu-icon" class="fas fa-bars"></i>
     </button>
   </header>
-
   <!-- Mobile Sidebar -->
   <nav id="sidebar" aria-label="Sidebar Navigation" role="navigation" tabindex="-1">
     <ul>
@@ -390,7 +378,6 @@
       </li>
     </ul>
   </nav>
-
   <main>
     <section class="hero" aria-label="Hero Section">
       <div>
@@ -459,46 +446,47 @@
       <img src="assets/footer/flm.png" alt="FLM Logo" class="h-6" />
     </div>
   </footer>
-  <script>
-    const menuToggle = document.getElementById('menu-toggle');
-    const sidebar = document.getElementById('sidebar');
-    const socialsToggle = document.getElementById('socials-toggle');
-    const socialLinks = document.getElementById('social-links');
-    const menuIcon = document.getElementById('menu-icon');
+</div>
+<script>
+  const menuToggle = document.getElementById('menu-toggle');
+  const sidebar = document.getElementById('sidebar');
+  const socialsToggle = document.getElementById('socials-toggle');
+  const socialLinks = document.getElementById('social-links');
+  const menuIcon = document.getElementById('menu-icon');
 
-    menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('translate-x-0');
-      sidebar.classList.toggle('-translate-x-full');
-      menuIcon.classList.toggle('fa-bars');
-      menuIcon.classList.toggle('fa-times');
-    });
+  menuToggle.addEventListener('click', () => {
+    sidebar.classList.toggle('translate-x-0');
+    sidebar.classList.toggle('-translate-x-full');
+    menuIcon.classList.toggle('fa-bars');
+    menuIcon.classList.toggle('fa-times');
+  });
 
-    socialsToggle.addEventListener('click', () => {
-      const expanded = socialsToggle.getAttribute('aria-expanded') === 'true' || false;
-      socialsToggle.setAttribute('aria-expanded', String(!expanded));
-      socialLinks.hidden = !socialLinks.hidden;
-      socialsToggle.classList.toggle('open');
-    });
+  socialsToggle.addEventListener('click', () => {
+    const expanded = socialsToggle.getAttribute('aria-expanded') === 'true' || false;
+    socialsToggle.setAttribute('aria-expanded', String(!expanded));
+    socialLinks.hidden = !socialLinks.hidden;
+    socialsToggle.classList.toggle('open');
+  });
 
-    // Close sidebar on clicking a link for better UX on mobile
-    sidebar.querySelectorAll('a').forEach(link => {
-      link.addEventListener('click', () => {
-        sidebar.classList.remove('translate-x-0');
-        sidebar.classList.add('-translate-x-full');
-        menuIcon.classList.add('fa-bars');
-        menuIcon.classList.remove('fa-times');
-      });
+  // Close sidebar on clicking a link for better UX on mobile
+  sidebar.querySelectorAll('a').forEach(link => {
+    link.addEventListener('click', () => {
+      sidebar.classList.remove('translate-x-0');
+      sidebar.classList.add('-translate-x-full');
+      menuIcon.classList.add('fa-bars');
+      menuIcon.classList.remove('fa-times');
     });
+  });
 
-    // Close sidebar on clicking outside
-    document.addEventListener('click', (e) => {
-      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('translate-x-0')) {
-        sidebar.classList.remove('translate-x-0');
-        sidebar.classList.add('-translate-x-full');
-        menuIcon.classList.add('fa-bars');
-        menuIcon.classList.remove('fa-times');
-      }
-    });
-  </script>
+  // Close sidebar on clicking outside
+  document.addEventListener('click', (e) => {
+    if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('translate-x-0')) {
+      sidebar.classList.remove('translate-x-0');
+      sidebar.classList.add('-translate-x-full');
+      menuIcon.classList.add('fa-bars');
+      menuIcon.classList.remove('fa-times');
+    }
+  });
+</script>
 </body>
 </html>
