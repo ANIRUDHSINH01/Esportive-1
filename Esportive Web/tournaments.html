@@ -1,466 +1,228 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8" />
-<meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Esportive Tournaments React Fixed</title>
-<style>
-  body {
-    margin: 0; font-family: 'Zalando Sans Expanded', sans-serif; color: #eee;
-    background: url('https://media.giphy.com/media/pHEiu1rj2Rk2k/giphy.gif') no-repeat center center fixed;
-    background-size: cover; min-height: 100vh; position: relative; user-select: none;
-  }
-  body::before {
-    content: "";
-    position: fixed; inset: 0;
-    background: rgba(0,0,0,0.75);
-    backdrop-filter: blur(10px);
-    z-index: -1;
-  }
-  header {
-    display: flex; align-items: center; justify-content: space-between;
-    padding: 1rem 2rem; position: fixed; top: 0; left: 0; right: 0;
-    background: rgba(255,255,255,0.08);
-    border-bottom: 1px solid rgba(255,59,59,0.12);
-    box-shadow: 0 1.5px 8px rgba(255,59,59,0.10);
-    z-index: 1000;
-    border-radius: 0 0 20px 20px;
-  }
-  header .left-section,
-  header .right-section {
-    flex: 1 1 auto; display: flex; align-items: center;
-  }
-  header .center-section {
-    flex: 0 0 auto; display: flex; justify-content: center; align-items: center; width: 150px;
-  }
-  header img.logo {
-    max-width: 100%; height: 40px; filter: drop-shadow(0 0 8px #ff3b3b);
-    user-select: none;
-  }
-  #profile-container {
-    cursor: pointer; user-select: none; width: 2rem; height: 2rem; border-radius: 9999px; border: 2px solid #ff3b3b;
-  }
-  #profile-container img, #profile-container i {
-    width: 100%; height: 100%; border-radius: 9999px;
-  }
-  #profile-dropdown {
-    position: absolute; top: 3rem; right: 2rem; width: 180px;
-    background: rgba(23,23,24,0.96); box-shadow: 0 1px 8px rgba(255,59,59,0.15);
-    border-radius: 12px; border: 1px solid rgba(255,59,59,0.15); padding: 0.4rem 0;
-    display: none; user-select: none; z-index: 1010;
-  }
-  #profile-dropdown.show {
-    display: block;
-  }
-  #profile-dropdown a, #profile-dropdown button {
-    display: block; color: #eee; padding: 0.5rem 1rem; font-size: 0.9rem; text-align: left;
-    background: transparent; border: none; width: 100%; cursor: pointer;
-  }
-  #profile-dropdown a:hover, #profile-dropdown button:hover {
-    background: #ff3b3b; color: #fff;
-  }
-  main {
-    padding: 5rem 1.5rem 3rem 1.5rem; max-width: 1080px; margin: 0 auto;
-    user-select: none; overflow-x: hidden;
-  }
-  h1 {
-    font-weight: 900; font-size: 2.4rem; color: #ff3b3b; text-align: center; letter-spacing: 0.1em;
-    margin-bottom: 2.5rem; user-select: text; text-shadow: 0 1px 6px rgba(255,59,59,0.2);
-  }
-  select#game-filter {
-    display: block; width: 100%; max-width: 320px; margin: 0 auto 1.8rem auto;
-    padding: 0.5rem 1rem; font-weight: 700; color: #ff3b3b; background: rgba(255,255,255,0.06);
-    border: 2px solid #ff3b3b; border-radius: 10px; cursor: pointer; user-select: text;
-    transition: border-color 0.3s;
-  }
-  select#game-filter:hover, select#game-filter:focus {
-    border-color: #ff6b6b; outline: none;
-  }
-  #tournaments-container {
-    display: flex; flex-wrap: nowrap; gap: 1.25rem; overflow-x: auto; padding-bottom: 1rem; scroll-padding-left: 1rem;
-  }
-  @media (max-width: 700px) {
-    #tournaments-container {
-      flex-direction: column; overflow-x: visible;
+  <meta charset="UTF-8">
+  <title>Esportive Tournaments</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@700;900&display=swap" rel="stylesheet">
+  <style>
+    body {
+      background: url('https://media.giphy.com/media/pHEiu1rj2Rk2k/giphy.gif') center center fixed no-repeat;
+      background-size: cover;
+      color: #eee;
+      font-family: 'Zalando Sans Expanded', sans-serif;
+      margin: 0;
+      min-height: 100vh;
     }
-    main {
-      padding-left: 1rem; padding-right: 1rem;
+    body::before {
+      content: "";
+      position: fixed; inset: 0;
+      z-index: -1;
+      background: rgba(0,0,0,0.78);
+      backdrop-filter: blur(10px);
     }
-  }
-  .tournament-card {
-    min-width: 260px;
-    background: rgba(255,255,255,0.1);
-    backdrop-filter: blur(16px);
-    border-radius: 18px;
-    border: 1.5px solid rgba(255, 59, 59, 0.15);
-    box-shadow: 0 0 14px rgba(255, 59, 59, 0.22);
-    padding: 1.5rem 1.5rem 2rem 1.5rem;
-    color: #eee;
-    transition: box-shadow 0.3s ease, transform 0.3s ease, border-color 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    user-select: text;
-  }
-  .tournament-card:hover,
-  .tournament-card:focus-within {
-    box-shadow: 0 0 24px rgba(255, 59, 59, 0.38);
-    border-color: #ff3b3b;
-    transform: translateY(-6px) scale(1.03);
-    outline: none;
-  }
-  .tournament-card img {
-    max-height: 150px;
-    object-fit: contain;
-    margin-bottom: 1rem;
-    border-radius: 14px;
-    user-select: none;
-    pointer-events: none;
-    box-shadow: 0 0 6px rgba(255, 59, 59, 0.4);
-    width: 100%;
-  }
-  .tournament-card h2 {
-    font-weight: 900;
-    font-size: 1.3rem;
-    margin-bottom: 0.25rem;
-    color: #ff3b3b;
-    text-shadow: 0 1px 6px rgba(255, 59, 59, 0.25);
-    text-align: center;
-  }
-  .tournament-card p {
-    font-size: 1rem;
-    color: #ddd;
-    margin-bottom: 1rem;
-    text-align: center;
-  }
-  .buttons-row {
-    display: flex;
-    justify-content: center;
-    gap: 1rem;
-    width: 100%;
-  }
-  button.details-toggle,
-  a.register-btn {
-    background: rgba(255, 59, 59, 0.2);
-    border: 2px solid #ff3b3b;
-    color: white;
-    border-radius: 9999px;
-    padding: 0.5rem 1.8rem;
-    cursor: pointer;
-    font-weight: 700;
-    font-size: 1rem;
-    transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    user-select: none;
-    text-decoration: none;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap;
-  }
-  button.details-toggle:hover,
-  a.register-btn:hover {
-    background-color: #ff3b3b;
-    box-shadow: 0 0 15px #ff3b3baa;
-    color: white;
-  }
-  /* Modal Styles */
-  #details-modal {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.65);
-    backdrop-filter: blur(8px);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 1200;
-  }
-  #details-modal.active {
-    display: flex;
-  }
-  .modal-content {
-    background: rgba(18,18,20,0.96);
-    border-radius: 22px;
-    max-width: 500px;
-    width: 90vw;
-    max-height: 80vh;
-    padding: 1.5rem 2rem;
-    box-shadow: 0 0 30px 3px rgba(255,59,59,0.6);
-    overflow-y: auto;
-    color: #eee;
-    user-select: text;
-    position: relative;
-  }
-  .modal-content::-webkit-scrollbar {
-    width: 8px;
-  }
-  .modal-content::-webkit-scrollbar-thumb {
-    background: rgba(255,59,59,0.6);
-    border-radius: 3px;
-  }
-  ul.details-list {
-    list-style: none;
-    padding-left: 0;
-    margin-top: 1rem;
-  }
-  ul.details-list li {
-    display: flex;
-    align-items: center;
-    gap: 0.7rem;
-    padding: 0.5rem 0;
-    border-bottom: 1px solid rgba(255, 59, 59, 0.1);
-    user-select: text;
-  }
-  ul.details-list li:last-child {
-    border-bottom: none;
-  }
-  .details-label {
-    font-weight: 700;
-    min-width: 100px;
-    color: #ff3b3b;
-    user-select: text;
-  }
-  svg.details-icon {
-    width: 20px;
-    height: 20px;
-    flex-shrink: 0;
-    filter: drop-shadow(0 0 6px #ff3b3b);
-  }
-  #close-modal-btn {
-    position: absolute;
-    top: 8px;
-    right: 8px;
-    background: transparent;
-    border: none;
-    color: #ff3b3b;
-    font-size: 1.6rem;
-    cursor: pointer;
-    user-select: none;
-    transition: color 0.3s ease;
-  }
-  #close-modal-btn:hover {
-    color: #fff;
-  }
-</style>
-
-<script src="https://unpkg.com/react@18/umd/react.development.js"></script>
-<script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"></script>
-<script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js"></script>
-
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2rem; position: fixed; top: 0; left: 0; right: 0;
+      background: rgba(255,255,255,0.08); z-index: 1000;
+      border-bottom: 1px solid rgba(255,59,59,0.18);
+      border-radius: 0 0 22px 22px;
+    }
+    .logo-wrap { flex:1; display: flex; justify-content: center; }
+    header img.logo { height: 44px; filter: drop-shadow(0 0 6px #ff3b3b) }
+    #profile-container { min-width:32px; min-height:32px; border-radius:9999px; border:2px solid #ff3b3b; display:inline-flex; align-items:center; justify-content:center; overflow:hidden; background:#202018;}
+    #profile-container img { width:32px; height:32px }
+    #profile-container i { color:#fff; font-size:28px; }
+    #profile-dropdown {
+      display:none; position:absolute; right:10px; top:54px; min-width:150px; border-radius:12px;
+      background:rgba(23,23,24,0.97); border:1px solid #ff3b3b33; z-index:1200; box-shadow:0 4px 16px #2d161633;
+    }
+    #profile-dropdown.show { display:block }
+    #profile-dropdown a, #profile-dropdown button { display:block;padding:11px 17px;background:none;border:none;color:#fff;text-align:left;font-size:15px;width:100%;cursor:pointer;}
+    #profile-dropdown a:hover,#profile-dropdown button:hover { background:#ff3b3b;color:#fff }
+    main { max-width:1100px; margin: 0 auto; padding:5.5rem 1.2rem 3rem }
+    h1 { text-align: center; color: #ff3b3b; font-weight: 900; font-size: 2.2rem; margin-bottom: 2.2rem; letter-spacing:.08em; text-shadow: 0 1px 7px #ff3b3b40; }
+    select#game-filter { margin: 0 auto 1.5rem auto; display: block; max-width:290px; width:100%; background:rgba(255,255,255,0.09); border:2px solid #ff3b3b;font-weight:800; border-radius:8px; padding:0.7rem 0.99rem; color:#ff3b3b; font-size:1.05rem;}
+    #tournaments-container { display:flex; gap:1.35rem; overflow-x:auto; padding-bottom:1rem; scroll-padding-left:1rem; }
+    @media(max-width: 700px) { #tournaments-container { flex-direction:column; } main { padding-top:5rem; } }
+    .tournament-card {
+      min-width:270px; background:rgba(255,255,255,0.11); border-radius:17px; border:1.4px solid #ff3b3b35;
+      backdrop-filter:blur(14px); color:#fff; box-shadow:0 2px 16px #ff3b3b44; user-select: text;
+      padding:1.3rem 1rem 1.7rem 1rem; transition:box-shadow 0.3s, border-color 0.3s; display:flex; flex-direction:column;align-items:center
+    }
+    .tournament-card:hover { box-shadow:0 6px 24px #ff3b3b66; border-color:#ff3b3b; transform:scale(1.03);}
+    .tournament-card img { width:95%;max-height:120px;object-fit:contain; border-radius:11px; margin-bottom:.7rem; background:#212;}
+    .tournament-card h2 { color:#ff3b3b; font-size:1.23rem;margin:0.2rem 0;}
+    .tournament-card p { color:#ddd;margin:.2rem 0;}
+    .buttons-row { display:flex;gap:1rem;margin-top:.7rem }
+    .button-neon { background: rgba(255,59,59,0.22); border:2px solid #ff3b3b; color: white; font-weight: 700; border-radius:9999px; padding:0.47rem 1.55rem; font-size:1.08rem; cursor:pointer; transition:.2s box-shadow, .2s background; box-shadow:0 0 8px #ff3b3b33 }
+    .button-neon:hover, .button-neon:focus { background:#ff3b3b; box-shadow:0 0 14px #ff3b3b77 }
+    .modal-overlay { position:fixed;inset:0;z-index:4000; background:rgba(0,0,0,0.7);backdrop-filter:blur(12px); display:none;align-items:center;justify-content:center;}
+    .modal-overlay.active { display:flex; }
+    .modal-content { background:rgba(18,18,20,0.98); border-radius:17px; max-width:390px;width:92vw; max-height:78vh; padding:1.4rem 1.6rem 1.1rem 1.6rem; box-shadow:0 0 20px #ff3b3b77; position:relative;color:#fff;overflow:auto; font-size:1.06rem;}
+    .modal-close {position:absolute;top:9px;right:13px; font-size:2rem;color:#ff3b3b;background:none;border:none;cursor:pointer;}
+    ul.detail-list {margin:0;padding:0;list-style:none;}
+    ul.detail-list li {display:flex;align-items:center;gap:0.7rem;padding:0.43rem 0;border-bottom:1px solid #ff3b3b28}
+    .details-label {font-weight:700;min-width:100px;color:#ff3b3b;}
+    svg.details-icon {width:21px;height:21px;flex-shrink:0;filter:drop-shadow(0 0 7px #f34);}
+  </style>
+</head>
 <body>
-  <div id="root"></div>
+  <header>
+    <div></div>
+    <div class="logo-wrap">
+      <img src="../assets/navbar/logo.png" class="logo" alt="Logo">
+    </div>
+    <div style="position:relative">
+      <div id="profile-container"></div>
+      <div id="profile-dropdown">
+        <a href="publish-tournament.html">Publish Tournament</a>
+        <button id="logout-btn">Logout</button>
+      </div>
+    </div>
+  </header>
+  <main>
+    <h1>Featured Tournaments</h1>
+    <select id="game-filter"></select>
+    <div id="tournaments-container"></div>
+  </main>
+  <!-- Modal -->
+  <div id="details-modal" class="modal-overlay">
+    <div class="modal-content">
+      <button id="close-modal-btn" class="modal-close" aria-label="Close">&times;</button>
+      <h2 id="modal-title"></h2>
+      <ul id="modal-details-list" class="detail-list"></ul>
+    </div>
+  </div>
+  <!-- Firebase CDN -->
+  <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"></script>
+  <!-- Font Awesome Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
+  <script>
+    // Firebase config using only globals (NO import/export)
+    var firebaseConfig = {
+      apiKey: "AIzaSyDB9gtUd2KcBB9bEkD8Jzj_kyFE20GE7OA",
+      authDomain: "espotive.firebaseapp.com",
+      projectId: "espotive",
+      storageBucket: "espotive.firebasestorage.app",
+      messagingSenderId: "439864037476",
+      appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
+      measurementId: "G-Q2W9WHLCCR"
+    };
+    firebase.initializeApp(firebaseConfig);
+    var auth = firebase.auth();
 
-  <script type="text/javascript">
-(() => {
-  const { useState, useEffect, useMemo, useRef, Fragment } = React;
-
-  const firebaseConfig = {
-    apiKey: "AIzaSyDB9gtUd2KcBB9bEkD8Jzj_kyFE20GE7OA",
-    authDomain: "espotive.firebaseapp.com",
-    projectId: "espotive",
-    storageBucket: "espotive.firebasestorage.app",
-    messagingSenderId: "439864037476",
-    appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
-    measurementId: "G-Q2W9WHLCCR"
-  };
-
-  const app = firebase.initializeApp(firebaseConfig);
-  const auth = firebase.auth();
-  firebase.analytics();
-
-  const detailIcons = {
-    "Event Name": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M9 12l2 2 4-4M7 12l5 5"/></svg>`,
-    "Game": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M12 6v6l4 2"/></svg>`,
-    "PrizePool": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><circle cx="12" cy="12" r="10"/></svg>`,
-    "Slots": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><rect x="5" y="7" width="14" height="10" rx="2"/></svg>`,
-    "Format": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 10h18M3 14h18"/></svg>`,
-    "Close Date": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M8 7V3M16 7V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/></svg>`,
-    "Organization": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M3 7v3a4 4 0 004 4h10"/></svg>`,
-    "Social Link": `<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" viewBox="0 0 24 24" stroke="currentColor" fill="none" stroke-width="2" stroke-linejoin="round" stroke-linecap="round"><path d="M15 7a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-4-6a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-6-4h.01"/></svg>`
-  };
-
-  function DetailRow({ label, value, isLink }) {
-    return React.createElement(
-      'li',
-      { key: label },
-      React.createElement('span', { dangerouslySetInnerHTML: { __html: detailIcons[label] }, className: "details-icon" }),
-      React.createElement('span', { className: "details-label" }, label + ": "),
-      isLink ? React.createElement('a', { href: value, target: "_blank", rel: "noopener noreferrer" }, value) : React.createElement('span', null, value)
-    );
-  }
-
-  function parseCSV(csvText) {
-    const lines = csvText.trim().split("\n");
-    const headers = lines.shift().split(",").map(h => h.trim());
-    return lines.map(line => {
-      const values = line.split(",").map(v => v.trim());
-      let obj = {};
-      headers.forEach((h,i) => obj[h] = values[i]);
-      return obj;
-    });
-  }
-
-  function TournamentCard({ tournament, onDetailsClick }) {
-    return React.createElement(
-      "div", { className: "tournament-card", role: "listitem", tabIndex: 0 },
-      React.createElement("img", { src: tournament.ImageURL, alt: tournament["Event Name"], loading: "lazy" }),
-      React.createElement("h2", null, tournament["Event Name"]),
-      React.createElement("p", null, "Game: ", tournament.Game),
-      React.createElement("p", { className: "text-xs mb-2" }, "Prize Pool: ", tournament.PrizePool),
-      React.createElement(
-        "div", { className: "buttons-row" },
-        React.createElement("button", { className: "button-neon", onClick: () => onDetailsClick(tournament) }, "Details"),
-        React.createElement("a", { href: tournament.Registration, className: "button-neon", target: "_blank", rel: "noopener noreferrer" }, "Register")
-      )
-    );
-  }
-
-  function TournamentDetailsModal({ tournament, onClose }) {
-    const modalRef = useRef(null);
-    useEffect(() => {
-      function onKeyDown(e) {
-        if (e.key === "Escape") onClose();
-      }
-      document.addEventListener("keydown", onKeyDown);
-      return () => document.removeEventListener("keydown", onKeyDown);
-    }, [onClose]);
-
-    useEffect(() => {
-      modalRef.current?.focus();
-    }, []);
-
-    if (!tournament) return null;
-    return React.createElement(
-      "div", {
-        className: "modal-overlay active",
-        role: "dialog",
-        tabIndex: -1,
-        "aria-modal": true,
-        "aria-labelledby": "modal-title",
-        onClick: e => { if (e.target === e.currentTarget) onClose(); }
-      },
-      React.createElement("div", { className: "modal-content", ref: modalRef, tabIndex: 0 },
-        React.createElement("button", { className: "modal-close", "aria-label": "Close", onClick: onClose }, "×"),
-        React.createElement("h2", { id: "modal-title" }, tournament["Event Name"]),
-        React.createElement("ul", { className: "details-list" },
-          React.createElement(DetailRow, { label: "Event Name", value: tournament["Event Name"] }),
-          React.createElement(DetailRow, { label: "Game", value: tournament.Game }),
-          React.createElement(DetailRow, { label: "PrizePool", value: tournament.PrizePool }),
-          React.createElement(DetailRow, { label: "Slots", value: tournament.Slots }),
-          React.createElement(DetailRow, { label: "Format", value: tournament.Format }),
-          React.createElement(DetailRow, { label: "Close Date", value: tournament["Close Date"] }),
-          React.createElement(DetailRow, { label: "Organization", value: tournament.Organization }),
-          React.createElement(DetailRow, { label: "Social Link", value: tournament["Social Link"], isLink: true })
-        )
-      )
-    );
-  }
-
-  function ProfileDropdown({ visible, onLogout }) {
-    return React.createElement(
-      "div", {
-        id: "profile-dropdown",
-        className: visible ? "show" : "hidden",
-        role: "menu",
-        "aria-label": "Profile Options"
-      },
-      React.createElement("a", { href: "publish-tournament.html", role: "menuitem", tabIndex: 0 }, "Publish Tournament"),
-      React.createElement("button", { role: "menuitem", tabIndex: 0, onClick: onLogout }, "Logout")
-    );
-  }
-
-  function Profile({ user, onToggleDropdown, dropdownVisible, onLogout }) {
-    const ref = useRef(null);
-    useEffect(() => {
-      function onClickOutside(e) {
-        if (ref.current && !ref.current.contains(e.target)) onToggleDropdown(false);
-      }
-      document.addEventListener("mousedown", onClickOutside);
-      return () => document.removeEventListener("mousedown", onClickOutside);
-    }, [onToggleDropdown]);
-    return React.createElement(
-      "div", { className: "right-section", ref },
-      React.createElement("div", {
-        id: "profile-container",
-        title: "User Profile",
-        tabIndex: 0,
-        onClick: () => onToggleDropdown(v => !v)
-      }, user && user.photoURL ?
-        React.createElement("img", { src: user.photoURL, alt: "Profile Picture" }) :
-        React.createElement("i", { className: "fas fa-user-circle" })
-      ),
-      React.createElement(ProfileDropdown, { visible: dropdownVisible, onLogout })
-    );
-  }
-
-  function App() {
-    const [user, setUser] = useState(null);
-    const [dropdownVisible, setDropdownVisible] = useState(false);
-    const [tournaments, setTournaments] = useState([]);
-    const [filter, setFilter] = useState("");
-    const [modalTournament, setModalTournament] = useState(null);
-
-    useEffect(() => {
-      return auth.onAuthStateChanged(u => {
-        if (u) setUser(u);
-        else window.location.href = "index.html";
+    // Profile login/logout UI
+    document.addEventListener("DOMContentLoaded", function(){
+      var profileContainer = document.getElementById("profile-container");
+      var profileDropdown = document.getElementById("profile-dropdown");
+      auth.onAuthStateChanged(function(user){
+        if(user){
+          if(user.photoURL){
+            profileContainer.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
+          }else{
+            profileContainer.innerHTML = `<i class="fas fa-user-circle"></i>`;
+          }
+          profileContainer.onclick = function(){ profileDropdown.classList.toggle('show'); };
+        }else{
+          window.location.href = "index.html";
+        }
       });
-    }, []);
-
-    useEffect(() => {
+      document.getElementById('logout-btn').onclick = function(){
+        auth.signOut().then(function(){ window.location.href="index.html"; });
+      };
+      var modal = document.getElementById("details-modal");
+      var closeModalBtn = document.getElementById("close-modal-btn");
+      closeModalBtn.onclick = function(){ modal.classList.remove("active"); document.body.style.overflow = ""; };
+      modal.onclick = function(e){ if(e.target===modal){ modal.classList.remove("active"); document.body.style.overflow = ""; } };
+      window.addEventListener("keydown", function(e){ if(e.key==="Escape" && modal.classList.contains("active")){ closeModalBtn.click(); }});
+    });
+    // Details icon utility
+    function detailsIcon(label){
+      var icons={
+        "Event Name":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7 12l5 5"/></svg>`,
+        "Game":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 6v6l4 2"/></svg>`,
+        "PrizePool":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" /></svg>`,
+        "Slots":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="5" y="7" width="14" height="10" rx="2"/></svg>`,
+        "Format":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 10h18M3 14h18"/></svg>`,
+        "Close Date":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/></svg>`,
+        "Organization":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v3a4 4 0 004 4h10"/></svg>`,
+        "Social Link":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 7a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-4-6a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-6-4h.01"/></svg>`
+      };
+      return icons[label]||"";
+    }
+    function parseCSV(csvText){
+      var lines = csvText.trim().split("\n");
+      var headers = lines.shift().split(",").map(h=>h.trim());
+      return lines.map(function(line){
+        var values = line.split(",").map(v=>v.trim());
+        var obj = {};
+        headers.forEach(function(h,i){ obj[h]=values[i]; });
+        return obj;
+      });
+    }
+    function showDetailsModal(tournament){
+      var modal = document.getElementById("details-modal");
+      document.getElementById("modal-title").textContent = tournament["Event Name"];
+      var list = document.getElementById("modal-details-list");
+      list.innerHTML = "";
+      var fields=["Event Name","Game","PrizePool","Slots","Format","Close Date","Organization","Social Link"];
+      fields.forEach(function(field){
+        var isLink = field==="Social Link";
+        var value=tournament[field]||"";
+        var icon=detailsIcon(field);
+        var html = `<li>${icon}<span class="details-label">${field}:</span> ${
+          isLink ? `<a href="${value}" target="_blank" rel="noopener">${value}</a>` : value
+        }</li>`;
+        list.innerHTML += html;
+      });
+      modal.classList.add("active");
+      document.body.style.overflow = "hidden";
+      document.getElementById("close-modal-btn").focus();
+    }
+    function renderTournaments(tournaments){
+      var container=document.getElementById('tournaments-container');
+      container.innerHTML="";
+      if(!tournaments.length){
+        container.innerHTML='<p style="color:#aaa;text-align:center">No tournaments found.</p>'; return;
+      }
+      tournaments.forEach(function(t){
+        var card=document.createElement('div');
+        card.className="tournament-card";
+        card.innerHTML=
+          `<img src="${t.ImageURL}" alt="${t['Event Name']}">
+           <h2>${t['Event Name']}</h2>
+           <p>Game: ${t.Game}</p>
+           <p style="font-size:0.97rem">Prize Pool: ${t.PrizePool}</p>
+           <div class="buttons-row">
+             <button class="button-neon details-btn">Details</button>
+             <a href="${t.Registration}" target="_blank" class="button-neon">Register</a>
+           </div>`;
+        card.querySelector('.details-btn').onclick=function(){ showDetailsModal(t); };
+        container.appendChild(card);
+      });
+    }
+    function setupFilter(allTournaments){
+      var select=document.getElementById('game-filter');
+      var games=[...new Set(allTournaments.map(x=>x.Game))].sort();
+      select.innerHTML='<option value="">All Games</option>'+games.map(g=>`<option value="${g}">${g}</option>`).join('');
+      select.onchange=function(){
+        var filtered=select.value?allTournaments.filter(t=>t.Game===select.value):allTournaments;
+        renderTournaments(filtered);
+      };
+    }
+    // Fetch and render tournaments on load
+    document.addEventListener("DOMContentLoaded",function(){
       fetch("https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0")
-        .then(r => r.text())
-        .then(text => setTournaments(parseCSV(text)))
-        .catch(() => setTournaments([]));
-    }, []);
-
-    const filteredTournaments = useMemo(() => filter ? tournaments.filter(t => t.Game === filter) : tournaments, [filter, tournaments]);
-
-    const logout = React.useCallback(() => {
-      auth.signOut().then(() => window.location.href = "index.html");
-    }, []);
-
-    return React.createElement(
-      React.Fragment, null,
-      React.createElement(
-        "header", null,
-        React.createElement("div", { className: "left-section" }),
-        React.createElement("div", { className: "center-section" },
-          React.createElement("img", { className: "logo", src: "../assets/navbar/logo.png", alt: "Esportive Logo" })
-        ),
-        React.createElement(Profile, { user, dropdownVisible, onToggleDropdown: setDropdownVisible, onLogout: logout })
-      ),
-      React.createElement(
-        "main", null,
-        React.createElement("h1", null, "Featured Tournaments"),
-        React.createElement(
-          "select", {
-            id: "game-filter",
-            onChange: e => setFilter(e.target.value),
-            value: filter,
-            "aria-label": "Select game filter"
-          },
-          React.createElement("option", { value: "" }, "All Games"),
-          Array.from(new Set(tournaments.map(t => t.Game))).sort().map(game =>
-            React.createElement("option", { key: game, value: game }, game)
-          )
-        ),
-        React.createElement(
-          "div", { id: "tournaments-container", role: "list", tabIndex: 0 },
-          filteredTournaments.length === 0 ?
-            React.createElement("p", { style: { color: '#aaa', textAlign: 'center' } }, "No tournaments found.") :
-            filteredTournaments.map(t =>
-              React.createElement(TournamentCard, { key: t["Event Name"], tournament: t, onDetailsClick: setModalTournament })
-            )
-        ),
-        modalTournament && React.createElement(TournamentDetailsModal, { tournament: modalTournament, onClose: () => setModalTournament(null) })
-      )
-    );
-  }
-
-  ReactDOM.createRoot(document.getElementById('root')).render(React.createElement(App));
-})();
+        .then(function(r){return r.text();})
+        .then(function(text){
+          var tournaments = parseCSV(text);
+          setupFilter(tournaments);
+          renderTournaments(tournaments);
+        })
+        .catch(function(){ document.getElementById('tournaments-container').innerHTML='<p style="color:red;text-align:center">Failed to load tournaments.</p>'; });
+    });
   </script>
 </body>
 </html>
