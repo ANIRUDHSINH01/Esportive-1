@@ -1,227 +1,398 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Esportive Tournaments</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <link href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@700;900&display=swap" rel="stylesheet">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Tournaments | Esportive</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:ital,wght@0,200..900;1,200..900&display=swap"
+    rel="stylesheet"
+  />
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+  />
   <style>
     body {
-      background: url('https://media.giphy.com/media/pHEiu1rj2Rk2k/giphy.gif') center center fixed no-repeat;
-      background-size: cover;
-      color: #eee;
-      font-family: 'Zalando Sans Expanded', sans-serif;
-      margin: 0;
-      min-height: 100vh;
+      font-family: "Zalando Sans Expanded", sans-serif;
     }
-    body::before {
-      content: "";
-      position: fixed; inset: 0;
-      z-index: -1;
-      background: rgba(0,0,0,0.78);
-      backdrop-filter: blur(10px);
-    }
-    header {
-      display: flex; align-items: center; justify-content: space-between;
-      padding: 1rem 2rem; position: fixed; top: 0; left: 0; right: 0;
-      background: rgba(255,255,255,0.08); z-index: 1000;
-      border-bottom: 1px solid rgba(255,59,59,0.18);
-      border-radius: 0 0 22px 22px;
-    }
-    .logo-wrap { flex:1; display: flex; justify-content: center; }
-    header img.logo { height: 44px; filter: drop-shadow(0 0 6px #ff3b3b) }
-    #profile-container { min-width:32px; min-height:32px; border-radius:9999px; border:2px solid #ff3b3b; display:inline-flex; align-items:center; justify-content:center; overflow:hidden; background:#202018;}
-    #profile-container img { width:32px; height:32px }
-    #profile-container i { color:#fff; font-size:28px; }
-    #profile-dropdown {
-      display:none; position:absolute; right:10px; top:54px; min-width:150px; border-radius:12px;
-      background:rgba(23,23,24,0.97); border:1px solid #ff3b3b33; z-index:1200; box-shadow:0 4px 16px #2d161633;
-    }
-    #profile-dropdown.show { display:block }
-    #profile-dropdown a, #profile-dropdown button { display:block;padding:11px 17px;background:none;border:none;color:#fff;text-align:left;font-size:15px;width:100%;cursor:pointer;}
-    #profile-dropdown a:hover,#profile-dropdown button:hover { background:#ff3b3b;color:#fff }
-    main { max-width:1100px; margin: 0 auto; padding:5.5rem 1.2rem 3rem }
-    h1 { text-align: center; color: #ff3b3b; font-weight: 900; font-size: 2.2rem; margin-bottom: 2.2rem; letter-spacing:.08em; text-shadow: 0 1px 7px #ff3b3b40; }
-    select#game-filter { margin: 0 auto 1.5rem auto; display: block; max-width:290px; width:100%; background:rgba(255,255,255,0.09); border:2px solid #ff3b3b;font-weight:800; border-radius:8px; padding:0.7rem 0.99rem; color:#ff3b3b; font-size:1.05rem;}
-    #tournaments-container { display:flex; gap:1.35rem; overflow-x:auto; padding-bottom:1rem; scroll-padding-left:1rem; }
-    @media(max-width: 700px) { #tournaments-container { flex-direction:column; } main { padding-top:5rem; } }
-    .tournament-card {
-      min-width:270px; background:rgba(255,255,255,0.11); border-radius:17px; border:1.4px solid #ff3b3b35;
-      backdrop-filter:blur(14px); color:#fff; box-shadow:0 2px 16px #ff3b3b44; user-select: text;
-      padding:1.3rem 1rem 1.7rem 1rem; transition:box-shadow 0.3s, border-color 0.3s; display:flex; flex-direction:column;align-items:center
-    }
-    .tournament-card:hover { box-shadow:0 6px 24px #ff3b3b66; border-color:#ff3b3b; transform:scale(1.03);}
-    .tournament-card img { width:95%;max-height:120px;object-fit:contain; border-radius:11px; margin-bottom:.7rem; background:#212;}
-    .tournament-card h2 { color:#ff3b3b; font-size:1.23rem;margin:0.2rem 0;}
-    .tournament-card p { color:#ddd;margin:.2rem 0;}
-    .buttons-row { display:flex;gap:1rem;margin-top:.7rem }
-    .button-neon { background: rgba(255,59,59,0.22); border:2px solid #ff3b3b; color: white; font-weight: 700; border-radius:9999px; padding:0.47rem 1.55rem; font-size:1.08rem; cursor:pointer; transition:.2s box-shadow, .2s background; box-shadow:0 0 8px #ff3b3b33 }
-    .button-neon:hover, .button-neon:focus { background:#ff3b3b; box-shadow:0 0 14px #ff3b3b77 }
-    .modal-overlay { position:fixed;inset:0;z-index:4000; background:rgba(0,0,0,0.7);backdrop-filter:blur(12px); display:none;align-items:center;justify-content:center;}
-    .modal-overlay.active { display:flex; }
-    .modal-content { background:rgba(18,18,20,0.98); border-radius:17px; max-width:390px;width:92vw; max-height:78vh; padding:1.4rem 1.6rem 1.1rem 1.6rem; box-shadow:0 0 20px #ff3b3b77; position:relative;color:#fff;overflow:auto; font-size:1.06rem;}
-    .modal-close {position:absolute;top:9px;right:13px; font-size:2rem;color:#ff3b3b;background:none;border:none;cursor:pointer;}
-    ul.detail-list {margin:0;padding:0;list-style:none;}
-    ul.detail-list li {display:flex;align-items:center;gap:0.7rem;padding:0.43rem 0;border-bottom:1px solid #ff3b3b28}
-    .details-label {font-weight:700;min-width:100px;color:#ff3b3b;}
-    svg.details-icon {width:21px;height:21px;flex-shrink:0;filter:drop-shadow(0 0 7px #f34);}
   </style>
 </head>
-<body>
-  <header>
-    <div></div>
-    <div class="logo-wrap">
-      <img src="../assets/navbar/logo.png" class="logo" alt="Logo">
+<body class="flex flex-col min-h-screen">
+  <!-- Header -->
+  <header
+    class="fixed top-0 left-0 right-0 z-50 bg-black text-white px-4 py-6 lg:py-8 flex items-center justify-between"
+  >
+    <div class="flex items-center">
+      <button id="menu-toggle" class="text-xl text-white focus:outline-none">
+        <i id="menu-icon" class="fas fa-bars transition-transform duration-300"></i>
+      </button>
     </div>
-    <div style="position:relative">
+    <div class="flex-grow flex justify-center">
+      <img
+        src="../assets/navbar/logo.png"
+        alt="Esportive Logo"
+        class="h-8 lg:h-10"
+      />
+    </div>
+    <div class="flex items-center relative">
       <div id="profile-container"></div>
-      <div id="profile-dropdown">
-        <a href="publish-tournament.html">Publish Tournament</a>
-        <button id="logout-btn">Logout</button>
+      <div
+        id="profile-dropdown"
+        class="absolute right-0 top-10 mt-2 w-48 bg-gray-800 rounded-md shadow-lg py-1 hidden"
+      >
+        <a
+          href="publish-tournament.html"
+          class="block px-4 py-2 text-sm text-white hover:bg-gray-700"
+          >Publish Tournament</a
+        >
+        <button
+          id="logout-btn"
+          class="w-full text-left px-4 py-2 text-sm text-white hover:bg-gray-700"
+        >
+          Logout
+        </button>
       </div>
     </div>
   </header>
-  <main>
-    <h1>Featured Tournaments</h1>
-    <select id="game-filter"></select>
-    <div id="tournaments-container"></div>
-  </main>
-  <!-- Modal -->
-  <div id="details-modal" class="modal-overlay">
-    <div class="modal-content">
-      <button id="close-modal-btn" class="modal-close" aria-label="Close">&times;</button>
-      <h2 id="modal-title"></h2>
-      <ul id="modal-details-list" class="detail-list"></ul>
+
+  <!-- Sidebar -->
+  <div
+    id="sidebar"
+    class="fixed top-0 left-0 h-full bg-black z-40 sidebar pt-24"
+  >
+    <div class="flex flex-col h-full p-8 text-white">
+      <ul>
+        <li class="mb-2">
+          <a
+            href="#"
+            class="text-xl font-semibold block py-2 hover:text-gray-400"
+            >Contact Us</a
+          >
+        </li>
+        <li class="mb-2">
+          <a
+            href="#"
+            class="text-xl font-semibold block py-2 hover:text-gray-400"
+            >Work With Us</a
+          >
+        </li>
+        <li class="mb-2">
+          <button
+            id="socials-toggle"
+            class="text-xl font-semibold w-full text-left py-2 flex items-center justify-between hover:text-gray-400"
+          >
+            Our Socials
+            <i
+              class="fas fa-chevron-down text-base transition-transform duration-300"
+            ></i>
+          </button>
+          <ul id="social-links" class="pl-4 mt-1 hidden space-y-2">
+            <li>
+              <a href="#" class="text-base block hover:text-gray-400"
+                >Instagram</a
+              >
+            </li>
+            <li>
+              <a href="#" class="text-base block hover:text-gray-400">Discord</a>
+            </li>
+            <li>
+              <a href="#" class="text-base block hover:text-gray-400">YouTube</a>
+            </li>
+            <li>
+              <a href="#" class="text-base block hover:text-gray-400">X</a>
+            </li>
+            <li>
+              <a href="#" class="text-base block hover:text-gray-400"
+                >WhatsApp Channel</a
+              >
+            </li>
+          </ul>
+        </li>
+      </ul>
     </div>
   </div>
-  <!-- Firebase CDN -->
-  <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js"></script>
-  <!-- Font Awesome Icons -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/js/all.min.js"></script>
-  <script>
-    // Firebase config using only globals (NO import/export)
-    var firebaseConfig = {
+
+  <!-- Main -->
+  <main class="container mx-auto p-4 pt-24">
+    <div
+      class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4"
+    >
+      <h1 class="text-2xl font-bold mb-2 sm:mb-0">Tournaments</h1>
+      <a
+        href="publish-tournament.html"
+        class="px-4 py-2 text-sm text-white border-2 border-red-600 rounded-full hover:bg-red-600 transition-colors duration-300"
+      >
+        Publish Tournament
+      </a>
+    </div>
+
+    <!-- Filter -->
+    <div class="mb-6">
+      <label
+        for="game-filter"
+        class="block text-sm font-medium text-gray-400 mb-1"
+        >Filter by Game:</label
+      >
+      <select
+        id="game-filter"
+        class="w-full sm:w-1/2 md:w-1/3 p-2 rounded-lg border-2 border-red-600 bg-gray-900 text-white focus:ring-red-600 focus:border-red-600"
+      ></select>
+    </div>
+
+    <div
+      id="tournaments-container"
+      class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4"
+    ></div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="mt-auto py-4">
+    <hr class="border-t border-gray-700 mx-auto w-full my-4" />
+    <div
+      class="container mx-auto text-center text-gray-400 flex flex-col items-center"
+    >
+      <div class="flex flex-wrap justify-center space-x-4 mb-2 text-xs">
+        <a href="pages/privacy-policy.html" class="hover:text-white"
+          >Privacy Policy</a
+        >
+        <a href="pages/terms-of-use.html" class="hover:text-white"
+          >Terms Of Use</a
+        >
+        <a href="pages/cookie-policy.html" class="hover:text-white"
+          >Cookie Policy</a
+        >
+        <a href="pages/faq.html" class="hover:text-white">FAQ</a>
+      </div>
+      <div class="flex justify-center space-x-4 text-base mb-2">
+        <a href="https://www.instagram.com" class="hover:text-white"
+          ><i class="fab fa-instagram"></i
+        ></a>
+        <a href="https://www.discord.com" class="hover:text-white"
+          ><i class="fab fa-discord"></i
+        ></a>
+        <a href="https://www.youtube.com" class="hover:text-white"
+          ><i class="fab fa-youtube"></i
+        ></a>
+        <a href="https://www.x.com" class="hover:text-white"
+          ><i class="fab fa-x"></i
+        ></a>
+      </div>
+      <p class="text-xs">&copy; 2025 Esportive. All rights reserved.</p>
+      <div class="flex justify-center items-center py-4 space-x-4">
+        <img src="../assets/navbar/logo.png" alt="Esportive Logo" class="h-6" />
+        <span class="text-gray-500 font-bold text-sm">PART OF</span>
+        <img src="../assets/footer/flm.png" alt="FLM Logo" class="h-6" />
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS Logic -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
+    import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
+    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
+
+    const googleSheetsUrl =
+      "https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0";
+
+    const firebaseConfig = {
       apiKey: "AIzaSyDB9gtUd2KcBB9bEkD8Jzj_kyFE20GE7OA",
       authDomain: "espotive.firebaseapp.com",
+      databaseURL:
+        "https://espotive-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "espotive",
-      storageBucket: "espotive.firebasestorage.app",
+      storageBucket: "espotive.appspot.com",
       messagingSenderId: "439864037476",
       appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
-      measurementId: "G-Q2W9WHLCCR"
+      measurementId: "G-Q2W9WHLCCR",
     };
-    firebase.initializeApp(firebaseConfig);
-    var auth = firebase.auth();
 
-    // Profile login/logout UI
-    document.addEventListener("DOMContentLoaded", function(){
-      var profileContainer = document.getElementById("profile-container");
-      var profileDropdown = document.getElementById("profile-dropdown");
-      auth.onAuthStateChanged(function(user){
-        if(user){
-          if(user.photoURL){
-            profileContainer.innerHTML = `<img src="${user.photoURL}" alt="Profile">`;
-          }else{
-            profileContainer.innerHTML = `<i class="fas fa-user-circle"></i>`;
-          }
-          profileContainer.onclick = function(){ profileDropdown.classList.toggle('show'); };
-        }else{
-          window.location.href = "index.html";
-        }
-      });
-      document.getElementById('logout-btn').onclick = function(){
-        auth.signOut().then(function(){ window.location.href="index.html"; });
-      };
-      var modal = document.getElementById("details-modal");
-      var closeModalBtn = document.getElementById("close-modal-btn");
-      closeModalBtn.onclick = function(){ modal.classList.remove("active"); document.body.style.overflow = ""; };
-      modal.onclick = function(e){ if(e.target===modal){ modal.classList.remove("active"); document.body.style.overflow = ""; } };
-      window.addEventListener("keydown", function(e){ if(e.key==="Escape" && modal.classList.contains("active")){ closeModalBtn.click(); }});
-    });
-    // Details icon utility
-    function detailsIcon(label){
-      var icons={
-        "Event Name":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4M7 12l5 5"/></svg>`,
-        "Game":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M12 6v6l4 2"/></svg>`,
-        "PrizePool":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="10" /></svg>`,
-        "Slots":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="5" y="7" width="14" height="10" rx="2"/></svg>`,
-        "Format":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M3 10h18M3 14h18"/></svg>`,
-        "Close Date":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/></svg>`,
-        "Organization":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v3a4 4 0 004 4h10"/></svg>`,
-        "Social Link":`<svg xmlns="http://www.w3.org/2000/svg" class="details-icon" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 7a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-4-6a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-6-4h.01"/></svg>`
-      };
-      return icons[label]||"";
-    }
-    function parseCSV(csvText){
-      var lines = csvText.trim().split("\n");
-      var headers = lines.shift().split(",").map(h=>h.trim());
-      return lines.map(function(line){
-        var values = line.split(",").map(v=>v.trim());
-        var obj = {};
-        headers.forEach(function(h,i){ obj[h]=values[i]; });
-        return obj;
-      });
-    }
-    function showDetailsModal(tournament){
-      var modal = document.getElementById("details-modal");
-      document.getElementById("modal-title").textContent = tournament["Event Name"];
-      var list = document.getElementById("modal-details-list");
-      list.innerHTML = "";
-      var fields=["Event Name","Game","PrizePool","Slots","Format","Close Date","Organization","Social Link"];
-      fields.forEach(function(field){
-        var isLink = field==="Social Link";
-        var value=tournament[field]||"";
-        var icon=detailsIcon(field);
-        var html = `<li>${icon}<span class="details-label">${field}:</span> ${
-          isLink ? `<a href="${value}" target="_blank" rel="noopener">${value}</a>` : value
-        }</li>`;
-        list.innerHTML += html;
-      });
-      modal.classList.add("active");
-      document.body.style.overflow = "hidden";
-      document.getElementById("close-modal-btn").focus();
-    }
-    function renderTournaments(tournaments){
-      var container=document.getElementById('tournaments-container');
-      container.innerHTML="";
-      if(!tournaments.length){
-        container.innerHTML='<p style="color:#aaa;text-align:center">No tournaments found.</p>'; return;
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const analytics = getAnalytics(app);
+
+    const detailsIcons = {
+      "Event Name": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m1-3a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
+      Game: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6l4 2"/></svg>`,
+      PrizePool: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-cyan-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 1.567-3 3.5s1.343 3.5 3 3.5 3-1.567 3-3.5-1.343-3.5-3-3.5z"/></svg>`,
+      Slots: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><circle cx="12" cy="12" r="3"/></svg>`,
+      Format: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><rect x="3" y="4" width="18" height="16" rx="2"/></svg>`,
+      "Close Date": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-pink-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3M16 7V3M3 11h18M5 21h14a2 2 0 002-2V7H3v12a2 2 0 002 2z"/></svg>`,
+      Organization: `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 7v3a4 4 0 004 4h10a4 4 0 004-4V7"/></svg>`,
+      "Social Link": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path d="M15 7a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-4-6a2 2 0 00-2 2m0 0v4a2 2 0 002 2m-6-4h.01"/></svg>`,
+    };
+
+    const detailRow = (label, value, link = false) => `
+      <li class="flex items-center py-1 text-gray-300">
+        ${detailsIcons[label] || ""}
+        <span class="font-semibold text-white">${label}:</span>
+        <span class="ml-1 ${link ? "text-blue-400 underline" : ""}">
+          ${link ? `<a href="${value}" target="_blank">View</a>` : value}
+        </span>
+      </li>`;
+
+    // ✅ Auth check
+    onAuthStateChanged(auth, (user) => {
+      const profileContainer = document.getElementById("profile-container");
+      const profileDropdown = document.getElementById("profile-dropdown");
+
+      if (user) {
+        profileContainer.innerHTML = user.photoURL
+          ? `<img src="${user.photoURL}" alt="User" class="h-8 w-8 rounded-full border-2 border-red-600 cursor-pointer">`
+          : `<i class="fas fa-user-circle text-2xl text-white cursor-pointer"></i>`;
+
+        profileContainer.addEventListener("click", () => {
+          profileDropdown.classList.toggle("hidden");
+        });
+      } else {
+        window.location.href = "index.html";
       }
-      tournaments.forEach(function(t){
-        var card=document.createElement('div');
-        card.className="tournament-card";
-        card.innerHTML=
-          `<img src="${t.ImageURL}" alt="${t['Event Name']}">
-           <h2>${t['Event Name']}</h2>
-           <p>Game: ${t.Game}</p>
-           <p style="font-size:0.97rem">Prize Pool: ${t.PrizePool}</p>
-           <div class="buttons-row">
-             <button class="button-neon details-btn">Details</button>
-             <a href="${t.Registration}" target="_blank" class="button-neon">Register</a>
-           </div>`;
-        card.querySelector('.details-btn').onclick=function(){ showDetailsModal(t); };
-        container.appendChild(card);
-      });
-    }
-    function setupFilter(allTournaments){
-      var select=document.getElementById('game-filter');
-      var games=[...new Set(allTournaments.map(x=>x.Game))].sort();
-      select.innerHTML='<option value="">All Games</option>'+games.map(g=>`<option value="${g}">${g}</option>`).join('');
-      select.onchange=function(){
-        var filtered=select.value?allTournaments.filter(t=>t.Game===select.value):allTournaments;
-        renderTournaments(filtered);
+    });
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const logoutButton = document.getElementById("logout-btn");
+      if (logoutButton) {
+        logoutButton.addEventListener("click", async () => {
+          try {
+            await signOut(auth);
+            window.location.href = "index.html";
+          } catch (err) {
+            console.error(err);
+          }
+        });
+      }
+
+      const tournamentsContainer = document.getElementById("tournaments-container");
+      const gameFilter = document.getElementById("game-filter");
+      let allTournaments = [];
+
+      const parseCSV = (csv) => {
+        const lines = csv.split("\n").filter((l) => l.trim() !== "");
+        const headers = lines[0].split(",").map((h) => h.trim());
+        return lines.slice(1).map((line) => {
+          const values = line.split(",").map((v) => v.trim());
+          const row = {};
+          headers.forEach((h, i) => (row[h] = values[i]));
+          return row;
+        });
       };
-    }
-    // Fetch and render tournaments on load
-    document.addEventListener("DOMContentLoaded",function(){
-      fetch("https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0")
-        .then(function(r){return r.text();})
-        .then(function(text){
-          var tournaments = parseCSV(text);
-          setupFilter(tournaments);
-          renderTournaments(tournaments);
-        })
-        .catch(function(){ document.getElementById('tournaments-container').innerHTML='<p style="color:red;text-align:center">Failed to load tournaments.</p>'; });
+
+      const createCard = (t) => {
+        const card = document.createElement("div");
+        card.className =
+          "bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-red-600/40 hover:scale-[1.02] transition-all duration-300 flex flex-col relative group tournament-card";
+        card.innerHTML = `
+          <div class="relative w-full h-48 bg-black">
+            <img src="${t.ImageURL}" alt="${t["Event Name"]}" class="h-full w-full object-cover loading-lazy group-hover:opacity-90 transition" data-card-image>
+            <span class="absolute top-2 left-2 bg-red-600 text-xs px-2 py-1 rounded-full font-semibold shadow">${t.Game}</span>
+            <span class="absolute top-2 right-2 bg-gray-800 text-xs px-2 py-1 rounded-full font-semibold shadow">Slots: ${t.Slots}</span>
+            <div class="absolute inset-0 p-4 hidden bg-gray-950/95 backdrop-blur-md rounded-xl border border-gray-800 text-left overflow-y-auto" data-card-details>
+              <p class="text-base font-bold mb-3 text-red-500 border-b border-red-600 pb-2">Tournament Details</p>
+              <ul class="space-y-2 text-sm">
+                ${detailRow("Event Name", t["Event Name"])}
+                ${detailRow("Game", t.Game)}
+                ${detailRow("PrizePool", t.PrizePool)}
+                ${detailRow("Slots", t.Slots)}
+                ${detailRow("Format", t.Format)}
+                ${detailRow("Close Date", t["Close Date"])}
+                ${detailRow("Organization", t.Organization)}
+                ${detailRow("Social Link", t["Social Link"], true)}
+              </ul>
+            </div>
+          </div>
+          <div class="p-4 flex-1 flex flex-col">
+            <h2 class="text-lg font-bold text-white truncate mb-1" title="${t["Event Name"]}">${t["Event Name"]}</h2>
+            <p class="text-sm text-gray-400 mb-2">By ${t.Organization}</p>
+            <div class="flex items-center justify-between text-sm text-gray-300 mb-3">
+              <span class="font-semibold text-green-400">💰 ${t.PrizePool}</span>
+              <span class="text-xs text-gray-400">Closes: ${t["Close Date"]}</span>
+            </div>
+            <div class="mt-auto flex space-x-2">
+              <button class="flex-1 px-3 py-2 text-sm text-white border-2 border-red-600 rounded-lg hover:bg-red-600 transition-colors" data-details-toggle>Details</button>
+              <a href="${t.Registration}" target="_blank"
+                 class="flex-1 px-3 py-2 text-sm text-center text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">
+                 Register
+              </a>
+            </div>
+          </div>
+        `;
+        return card;
+      };
+
+      const renderTournaments = (tournaments) => {
+        tournamentsContainer.innerHTML = "";
+        if (tournaments.length === 0) {
+          tournamentsContainer.innerHTML =
+            '<p class="text-center text-gray-500">No tournaments found.</p>';
+          return;
+        }
+        tournaments.forEach((t) => {
+          const card = createCard(t);
+          tournamentsContainer.appendChild(card);
+        });
+        document
+          .querySelectorAll("[data-details-toggle]")
+          .forEach((button) => {
+            button.addEventListener("click", () => {
+              const card = button.closest(".tournament-card");
+              const image = card.querySelector("[data-card-image]");
+              const details = card.querySelector("[data-card-details]");
+              image.classList.toggle("hidden");
+              details.classList.toggle("hidden");
+              button.textContent = image.classList.contains("hidden")
+                ? "Back"
+                : "Details";
+            });
+          });
+      };
+
+      const createFilterDropdown = () => {
+        const games = [
+          "BGMI",
+          "Free Fire",
+          "CODM",
+          "Clash Of Clans",
+          "Clash Royale",
+          "Brawl Stars",
+          "Pokemon Unite",
+        ];
+        gameFilter.innerHTML = '<option value="">All Games</option>';
+        games.forEach((g) => {
+          const option = document.createElement("option");
+          option.value = g;
+          option.textContent = g;
+          gameFilter.appendChild(option);
+        });
+      };
+
+      const fetchTournaments = async () => {
+        try {
+          const response = await fetch(googleSheetsUrl);
+          const csvText = await response.text();
+          allTournaments = parseCSV(csvText);
+
+          createFilterDropdown();
+
+          renderTournaments(allTournaments.slice(0, 10));
+
+          gameFilter.addEventListener("change", (e) => {
+            const gameToFilter = e.target.value;
+            let filtered = allTournaments;
+            if (gameToFilter) {
+              filtered = allTournaments.filter((t) => t["Game"] === gameToFilter);
+            }
+            renderTournaments(filtered.slice(0, 10));
+          });
+        } catch (error) {
+          console.error("Error fetching tournaments:", error);
+        }
+      };
+
+      fetchTournaments();
     });
   </script>
 </body>
