@@ -78,19 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
           const prize = parts[1].trim();
           const game = parts[9].trim();
           const card = document.createElement('div');
-          card.className = 'w-64 flex-shrink-0 bg-gray-900 rounded-lg p-4 shadow-lg flex flex-col items-center justify-between transition-all duration-300 transform hover:scale-105 mb-4';
-          card.innerHTML = `
-            <div class="text-center">
-              <h3 class="text-lg font-semibold text-center truncate w-full">${title}</h3>
-              <p class="text-sm text-gray-400 mt-1">${game}</p>
-              <div class="mt-2 text-center">
-                <span class="text-xl font-bold text-red-600">${prize}</span>
-                <p class="text-xs text-gray-500">Prize Pool</p>
-              </div>
-            </div>
-            <button onclick="window.location.href='login.html'" class="w-full mt-4 px-4 py-2 text-white border-2 border-red-600 rounded-full text-center text-sm font-semibold transition hover:bg-red-600 hover:border-red-600">
-              Register Now
-            </button>
+          
           `;
           tournamentsContainer.appendChild(card);
         }
@@ -111,7 +99,36 @@ document.addEventListener('DOMContentLoaded', function() {
       const response = await fetch(youtubeApiUrl);
       if (!response.ok) throw new Error(`YouTube API error: ${response.statusText}`);
       const data = await response.json();
-      videosContainer.innerHTML = '';
+      videosCocard.className = 'tournament-card flex-shrink-0 mb-4'; // use your glassmorphism class
+card.innerHTML = `
+  <div class="text-center">
+    <h3>${title}</h3>
+    <p>${game}</p>
+    <div class="mt-2 text-center">
+      <span style="font-size: 1.25rem; font-weight: 700; color: #ff3b3b;">${prize}</span>
+      <p style="font-size: 0.75rem; color: #ddd;">Prize Pool</p>
+    </div>
+  </div>
+  <button onclick="window.location.href='login.html'" 
+          style="
+            width: 100%; 
+            margin-top: 1rem; 
+            padding: 0.5rem 1rem; 
+            color: #fff; 
+            border: 2px solid #ff3b3b; 
+            border-radius: 9999px; 
+            font-size: 0.875rem; 
+            font-weight: 600; 
+            text-align: center; 
+            background: transparent; 
+            transition: 0.3s;
+          " 
+          onmouseover="this.style.background='#ff3b3b'; this.style.borderColor='#ff3b3b';" 
+          onmouseout="this.style.background='transparent'; this.style.borderColor='#ff3b3b';">
+    Register Now
+  </button>
+`;
+      intainer.innerHTML = '';
       if (!data.items || data.items.length === 0) {
         videosContainer.innerHTML = '<div class="text-gray-400">No videos found.</div>';
         return;
