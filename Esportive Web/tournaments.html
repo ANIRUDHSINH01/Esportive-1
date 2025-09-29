@@ -16,22 +16,23 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   />
   <style>
-  body {
-    font-family: "Zalando Sans Expanded", sans-serif;
-  }
+    body {
+      font-family: "Zalando Sans Expanded", sans-serif;
+      background: linear-gradient(135deg, #0f0f0f 0%, #000000 100%);
+    }
 
-  /* Sidebar hidden by default */
-  #sidebar {
-    transform: translateX(-100%);
-    transition: transform 0.3s ease-in-out;
-    width: 75%; /* mobile width */
-    max-width: 300px;
-  }
+    /* Sidebar hidden by default */
+    #sidebar {
+      transform: translateX(-100%);
+      transition: transform 0.3s ease-in-out;
+      width: 75%; /* mobile width */
+      max-width: 300px;
+    }
 
-  /* When open */
-  #sidebar.open {
-    transform: translateX(0);
-  }
+    /* When open */
+    #sidebar.open {
+      transform: translateX(0);
+    }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -137,7 +138,7 @@
       <h1 class="text-2xl font-bold mb-2 sm:mb-0">Tournaments</h1>
       <a
         href="publish-tournament.html"
-        class="px-4 py-2 text-sm text-red border-2 border-red-600 rounded-full hover:bg-red-600 transition-colors duration-300"
+        class="px-4 py-2 text-sm text-red-600 border-2 border-red-600 rounded-full hover:bg-red-600 hover:text-white transition-colors duration-300"
       >
         Publish Tournament
       </a>
@@ -184,14 +185,14 @@
         <a href="https://www.instagram.com" class="hover:text-white"
           ><i class="fab fa-instagram"></i
         ></a>
-        <a href="https://www.discord.com" class="hover:text-white"
+        <a href="https://discord.com" class="hover:text-white"
           ><i class="fab fa-discord"></i
         ></a>
         <a href="https://www.youtube.com" class="hover:text-white"
           ><i class="fab fa-youtube"></i
         ></a>
-        <a href="https://www.x.com" class="hover:text-white"
-          ><i class="fab fa-x"></i
+        <a href="https://x.com" class="hover:text-white"
+          ><i class="fab fa-x-twitter"></i
         ></a>
       </div>
       <p class="text-xs">&copy; 2025 Esportive. All rights reserved.</p>
@@ -207,7 +208,6 @@
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-app.js";
     import { getAuth, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-auth.js";
-    import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.3.0/firebase-analytics.js";
 
     const googleSheetsUrl =
       "https://docs.google.com/spreadsheets/d/14vc1xeqDs5fGoIqasCEN9J4UDMFV6Qx6wGQTo-3rXnc/export?format=csv&gid=0";
@@ -215,18 +215,14 @@
     const firebaseConfig = {
       apiKey: "AIzaSyDB9gtUd2KcBB9bEkD8Jzj_kyFE20GE7OA",
       authDomain: "espotive.firebaseapp.com",
-      databaseURL:
-        "https://espotive-default-rtdb.asia-southeast1.firebasedatabase.app",
       projectId: "espotive",
       storageBucket: "espotive.appspot.com",
       messagingSenderId: "439864037476",
       appId: "1:439864037476:web:f6dc91eefae15c00a3cf71",
-      measurementId: "G-Q2W9WHLCCR",
     };
 
     const app = initializeApp(firebaseConfig);
     const auth = getAuth(app);
-    const analytics = getAnalytics(app);
 
     const detailsIcons = {
       "Event Name": `<svg xmlns="http://www.w3.org/2000/svg" class="inline w-4 h-4 mr-2 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m1-3a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>`,
@@ -240,11 +236,11 @@
     };
 
     const detailRow = (label, value, link = false) => `
-      <li class="flex items-center py-1 text-gray-300">
+      <li class="flex items-start py-2 border-b border-gray-700 last:border-0">
         ${detailsIcons[label] || ""}
-        <span class="font-semibold text-white">${label}:</span>
-        <span class="ml-1 ${link ? "text-blue-400 underline" : ""}">
-          ${link ? `<a href="${value}" target="_blank">View</a>` : value}
+        <span class="font-semibold text-white min-w-[120px]">${label}:</span>
+        <span class="ml-2 text-gray-300 ${link ? 'text-blue-400 underline' : ''}">
+          ${link ? `<a href="${value}" target="_blank" rel="noopener">View</a>` : value || "—"}
         </span>
       </li>`;
 
@@ -280,41 +276,42 @@
       }
 
       const menuToggle = document.getElementById("menu-toggle");
-const menuIcon = document.getElementById("menu-icon");
-const sidebar = document.getElementById("sidebar");
-const socialsToggle = document.getElementById("socials-toggle");
-const socialLinks = document.getElementById("social-links");
+      const menuIcon = document.getElementById("menu-icon");
+      const sidebar = document.getElementById("sidebar");
+      const socialsToggle = document.getElementById("socials-toggle");
+      const socialLinks = document.getElementById("social-links");
 
-// Sidebar toggle
-menuToggle.addEventListener("click", () => {
-  sidebar.classList.toggle("open");
-  if (sidebar.classList.contains("open")) {
-    menuIcon.classList.remove("fa-bars");
-    menuIcon.classList.add("fa-xmark");
-  } else {
-    menuIcon.classList.remove("fa-xmark");
-    menuIcon.classList.add("fa-bars");
-  }
-});
+      // Sidebar toggle
+      menuToggle.addEventListener("click", () => {
+        sidebar.classList.toggle("open");
+        if (sidebar.classList.contains("open")) {
+          menuIcon.classList.remove("fa-bars");
+          menuIcon.classList.add("fa-xmark");
+        } else {
+          menuIcon.classList.remove("fa-xmark");
+          menuIcon.classList.add("fa-bars");
+        }
+      });
 
-// Auto-close sidebar when clicking outside (optional)
-document.addEventListener("click", (e) => {
-  if (
-    sidebar.classList.contains("open") &&
-    !sidebar.contains(e.target) &&
-    !menuToggle.contains(e.target)
-  ) {
-    sidebar.classList.remove("open");
-    menuIcon.classList.remove("fa-xmark");
-    menuIcon.classList.add("fa-bars");
-  }
-});
+      // Auto-close sidebar when clicking outside
+      document.addEventListener("click", (e) => {
+        if (
+          sidebar.classList.contains("open") &&
+          !sidebar.contains(e.target) &&
+          !menuToggle.contains(e.target)
+        ) {
+          sidebar.classList.remove("open");
+          menuIcon.classList.remove("fa-xmark");
+          menuIcon.classList.add("fa-bars");
+        }
+      });
 
-// Social links toggle
-socialsToggle.addEventListener("click", () => {
-  socialLinks.classList.toggle("hidden");
-  socialsToggle.querySelector("i").classList.toggle("rotate-180");
-});
+      // Social links toggle
+      socialsToggle.addEventListener("click", () => {
+        socialLinks.classList.toggle("hidden");
+        socialsToggle.querySelector("i").classList.toggle("rotate-180");
+      });
+
       const tournamentsContainer = document.getElementById("tournaments-container");
       const gameFilter = document.getElementById("game-filter");
       let allTournaments = [];
@@ -331,34 +328,33 @@ socialsToggle.addEventListener("click", () => {
       };
 
       const createCard = (t) => {
+        const closeDate = new Date(t["Close Date"]);
+        const now = new Date();
+        const timeDiff = closeDate - now;
+        const isExpired = timeDiff <= 0;
+        let countdownText = "Registration Closed";
+        if (!isExpired) {
+          const days = Math.floor(timeDiff / (1000 * 60 * 60 * 24));
+          const hours = Math.floor((timeDiff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          countdownText = `${days}d ${hours}h left`;
+        }
+
         const card = document.createElement("div");
         card.className =
-          "bg-gray-900 rounded-xl overflow-hidden shadow-lg hover:shadow-red-600/40 hover:scale-[1.02] transition-all duration-300 flex flex-col relative group tournament-card";
+          "bg-gray-800/50 backdrop-blur-sm rounded-xl overflow-hidden shadow-lg hover:shadow-red-600/30 hover:scale-[1.02] transition-all duration-300 flex flex-col relative group tournament-card border border-gray-700";
+
         card.innerHTML = `
           <div class="relative w-full h-48 bg-black">
-            <img src="${t.ImageURL}" alt="${t["Event Name"]}" class="h-full w-full object-cover loading-lazy group-hover:opacity-90 transition" data-card-image>
-            <span class="absolute top-2 left-2 bg-red-600 text-xs px-2 py-1 rounded-full font-semibold shadow">${t.Game}</span>
-            <span class="absolute top-2 right-2 bg-gray-800 text-xs px-2 py-1 rounded-full font-semibold shadow">Slots: ${t.Slots}</span>
-            <div class="absolute inset-0 p-4 hidden bg-gray-950/95 backdrop-blur-md rounded-xl border border-gray-800 text-left overflow-y-auto" data-card-details>
-              <p class="text-base font-bold mb-3 text-red-500 border-b border-red-600 pb-2">Tournament Details</p>
-              <ul class="space-y-2 text-sm">
-                ${detailRow("Event Name", t["Event Name"])}
-                ${detailRow("Game", t.Game)}
-                ${detailRow("PrizePool", t.PrizePool)}
-                ${detailRow("Slots", t.Slots)}
-                ${detailRow("Format", t.Format)}
-                ${detailRow("Close Date", t["Close Date"])}
-                ${detailRow("Organization", t.Organization)}
-                ${detailRow("Social Link", t["Social Link"], true)}
-              </ul>
-            </div>
+            <img src="${t.ImageURL || "../assets/navbar/logo.png"}" alt="${t["Event Name"]}" class="h-full w-full object-cover" />
+            <span class="absolute top-2 left-2 bg-red-600 text-xs px-2 py-1 rounded-full font-semibold">${t.Game}</span>
+            <span class="absolute top-2 right-2 bg-gray-800 text-xs px-2 py-1 rounded-full">${t.Slots} slots</span>
           </div>
           <div class="p-4 flex-1 flex flex-col">
             <h2 class="text-lg font-bold text-white truncate mb-1" title="${t["Event Name"]}">${t["Event Name"]}</h2>
             <p class="text-sm text-gray-400 mb-2">By ${t.Organization}</p>
             <div class="flex items-center justify-between text-sm text-gray-300 mb-3">
-              <span class="font-semibold text-green-400"> ${t.PrizePool}</span>
-              <span class="text-xs text-gray-400">Closes: ${t["Close Date"]}</span>
+              <span class="font-semibold text-green-400">${t.PrizePool}</span>
+              <span class="text-xs ${isExpired ? 'text-red-400' : 'text-yellow-400'}">${countdownText}</span>
             </div>
             <div class="mt-auto flex space-x-2">
               <button class="flex-1 px-3 py-2 text-sm text-white border-2 border-red-600 rounded-lg hover:bg-red-600 transition-colors" data-details-toggle>Details</button>
@@ -366,6 +362,44 @@ socialsToggle.addEventListener("click", () => {
                  class="flex-1 px-3 py-2 text-sm text-center text-white bg-red-600 rounded-lg hover:bg-red-700 transition-colors">
                  Register
               </a>
+            </div>
+
+            <!-- Enhanced Details Dropdown -->
+            <div class="mt-4 hidden" data-card-details>
+              <div class="bg-gray-900/90 backdrop-blur-md rounded-lg p-4 border border-gray-700">
+                <div class="flex justify-between items-start mb-3">
+                  <h3 class="text-red-500 font-bold">Tournament Info</h3>
+                  <button class="text-gray-400 hover:text-white text-sm" data-details-close>&times;</button>
+                </div>
+                <ul class="space-y-2 text-sm mb-4">
+                  ${detailRow("Event Name", t["Event Name"])}
+                  ${detailRow("Game", t.Game)}
+                  ${detailRow("PrizePool", t.PrizePool)}
+                  ${detailRow("Slots", t.Slots)}
+                  ${detailRow("Format", t.Format)}
+                  ${detailRow("Close Date", t["Close Date"])}
+                  ${detailRow("Organization", t.Organization)}
+                  ${detailRow("Social Link", t["Social Link"], true)}
+                </ul>
+
+                <!-- Social Share -->
+                <div class="mb-3">
+                  <p class="text-xs text-gray-400 mb-1">Share this tournament:</p>
+                  <div class="flex space-x-2">
+                    <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(`Join ${t["Event Name"]} on Esportive!`)}&url=${encodeURIComponent(window.location.href)}" target="_blank" class="text-xs bg-blue-900/50 hover:bg-blue-800 px-2 py-1 rounded flex items-center">
+                      <i class="fab fa-x-twitter mr-1"></i> X
+                    </a>
+                    <a href="https://discord.com/channels/@me" target="_blank" class="text-xs bg-indigo-900/50 hover:bg-indigo-800 px-2 py-1 rounded flex items-center">
+                      <i class="fab fa-discord mr-1"></i> Discord
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Countdown -->
+                <div class="text-center text-xs text-gray-400">
+                  ${isExpired ? "❌ Registration closed" : `⏳ Closes in: ${countdownText}`}
+                </div>
+              </div>
             </div>
           </div>
         `;
@@ -383,20 +417,25 @@ socialsToggle.addEventListener("click", () => {
           const card = createCard(t);
           tournamentsContainer.appendChild(card);
         });
-        document
-          .querySelectorAll("[data-details-toggle]")
-          .forEach((button) => {
-            button.addEventListener("click", () => {
-              const card = button.closest(".tournament-card");
-              const image = card.querySelector("[data-card-image]");
-              const details = card.querySelector("[data-card-details]");
-              image.classList.toggle("hidden");
-              details.classList.toggle("hidden");
-              button.textContent = image.classList.contains("hidden")
-                ? "Back"
-                : "Details";
-            });
+
+        // Attach event listeners for details toggle
+        document.querySelectorAll("[data-details-toggle]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const details = btn.closest(".tournament-card").querySelector("[data-card-details]");
+            details.classList.remove("hidden");
+            btn.classList.add("hidden");
           });
+        });
+
+        document.querySelectorAll("[data-details-close]").forEach((btn) => {
+          btn.addEventListener("click", () => {
+            const card = btn.closest(".tournament-card");
+            const details = card.querySelector("[data-card-details]");
+            const toggleBtn = card.querySelector("[data-details-toggle]");
+            details.classList.add("hidden");
+            toggleBtn.classList.remove("hidden");
+          });
+        });
       };
 
       const createFilterDropdown = () => {
@@ -425,7 +464,6 @@ socialsToggle.addEventListener("click", () => {
           allTournaments = parseCSV(csvText);
 
           createFilterDropdown();
-
           renderTournaments(allTournaments.slice(0, 10));
 
           gameFilter.addEventListener("change", (e) => {
@@ -435,7 +473,7 @@ socialsToggle.addEventListener("click", () => {
               filtered = allTournaments.filter((t) => t["Game"] === gameToFilter);
             }
             renderTournaments(filtered.slice(0, 10));
-          });
+ });
         } catch (error) {
           console.error("Error fetching tournaments:", error);
         }
