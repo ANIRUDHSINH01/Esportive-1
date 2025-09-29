@@ -85,9 +85,8 @@
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
 
-  /* Subtle red glow and shadow */
+  /* Subtle red border only, no shadow */
   border-bottom: 1px solid rgba(255, 59, 59, 0.1);
-  box-shadow: 0 2px 12px rgba(255, 59, 59, 0.15);
 
   /* Layout */
   display: flex;
@@ -99,29 +98,14 @@
 
   /* Smooth rounded bottom corners */
   border-radius: 0 0 20px 20px;
-
-  transition: background 0.3s, box-shadow 0.3s;
 }
 
-/* Logo styling */
+/* Logo styling without shadow */
 header img.logo {
   height: 40px;
   user-select: none;
   pointer-events: none;
-
-  /* Slight glow/shadow for the logo */
-  box-shadow: 0 2px 10px rgba(255, 59, 59, 0.2);
-  transition: transform 0.3s;
 }
-
-/* Optional: subtle hover effect on logo */
-header img.logo:hover {
-  transform: scale(1.05);
-}transition: transform 0.3s ease;
-      z-index: 1100;
-      overflow-y: auto;
-      user-select: none;
-    }
     #sidebar.open {
       transform: translateX(0);
     }
