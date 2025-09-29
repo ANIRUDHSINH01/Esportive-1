@@ -61,7 +61,7 @@
   <header class="glass p-4 flex justify-between items-center sticky top-0 z-50">
     <div class="flex items-center space-x-3">
       <img src="assets/navbar/logo.png" alt="Esportive Logo" class="h-10 select-none pointer-events-none" />
-      
+      <span class="text-lg font-black tracking-wider text-red-500">Esportive</span>
     </div>
 
     <!-- Desktop Nav -->
@@ -88,8 +88,11 @@
     </button>
   </header>
 
+  <!-- Mobile Backdrop -->
+  <div id="mobile-menu-backdrop" class="fixed inset-0 bg-black/40 z-40 hidden"></div>
+
   <!-- Mobile Sidebar -->
-  <nav id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 p-6 glass backdrop-blur-xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col space-y-6 lg:hidden">
+  <nav id="sidebar" class="fixed inset-y-0 left-0 z-50 w-64 p-6 glass backdrop-blur-xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col space-y-6 lg:hidden">
     <div class="flex justify-between items-center">
       <span class="text-lg font-black text-red-500">Esportive</span>
       <button id="close-sidebar" class="text-gray-300 hover:text-white text-2xl">&times;</button>
@@ -191,42 +194,51 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function () {
-  // Mobile Menu
   const menuToggle = document.getElementById('menu-toggle');
   const closeSidebar = document.getElementById('close-sidebar');
   const sidebar = document.getElementById('sidebar');
+  const backdrop = document.getElementById('mobile-menu-backdrop');
   const socialsToggle = document.getElementById('socials-toggle');
   const socialLinks = document.getElementById('social-links');
 
-  const openSidebar = () => sidebar.classList.remove('-translate-x-full');
-  const closeSidebarFn = () => sidebar.classList.add('-translate-x-full');
+  if (!menuToggle || !sidebar || !backdrop) return;
 
-  menuToggle.addEventListener('click', openSidebar);
-  closeSidebar.addEventListener('click', closeSidebarFn);
+  function openMenu() {
+    sidebar.classList.remove('-translate-x-full');
+    backdrop.classList.remove('hidden');
+    document.body.classList.add('overflow-hidden');
+  }
 
-  socialsToggle.addEventListener('click', () => {
-    const isHidden = socialLinks.classList.toggle('hidden');
-    socialsToggle.querySelector('i').classList.toggle('rotate-180', !isHidden);
-  });
+  function closeMenu() {
+    sidebar.classList.add('-translate-x-full');
+    backdrop.classList.add('hidden');
+    document.body.classList.remove('overflow-hidden');
+  }
 
-  // Close sidebar on outside click
-  document.addEventListener('click', (e) => {
-    if (sidebar.classList.contains('-translate-x-full')) return;
-    if (!sidebar.contains(e.target) && e.target !== menuToggle) {
-      closeSidebarFn();
-    }
-  });
+  menuToggle.addEventListener('click', openMenu);
+  closeSidebar.addEventListener('click', closeMenu);
+  backdrop.addEventListener('click', closeMenu);
+
+  if (socialsToggle && socialLinks) {
+    socialsToggle.addEventListener('click', () => {
+      const isHidden = socialLinks.classList.toggle('hidden');
+      const icon = socialsToggle.querySelector('i');
+      if (icon) {
+        icon.classList.toggle('rotate-180', !isHidden);
+      }
+    });
+  }
 
   // Cookie Consent
   const cookieConsent = document.getElementById('cookie-consent');
-  if (!localStorage.getItem('cookieAccepted')) {
+  if (cookieConsent && !localStorage.getItem('cookieAccepted')) {
     cookieConsent.classList.remove('hidden');
   }
 
   document.querySelectorAll('#accept-cookies, #decline-cookies').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn?.addEventListener('click', () => {
       localStorage.setItem('cookieAccepted', 'true');
-      cookieConsent.classList.add('hidden');
+      cookieConsent?.classList.add('hidden');
     });
   });
 
