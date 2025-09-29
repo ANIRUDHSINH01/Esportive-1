@@ -105,6 +105,39 @@ header img.logo {
   height: 40px;
   user-select: none;
   pointer-events: none;
+}header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 64px;
+
+  /* Glassmorphism background */
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+
+  /* Subtle red border only, no shadow */
+  border-bottom: 1px solid rgba(255, 59, 59, 0.1);
+
+  /* Layout */
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 1rem;
+
+  z-index: 1000;
+
+  /* Smooth rounded bottom corners */
+  border-radius: 0 0 20px 20px;
+}
+
+/* Logo styling without shadow */
+header img.logo {
+  height: 40px;
+  user-select: none;
+  pointer-events: none;
+}
 }
     #sidebar.open {
       transform: translateX(0);
