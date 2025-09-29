@@ -50,10 +50,7 @@
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
     }
-
-    /* Hero */
     .hero {
-      @apply glass;
       position: relative;
       margin-bottom: 3rem;
       text-align: center;
@@ -100,10 +97,14 @@
       background-color: #ff3b3b;
       box-shadow: 0 0 20px rgba(255,59,59,0.19);
     }
-
     /* Tournament Card Glass UI */
     .tournament-card {
-      @apply glass;
+      background: rgba(30, 32, 41, 0.43);
+      box-shadow: 0 4px 18px rgba(255,59,59,0.13);
+      border-radius: 22px;
+      border: 1.5px solid rgba(255,59,59,0.13);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       min-width: 270px;
       max-width: 340px;
       margin: 0.5rem 0;
@@ -111,7 +112,6 @@
       display: flex;
       flex-direction: column;
       justify-content: space-between;
-      box-shadow: 0 4px 18px rgba(255,59,59,0.13);
       transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
       cursor: pointer;
     }
@@ -169,7 +169,6 @@
       background: #ff3b3b;
       color: #fff;
     }
-    /* Tournament container layout */
     #tournaments-container {
       display: flex;
       gap: 1.5rem;
@@ -181,25 +180,25 @@
       scroll-padding-left: 1rem;
       user-select: none;
     }
-
     /* Supported games logo glass */
     .supported-games img {
-      @apply glass;
+      background: rgba(30, 32, 41, 0.43);
+      box-shadow: 0 1px 6px rgba(255,59,59,0.13);
+      border-radius: 14px;
+      border: 1.5px solid rgba(255,59,59,0.13);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       flex-shrink: 0;
       width: 92px;
       height: 92px;
       object-fit: contain;
-      border-radius: 14px;
       background: rgba(0,0,0,0.15);
-      border: 1px solid rgba(255,59,59,0.13);
-      box-shadow: 0 1px 6px rgba(255,59,59,0.13);
       transition: box-shadow 0.3s;
       cursor: pointer;
     }
     .supported-games img:hover {
       box-shadow: 0 2px 14px rgba(255,59,59,0.17);
     }
-
     /* Esportive Feed Video Card Glass */
     #videos-container {
       margin-bottom: 3rem;
@@ -209,9 +208,12 @@
       user-select: none;
     }
     #videos-container > div {
-      @apply glass;
-      background: rgba(0,0,0,0.18);
+      background: rgba(30, 32, 41, 0.43);
+      box-shadow: 0 1px 7px rgba(255,59,59,0.13);
       border-radius: 18px;
+      border: 1.5px solid rgba(255,59,59,0.13);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       min-height: 160px;
       display: flex;
       flex-direction: column;
@@ -219,17 +221,20 @@
       justify-content: center;
       color: #bbb;
       font-style: italic;
-      box-shadow: 0 1px 7px rgba(255,59,59,0.13);
       transition: box-shadow 0.3s;
       overflow: hidden;
     }
     #videos-container > div:hover {
       box-shadow: 0 2px 14px rgba(255,59,59,0.17);
     }
-
     /* Footer glass */
     footer {
-      @apply glass;
+      background: rgba(30, 32, 41, 0.43);
+      box-shadow: 0 4px 32px rgba(255,59,59,0.10);
+      border-radius: 22px 22px 0 0;
+      border: 1.5px solid rgba(255,59,59,0.13);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       flex-shrink: 0;
       text-align: center;
       padding: 2rem 1rem 1rem 1rem;
@@ -237,8 +242,6 @@
       letter-spacing: 0.08em;
       user-select: none;
       font-size: 0.9rem;
-      background: rgba(27, 27, 39, 0.29);
-      border-top: 1px solid rgba(255, 59, 59, 0.08);
       margin-top: auto;
       box-sizing: border-box;
     }
@@ -253,16 +256,18 @@
     footer a:hover { color: #fff; }
     /* Cookie consent popup */
     #cookie-consent {
-      @apply glass;
+      background: rgba(30, 32, 41, 0.43);
+      box-shadow: 0 4px 20px rgba(255,59,59,0.18);
+      border-radius: 1rem;
+      border: 1.5px solid rgba(255,59,59,0.13);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
       position: fixed;
       bottom: 2rem;
       left: 2rem;
       right: 2rem;
-      background: rgba(0,0,0,0.95);
       color: #fff;
       padding: 1.5rem;
-      border-radius: 1rem;
-      box-shadow: 0 4px 20px rgba(255,59,59,0.18);
       z-index: 1000;
       display: none;
       max-width: 350px;
