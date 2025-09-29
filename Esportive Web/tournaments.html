@@ -16,9 +16,22 @@
     href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
   />
   <style>
-    body {
-      font-family: "Zalando Sans Expanded", sans-serif;
-    }
+  body {
+    font-family: "Zalando Sans Expanded", sans-serif;
+  }
+
+  /* Sidebar hidden by default */
+  #sidebar {
+    transform: translateX(-100%);
+    transition: transform 0.3s ease-in-out;
+    width: 75%; /* mobile width */
+    max-width: 300px;
+  }
+
+  /* When open */
+  #sidebar.open {
+    transform: translateX(0);
+  }
   </style>
 </head>
 <body class="flex flex-col min-h-screen">
@@ -266,6 +279,42 @@
         });
       }
 
+      const menuToggle = document.getElementById("menu-toggle");
+const menuIcon = document.getElementById("menu-icon");
+const sidebar = document.getElementById("sidebar");
+const socialsToggle = document.getElementById("socials-toggle");
+const socialLinks = document.getElementById("social-links");
+
+// Sidebar toggle
+menuToggle.addEventListener("click", () => {
+  sidebar.classList.toggle("open");
+  if (sidebar.classList.contains("open")) {
+    menuIcon.classList.remove("fa-bars");
+    menuIcon.classList.add("fa-xmark");
+  } else {
+    menuIcon.classList.remove("fa-xmark");
+    menuIcon.classList.add("fa-bars");
+  }
+});
+
+// Auto-close sidebar when clicking outside (optional)
+document.addEventListener("click", (e) => {
+  if (
+    sidebar.classList.contains("open") &&
+    !sidebar.contains(e.target) &&
+    !menuToggle.contains(e.target)
+  ) {
+    sidebar.classList.remove("open");
+    menuIcon.classList.remove("fa-xmark");
+    menuIcon.classList.add("fa-bars");
+  }
+});
+
+// Social links toggle
+socialsToggle.addEventListener("click", () => {
+  socialLinks.classList.toggle("hidden");
+  socialsToggle.querySelector("i").classList.toggle("rotate-180");
+});
       const tournamentsContainer = document.getElementById("tournaments-container");
       const gameFilter = document.getElementById("game-filter");
       let allTournaments = [];
