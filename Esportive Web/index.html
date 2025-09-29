@@ -41,7 +41,6 @@
       display: flex;
       flex-direction: column;
     }
-    /* Glassmorphism utility for all cards/sections */
     .glass {
       background: rgba(30, 32, 41, 0.44);
       box-shadow: 0 4px 32px rgba(255,59,59,0.10);
@@ -50,358 +49,244 @@
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
     }
-    .hero {
-      position: relative;
-      margin-bottom: 3rem;
-      text-align: center;
-      padding: 2.5rem 2rem 2.5rem 2rem;
-      color: #ff3b3b;
-      user-select: text;
-    }
-    .hero > div {
-      background: rgba(0,0,0,0.21);
-      padding: 1.1rem 2rem;
-      border-radius: 18px;
-      box-shadow: 0 0 8px 1px rgba(255,59,59,0.07);
-      margin: 0 auto;
-      max-width: 720px;
-    }
-    .hero h1 {
-      font-weight: 900;
-      font-size: 1.20rem;
-      letter-spacing: 0.12em;
-      margin-bottom: 1rem;
-      text-shadow: 0 1px 5px rgba(255,59,59,0.18);
-    }
-    .hero p {
-      font-size: 1.1rem;
-      color: #f3f3f3;
-      margin-bottom: 0.5rem;
-    }
-    .hero a {
-      background: rgba(255,59,59,0.19);
-      color: white;
-      font-weight: 700;
-      font-size: 1.08rem;
-      padding: 0.75rem 2.2rem;
-      border-radius: 9999px;
-      border: 2px solid #ff3b3b;
-      box-shadow: 0 0 12px 1px rgba(255,59,59,0.13);
-      text-decoration: none;
-      display: inline-block;
-      transition: background 0.3s, box-shadow 0.3s;
-      user-select: none;
-      user-drag: none;
-    }
-    .hero a:hover {
-      background-color: #ff3b3b;
-      box-shadow: 0 0 20px rgba(255,59,59,0.19);
-    }
-    .tournament-card {
-      background: rgba(30, 32, 41, 0.44);
-      box-shadow: 0 4px 18px rgba(255,59,59,0.13);
-      border-radius: 22px;
-      border: 1.5px solid rgba(255,59,59,0.13);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      min-width: 270px;
-      max-width: 340px;
-      margin: 0.5rem 0;
-      padding: 1.7rem 1.3rem 1.2rem 1.3rem;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between;
-      transition: box-shadow 0.3s, transform 0.3s, border-color 0.3s;
-      cursor: pointer;
-    }
-    .tournament-card:hover,
-    .tournament-card:focus-visible {
-      outline: none;
-      transform: translateY(-4px) scale(1.031);
-      box-shadow: 0 12px 36px rgba(255,59,59,0.19);
-      border-color: #ff3b3b;
-    }
-    .tournament-card h3 {
-      margin: 0 0 0.7rem 0;
-      font-weight: 900;
-      font-size: 1.28rem;
-      user-select: text;
-      color: #ff3b3b;
-      text-shadow: 0 1px 5px rgba(255,59,59,0.18);
-    }
-    .tournament-card .game {
-      font-size: 1rem;
-      color: #eee;
-      margin-bottom: 0.25rem;
-      font-weight: 700;
-    }
-    .tournament-card .prize {
-      background: rgba(255,59,59,0.21);
-      color: #fff;
-      font-size: 1.08rem;
-      margin: 0.7rem 0 0.2rem 0;
-      padding: 0.3rem 1.1rem;
-      border-radius: 9999px;
-      font-weight: bold;
-      display: inline-block;
-      border: 2px solid #ff3b3b;
-    }
-    .tournament-card .desc {
-      color: #ccc;
-      font-size: .97rem;
-      margin-bottom: 0.25rem;
-    }
-    .tournament-card button, .tournament-card .register-btn {
-      margin-top: 1rem;
-      padding: 0.65rem 0;
-      background: rgba(255,59,59,0.13);
-      color: #fff;
-      border-radius: 9999px;
-      border: 2px solid #ff3b3b;
-      font-weight: 700;
-      text-align: center;
-      width: 100%;
-      box-shadow: 0 0 10px 1px rgba(255,59,59,0.13);
-      transition: background 0.3s, color 0.3s;
-    }
-    .tournament-card button:hover, .tournament-card .register-btn:hover {
-      background: #ff3b3b;
-      color: #fff;
-    }
-    #tournaments-container {
-      display: flex;
-      gap: 1.5rem;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      align-items: stretch;
-      overflow-x: auto;
-      padding-bottom: 1rem;
-      scroll-padding-left: 1rem;
-      user-select: none;
-    }
-    .supported-games img {
-      background: rgba(30, 32, 41, 0.44);
-      box-shadow: 0 1px 6px rgba(255,59,59,0.13);
-      border-radius: 14px;
-      border: 1.5px solid rgba(255,59,59,0.13);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      flex-shrink: 0;
-      width: 92px;
-      height: 92px;
-      object-fit: contain;
-      background: rgba(0,0,0,0.15);
-      transition: box-shadow 0.3s;
-      cursor: pointer;
-    }
-    .supported-games img:hover {
-      box-shadow: 0 2px 14px rgba(255,59,59,0.17);
-    }
-    #videos-container {
-      margin-bottom: 3rem;
-      display: grid;
-      grid-template-columns: repeat(auto-fill,minmax(270px,1fr));
-      gap: 1.2rem;
-      user-select: none;
-    }
-    #videos-container > div {
-      background: rgba(30, 32, 41, 0.44);
-      box-shadow: 0 1px 7px rgba(255,59,59,0.13);
-      border-radius: 18px;
-      border: 1.5px solid rgba(255,59,59,0.13);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      min-height: 160px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      color: #bbb;
-      font-style: italic;
-      transition: box-shadow 0.3s;
-      overflow: hidden;
-    }
-    #videos-container > div:hover {
-      box-shadow: 0 2px 14px rgba(255,59,59,0.17);
-    }
-    footer {
-      background: rgba(30, 32, 41, 0.44);
-      box-shadow: 0 4px 32px rgba(255,59,59,0.10);
-      border-radius: 22px 22px 0 0;
-      border: 1.5px solid rgba(255,59,59,0.13);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      flex-shrink: 0;
-      text-align: center;
-      padding: 2rem 1rem 1rem 1rem;
-      color: #ccc;
-      letter-spacing: 0.08em;
-      user-select: none;
-      font-size: 0.9rem;
-      margin-top: auto;
-      box-sizing: border-box;
-    }
-    footer a {
-      color: #ff3b3b;
-      text-decoration: none;
-      font-weight: 700;
-      margin: 0 0.7rem;
-      transition: color 0.3s;
-      user-select: text;
-    }
-    footer a:hover { color: #fff; }
-    #cookie-consent {
-      background: rgba(30, 32, 41, 0.44);
-      box-shadow: 0 4px 20px rgba(255,59,59,0.18);
-      border-radius: 1rem;
-      border: 1.5px solid rgba(255,59,59,0.13);
-      backdrop-filter: blur(24px);
-      -webkit-backdrop-filter: blur(24px);
-      position: fixed;
-      bottom: 2rem;
-      left: 2rem;
-      right: 2rem;
-      color: #fff;
-      padding: 1.5rem;
-      z-index: 1000;
-      display: none;
-      max-width: 350px;
-      margin: auto;
-    }
-    #cookie-consent.visible {
-      display: block;
-    }
-    #cookie-consent button {
-      margin-top: 1rem;
-      margin-right: 0.5rem;
-      padding: 0.5rem 1.25rem;
-      background: #ff3b3b;
-      color: #fff;
-      border: none;
-      border-radius: 0.5rem;
-      font-weight: 700;
-      cursor: pointer;
-      transition: background 0.3s;
-    }
-    #cookie-consent button:last-child {
-      background: #333;
-      color: #fff;
-    }
-    #cookie-consent button:hover {
-      background: #e00;
+    .rotate-180 {
+      transform: rotate(180deg);
+      transition: transform 0.2s;
     }
   </style>
 </head>
 <body>
 <div id="root">
   <!-- Navbar -->
-  <header>
+  <header class="glass p-4 flex justify-between items-center sticky top-0 z-50">
     <div class="flex items-center space-x-3">
-      <img src="assets/navbar/logo.png" alt="Esportive Logo" class="logo h-10 select-none pointer-events-none" />
+      <img src="assets/navbar/logo.png" alt="Esportive Logo" class="h-10 select-none pointer-events-none" />
       <span class="text-lg font-bold text-red-600 tracking-wide">Esportive</span>
     </div>
-    <nav class="desktop-nav hidden lg:flex items-center space-x-6 font-semibold text-gray-200 relative">
+
+    <!-- Desktop Nav -->
+    <nav class="hidden lg:flex items-center space-x-6 font-semibold text-gray-200 relative">
       <a href="mailto:support@espotive.in" class="hover:text-red-400 transition">Contact Us</a>
       <a href="mailto:work@espotive.in" class="hover:text-red-400 transition">Work With Us</a>
       <div class="group relative">
-        <button class="hover:text-red-400 transition focus:outline-none">Our Socials <i class="fas fa-chevron-down"></i></button>
-        <ul class="absolute bg-black bg-opacity-90 rounded-lg mt-2 py-2 px-4 space-y-2 shadow-lg">
-          <li><a href="#" class="hover:text-red-400">Instagram</a></li>
-          <li><a href="#" class="hover:text-red-400">Discord</a></li>
-          <li><a href="#" class="hover:text-red-400">YouTube</a></li>
-          <li><a href="#" class="hover:text-red-400">X</a></li>
-          <li><a href="#" class="hover:text-red-400">WhatsApp Channel</a></li>
+        <button class="hover:text-red-400 transition focus:outline-none flex items-center gap-1">
+          Our Socials <i class="fas fa-chevron-down ml-1"></i>
+        </button>
+        <ul class="absolute right-0 mt-2 py-2 px-4 bg-black bg-opacity-90 rounded-lg shadow-lg space-y-2 w-48">
+          <li><a href="#" class="block hover:text-red-400">Instagram</a></li>
+          <li><a href="#" class="block hover:text-red-400">Discord</a></li>
+          <li><a href="#" class="block hover:text-red-400">YouTube</a></li>
+          <li><a href="#" class="block hover:text-red-400">X</a></li>
+          <li><a href="#" class="block hover:text-red-400">WhatsApp Channel</a></li>
         </ul>
       </div>
     </nav>
+
+    <!-- Mobile Menu Toggle -->
     <button id="menu-toggle" aria-label="Toggle Menu" class="lg:hidden text-2xl text-red-600 focus:outline-none">
       <i id="menu-icon" class="fas fa-bars"></i>
     </button>
   </header>
-  <nav id="sidebar" aria-label="Sidebar Navigation" role="navigation" tabindex="-1">
-    <ul>
-      <li><a href="mailto:support@espotive.in">Contact Us</a></li>
-      <li><a href="mailto:work@espotive.in">Work With Us</a></li>
+
+  <!-- Mobile Sidebar -->
+  <nav id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 p-6 bg-black bg-opacity-90 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col space-y-6 lg:hidden">
+    <button id="close-sidebar" class="self-end text-white text-2xl">&times;</button>
+    <ul class="space-y-4 text-white">
+      <li><a href="mailto:support@espotive.in" class="block hover:text-red-400">Contact Us</a></li>
+      <li><a href="mailto:work@espotive.in" class="block hover:text-red-400">Work With Us</a></li>
       <li>
-        <button id="socials-toggle" aria-expanded="false" aria-controls="social-links">
+        <button id="socials-toggle" class="flex justify-between items-center w-full text-left hover:text-red-400">
           Our Socials <i class="fas fa-chevron-down"></i>
         </button>
-        <ul id="social-links" hidden>
-          <li><a href="#">Instagram</a></li>
-          <li><a href="#">Discord</a></li>
-          <li><a href="#">YouTube</a></li>
-          <li><a href="#">X</a></li>
-          <li><a href="#">WhatsApp Channel</a></li>
+        <ul id="social-links" class="mt-2 space-y-2 hidden pl-4">
+          <li><a href="#" class="block hover:text-red-400">Instagram</a></li>
+          <li><a href="#" class="block hover:text-red-400">Discord</a></li>
+          <li><a href="#" class="block hover:text-red-400">YouTube</a></li>
+          <li><a href="#" class="block hover:text-red-400">X</a></li>
+          <li><a href="#" class="block hover:text-red-400">WhatsApp Channel</a></li>
         </ul>
       </li>
     </ul>
   </nav>
-  <main>
-    <section class="hero glass" aria-label="Hero Section">
-      <div>
-        <div class="flex items-center space-x-2 justify-center mb-4">
+
+  <main class="flex-grow p-4 lg:p-6">
+    <!-- Hero -->
+    <section class="hero glass mb-8 p-6 text-center">
+      <div class="inline-block bg-black bg-opacity-20 p-5 rounded-xl">
+        <div class="flex items-center justify-center space-x-2 mb-4">
           <div class="w-2 h-8 bg-red-600 rounded"></div>
-          <h1>Find Tournaments.</h1>
+          <h1 class="font-black text-xl tracking-widest">Find Tournaments.</h1>
         </div>
-        <p>Esportive is India's e-sports tournament finder. Simply browse, choose, and register externally.</p>
-        <a href="login.html" class="btn-glass" aria-label="Sign in to browse">Sign in To Browse</a>
+        <p class="mb-4">Esportive is India's e-sports tournament finder. Simply browse, choose, and register externally.</p>
+        <a href="login.html" class="inline-block bg-red-600/20 text-white font-bold py-2 px-6 rounded-full border-2 border-red-600 shadow hover:bg-red-600 transition">Sign in To Browse</a>
       </div>
     </section>
-    <section aria-label="Featured Tournaments">
-      <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Featured Tournaments</h2>
-      <div id="tournaments-container" role="list" tabindex="0" aria-live="polite" class="tournaments">
-        <!-- Tournament cards loaded by JS as <article class="tournament-card glass">...</article> -->
+
+    <!-- Featured Tournaments -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Featured Tournaments</h2>
+      <div id="tournaments-container" class="flex gap-4 overflow-x-auto pb-2"></div>
+    </section>
+
+    <!-- Supported Games -->
+    <section class="mb-10">
+      <h2 class="mb-4 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Supported Games</h2>
+      <div class="supported-games flex gap-4 overflow-x-auto pb-2">
+        <img src="assets/games/bgmi.png" alt="BGMI" class="w-20 h-20 object-contain bg-black/10 rounded-lg" />
+        <img src="assets/games/codm.png" alt="CODM" class="w-20 h-20 object-contain bg-black/10 rounded-lg" />
+        <img src="assets/games/freefire.png" alt="Free Fire" class="w-20 h-20 object-contain bg-black/10 rounded-lg" />
+        <img src="assets/games/coc.png" alt="Clash of Clans" class="w-20 h-20 object-contain bg-black/10 rounded-lg" />
+        <img src="assets/games/brawl_stars.png" alt="Brawl Stars" class="w-20 h-20 object-contain bg-black/10 rounded-lg" />
+        <img src="assets/games/pokemon_unite.png" alt="Pokemon Unite" class="w-20 h-20 object-contain bg-black/10 rounded-lg" />
+        <img src="assets/games/clash_royale.png" alt="Clash Royale" class="w-20 h-20 object-contain bg-black/10 rounded-lg" />
       </div>
     </section>
-    <section aria-label="Supported Games">
-      <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Supported Games</h2>
-      <div class="supported-games" role="list">
-        <img src="assets/games/bgmi.png" alt="BGMI" role="listitem" />
-        <img src="assets/games/codm.png" alt="CODM" role="listitem" />
-        <img src="assets/games/freefire.png" alt="Free Fire" role="listitem" />
-        <img src="assets/games/coc.png" alt="Clash of Clans" role="listitem" />
-        <img src="assets/games/brawl_stars.png" alt="Brawl Stars" role="listitem" />
-        <img src="assets/games/pokemon_unite.png" alt="Pokemon Unite" role="listitem" />
-        <img src="assets/games/clash_royale.png" alt="Clash Royale" role="listitem" />
-      </div>
-    </section>
-    <section aria-label="Esportive Feed">
-      <h2 class="mb-6 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Esportive Feed</h2>
-      <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-        <!-- Video cards loaded by JS, each a glass card -->
-      </div>
+
+    <!-- Esportive Feed -->
+    <section>
+      <h2 class="mb-4 text-2xl text-red-600 font-bold border-l-4 border-red-600 pl-3">Esportive Feed</h2>
+      <div id="videos-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4"></div>
     </section>
   </main>
-  <footer>
-    <hr class="border-gray-700 mx-auto w-full my-4" />
-    <div class="flex flex-wrap justify-center space-x-4 mb-2 text-xs">
+
+  <!-- Footer -->
+  <footer class="glass mt-auto p-6 text-center text-gray-400 text-sm">
+    <hr class="border-gray-700 my-4" />
+    <div class="flex flex-wrap justify-center space-x-4 mb-3">
       <a href="pages/privacy-policy.html" class="hover:text-white">Privacy Policy</a>
       <a href="pages/terms-of-use.html" class="hover:text-white">Terms Of Use</a>
       <a href="pages/cookie-policy.html" class="hover:text-white">Cookie Policy</a>
       <a href="pages/faq.html" class="hover:text-white">FAQ</a>
     </div>
-    <div class="flex justify-center space-x-6 text-xl mb-2">
+    <div class="flex justify-center space-x-6 text-xl mb-3">
       <a href="https://www.instagram.com" class="hover:text-white"><i class="fab fa-instagram"></i></a>
       <a href="https://www.discord.com" class="hover:text-white"><i class="fab fa-discord"></i></a>
       <a href="https://www.youtube.com" class="hover:text-white"><i class="fab fa-youtube"></i></a>
       <a href="https://www.x.com" class="hover:text-white"><i class="fab fa-x"></i></a>
     </div>
-    <p class="text-xs">&copy; 2025 Esportive. All rights reserved.</p>
-    <div class="flex justify-center items-center py-4 space-x-4">
+    <p>&copy; 2025 Esportive. All rights reserved.</p>
+    <div class="flex justify-center items-center py-3 space-x-3">
       <img src="assets/navbar/logo.png" alt="Esportive Logo" class="h-6" />
       <span class="text-gray-500 font-bold text-sm">PART OF</span>
       <img src="assets/footer/flm.png" alt="FLM Logo" class="h-6" />
     </div>
   </footer>
-  <div id="cookie-consent" class="hidden glass">
-    <p class="mb-2">
+
+  <!-- Cookie Consent -->
+  <div id="cookie-consent" class="hidden fixed bottom-4 left-4 right-4 max-w-md mx-auto p-4 glass z-50">
+    <p class="mb-3">
       We use cookies to improve your experience. By continuing, you accept our
       <a href="pages/cookie-policy.html" class="underline text-red-400">Cookie Policy</a>.
     </p>
-    <button id="accept-cookies">Accept</button>
-    <button id="decline-cookies">Decline</button>
+    <div class="flex gap-2">
+      <button id="accept-cookies" class="px-4 py-2 bg-red-600 text-white rounded font-bold">Accept</button>
+      <button id="decline-cookies" class="px-4 py-2 bg-gray-700 text-white rounded font-bold">Decline</button>
+    </div>
   </div>
 </div>
-<script src="js/script.js"></script>
+
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+  // Mobile Menu
+  const menuToggle = document.getElementById('menu-toggle');
+  const closeSidebar = document.getElementById('close-sidebar');
+  const sidebar = document.getElementById('sidebar');
+  const socialsToggle = document.getElementById('socials-toggle');
+  const socialLinks = document.getElementById('social-links');
+
+  const openSidebar = () => sidebar.classList.remove('-translate-x-full');
+  const closeSidebarFn = () => sidebar.classList.add('-translate-x-full');
+
+  menuToggle.addEventListener('click', openSidebar);
+  closeSidebar.addEventListener('click', closeSidebarFn);
+
+  socialsToggle.addEventListener('click', () => {
+    const isHidden = socialLinks.classList.toggle('hidden');
+    socialsToggle.querySelector('i').classList.toggle('rotate-180', !isHidden);
+  });
+
+  // Close sidebar on outside click
+  document.addEventListener('click', (e) => {
+    if (sidebar.classList.contains('-translate-x-full')) return;
+    if (!sidebar.contains(e.target) && e.target !== menuToggle) {
+      closeSidebarFn();
+    }
+  });
+
+  // Cookie Consent
+  const cookieConsent = document.getElementById('cookie-consent');
+  if (!localStorage.getItem('cookieAccepted')) {
+    cookieConsent.classList.remove('hidden');
+  }
+
+  document.querySelectorAll('#accept-cookies, #decline-cookies').forEach(btn => {
+    btn.addEventListener('click', () => {
+      localStorage.setItem('cookieAccepted', 'true');
+      cookieConsent.classList.add('hidden');
+    });
+  });
+
+  // Fetch Tournaments
+  async function fetchAndRenderTournaments() {
+    const container = document.getElementById('tournaments-container');
+    try {
+      const res = await fetch('https://docs.google.com/spreadsheets/d/e/2PACX-1vRA4wuYi-9mQm_jqQJcX_o5biFNxBbS45jsp-J1bbVd3i4LEZDvgUWWDk29uqovv7aTAssL6M_I4YFG/pub?output=csv');
+      const text = await res.text();
+      const lines = text.split('\n').slice(1).filter(l => l.trim());
+      container.innerHTML = '';
+      lines.slice(0, 5).forEach(line => {
+        const [title, prize, , , , , , , , game] = line.split(',');
+        const card = document.createElement('div');
+        card.className = 'tournament-card glass flex-shrink-0 p-4 min-w-[260px]';
+        card.innerHTML = `
+          <h3 class="text-red-600 font-black text-lg mb-1">${title || 'Untitled'}</h3>
+          <p class="text-gray-300 mb-2">${game || 'Game'}</p>
+          <div class="bg-red-600/20 text-white font-bold py-1 px-3 rounded-full inline-block mb-3 border border-red-600">
+            ${prize || 'Prize TBD'}
+          </div>
+          <button onclick="window.location.href='login.html'"
+            class="w-full mt-2 py-2 bg-red-600/20 text-white font-bold rounded-full border border-red-600 hover:bg-red-600 transition">
+            Register Now
+          </button>
+        `;
+        container.appendChild(card);
+      });
+    } catch (e) {
+      container.innerHTML = '<p class="text-red-400">Failed to load tournaments.</p>';
+    }
+  }
+
+  // Fetch YouTube Videos
+  async function fetchAndRenderVideos() {
+    const container = document.getElementById('videos-container');
+    const key = 'AIzaSyAkUf-Vwi0KbLw49xTryOsrNx9PvR3ph-8';
+    const channelId = 'UCJKmT7fdYF7F2tqijFEzDgQ';
+    try {
+      const res = await fetch(`https://www.googleapis.com/youtube/v3/search?part=snippet&maxResults=5&channelId=${channelId}&order=date&type=video&key=${key}`);
+      const data = await res.json();
+      container.innerHTML = '';
+      data.items?.forEach(item => {
+        const id = item.id.videoId;
+        const title = item.snippet.title;
+        const thumb = item.snippet.thumbnails.medium?.url || item.snippet.thumbnails.default?.url;
+        const card = document.createElement('div');
+        card.className = 'glass p-3';
+        card.innerHTML = `
+          <a href="https://www.youtube.com/watch?v=${id}" target="_blank" rel="noopener">
+            <img src="${thumb}" alt="${title}" class="w-full rounded mb-2">
+            <p class="text-sm text-gray-200 truncate">${title}</p>
+          </a>
+        `;
+        container.appendChild(card);
+      });
+    } catch (e) {
+      container.innerHTML = '<p class="text-red-400 col-span-full">Failed to load videos.</p>';
+    }
+  }
+
+  fetchAndRenderTournaments();
+  fetchAndRenderVideos();
+});
+</script>
 </body>
 </html>
