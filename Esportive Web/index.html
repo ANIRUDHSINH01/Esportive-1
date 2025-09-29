@@ -43,15 +43,15 @@
     }
     .glass {
       background: rgba(30, 32, 41, 0.44);
-      box-shadow: 0 4px 32px rgba(255,59,59,0.10);
+      box-shadow: 0 4px 32px rgba(255, 59, 59, 0.1);
       border-radius: 22px;
-      border: 1.5px solid rgba(255,59,59,0.13);
+      border: 1.5px solid rgba(255, 59, 59, 0.13);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
     }
     .rotate-180 {
       transform: rotate(180deg);
-      transition: transform 0.2s;
+      transition: transform 0.2s ease;
     }
   </style>
 </head>
@@ -61,44 +61,48 @@
   <header class="glass p-4 flex justify-between items-center sticky top-0 z-50">
     <div class="flex items-center space-x-3">
       <img src="assets/navbar/logo.png" alt="Esportive Logo" class="h-10 select-none pointer-events-none" />
-     <!-- <span class="text-lg font-bold text-red-600 tracking-wide">Esportive</span>
-    </div> -->
+      <span class="text-lg font-black tracking-wider text-red-500">Esportive</span>
+    </div>
 
     <!-- Desktop Nav -->
-    <nav class="hidden lg:flex items-center space-x-6 font-semibold text-gray-200 relative">
+    <nav class="hidden lg:flex items-center space-x-6 font-bold text-gray-200">
       <a href="mailto:support@espotive.in" class="hover:text-red-400 transition">Contact Us</a>
       <a href="mailto:work@espotive.in" class="hover:text-red-400 transition">Work With Us</a>
       <div class="group relative">
-        <button class="hover:text-red-400 transition focus:outline-none flex items-center gap-1">
-          Our Socials <i class="fas fa-chevron-down ml-1"></i>
+        <button class="flex items-center gap-1 hover:text-red-400 transition focus:outline-none">
+          Our Socials <i class="fas fa-chevron-down text-xs ml-1 mt-0.5"></i>
         </button>
-        <ul class="absolute right-0 mt-2 py-2 px-4 bg-black bg-opacity-90 rounded-lg shadow-lg space-y-2 w-48">
-          <li><a href="#" class="block hover:text-red-400">Instagram</a></li>
-          <li><a href="#" class="block hover:text-red-400">Discord</a></li>
-          <li><a href="#" class="block hover:text-red-400">YouTube</a></li>
-          <li><a href="#" class="block hover:text-red-400">X</a></li>
-          <li><a href="#" class="block hover:text-red-400">WhatsApp Channel</a></li>
+        <ul class="absolute right-0 mt-2 py-3 px-4 bg-black/80 backdrop-blur-lg rounded-xl shadow-lg space-y-2 w-48 border border-red-900/20">
+          <li><a href="#" class="block hover:text-red-400 text-sm">Instagram</a></li>
+          <li><a href="#" class="block hover:text-red-400 text-sm">Discord</a></li>
+          <li><a href="#" class="block hover:text-red-400 text-sm">YouTube</a></li>
+          <li><a href="#" class="block hover:text-red-400 text-sm">X</a></li>
+          <li><a href="#" class="block hover:text-red-400 text-sm">WhatsApp Channel</a></li>
         </ul>
       </div>
     </nav>
 
-    <!-- Mobile Menu Toggle -->
-    <button id="menu-toggle" aria-label="Toggle Menu" class="lg:hidden text-2xl text-red-600 focus:outline-none">
-      <i id="menu-icon" class="fas fa-bars"></i>
+    <!-- Mobile Menu Button -->
+    <button id="menu-toggle" class="lg:hidden text-red-500 hover:text-red-400 text-2xl focus:outline-none">
+      <i class="fas fa-bars"></i>
     </button>
   </header>
 
   <!-- Mobile Sidebar -->
-  <nav id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 p-6 bg-black bg-opacity-90 transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col space-y-6 lg:hidden">
-    <button id="close-sidebar" class="self-end text-white text-2xl">&times;</button>
-    <ul class="space-y-4 text-white">
-      <li><a href="mailto:support@espotive.in" class="block hover:text-red-400">Contact Us</a></li>
-      <li><a href="mailto:work@espotive.in" class="block hover:text-red-400">Work With Us</a></li>
+  <nav id="sidebar" class="fixed inset-y-0 left-0 z-40 w-64 p-6 glass backdrop-blur-xl transform -translate-x-full transition-transform duration-300 ease-in-out flex flex-col space-y-6 lg:hidden">
+    <div class="flex justify-between items-center">
+      <span class="text-lg font-black text-red-500">Esportive</span>
+      <button id="close-sidebar" class="text-gray-300 hover:text-white text-2xl">&times;</button>
+    </div>
+
+    <ul class="space-y-4 text-white font-medium">
+      <li><a href="mailto:support@espotive.in" class="block hover:text-red-400 transition">Contact Us</a></li>
+      <li><a href="mailto:work@espotive.in" class="block hover:text-red-400 transition">Work With Us</a></li>
       <li>
-        <button id="socials-toggle" class="flex justify-between items-center w-full text-left hover:text-red-400">
-          Our Socials <i class="fas fa-chevron-down"></i>
+        <button id="socials-toggle" class="flex justify-between items-center w-full text-left hover:text-red-400 transition">
+          Our Socials <i class="fas fa-chevron-down text-sm"></i>
         </button>
-        <ul id="social-links" class="mt-2 space-y-2 hidden pl-4">
+        <ul id="social-links" class="mt-2 space-y-2 hidden pl-3">
           <li><a href="#" class="block hover:text-red-400">Instagram</a></li>
           <li><a href="#" class="block hover:text-red-400">Discord</a></li>
           <li><a href="#" class="block hover:text-red-400">YouTube</a></li>
