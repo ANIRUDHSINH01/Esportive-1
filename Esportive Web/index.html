@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -9,40 +10,29 @@
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" />
   <style>
     html, body {
-  margin: 0;
-  height: 100%;
-  font-family: 'Zalando Sans Expanded', sans-serif;
-  color: #eee;
-  overflow-x: hidden;
-
-  /* Base dark background */
-  background: #000001;
-
-  /* Animated grid lines */
-  background-image:
-    repeating-linear-gradient(to right, rgba(148, 149, 156, 0.3) 0 3px, transparent 3px 78px),
-    repeating-linear-gradient(to bottom, rgba(148, 149, 156, 0.3) 0 3px, transparent 3px 78px),
-    linear-gradient(135deg, #1a1a1a 0%, #000001 100%);
-  background-size: 78px 78px;
-  animation: moveGrid 15s linear infinite;
-
-  display: flex;
-  flex-direction: column;
-}
-
-/* Subtle moving grid animation */
-@keyframes move
-/* Subtle moving grid animation */
-@keyframes moveGrid {
-  0% {
-    background-position: 0 0, 0 0, 0 0;
-  }
-  100% {
-    background-position: 78px 78px, 78px 78px, 0 0;
-  }
-}
-
-
+      margin: 0;
+      height: 100%;
+      font-family: 'Zalando Sans Expanded', sans-serif;
+      color: #eee;
+      overflow-x: hidden;
+      background: #000001;
+      background-image:
+        repeating-linear-gradient(to right, rgba(148, 149, 156, 0.3) 0 3px, transparent 3px 78px),
+        repeating-linear-gradient(to bottom, rgba(148, 149, 156, 0.3) 0 3px, transparent 3px 78px),
+        linear-gradient(135deg, #1a1a1a 0%, #000001 100%);
+      background-size: 78px 78px;
+      animation: moveGrid 15s linear infinite;
+      display: flex;
+      flex-direction: column;
+    }
+    @keyframes moveGrid {
+      0% {
+        background-position: 0 0, 0 0, 0 0;
+      }
+      100% {
+        background-position: 78px 78px, 78px 78px, 0 0;
+      }
+    }
     body::before {
       content: "";
       position: fixed;
@@ -51,100 +41,47 @@
       backdrop-filter: blur(10px);
       z-index: -1;
     }
-    
-    #menu-toggle {
-      font-size: 1.8rem;
-      color: #ff3b3b;
-      background: none;
-      border: none;
-      cursor: pointer;
-      user-select: none;
-      transition: transform 0.3s ease;
-      z-index: 1101;
-    }
 
-    /* Sidebar */
+    /* Modern Navbar */
+    header {
+      background: rgba(0,0,0,0.8);
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 50;
+      border-bottom: 1px solid #ff3b3b;
+      border-radius: 0 0 20px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+      height: 64px;
+    }
+    header img.logo {
+      height: 40px;
+      user-select: none;
+      pointer-events: none;
+    }
+    /* Sidebar for mobile */
     #sidebar {
-      position: fixed; top: 64px; left: 0;
-      width: 280px; height: 100vh;
+      position: fixed;
+      top: 64px;
+      left: 0;
+      width: 280px;
+      height: 100vh;
       background: rgba(0,0,0,0.85);
       backdrop-filter: blur(20px);
       border-right: 1px solid rgba(255,59,59,0.09);
       box-shadow: 2px 0 16px rgba(255,59,59,0.09);
       padding: 2rem 1.5rem;
+      z-index: 40;
       transform: translateX(-100%);
-      header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-
-  /* Glassmorphism background */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  /* Subtle red border only, no shadow */
-  border-bottom: 1px solid rgba(255, 59, 59, 0.1);
-
-  /* Layout */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-
-  z-index: 1000;
-
-  /* Smooth rounded bottom corners */
-  border-radius: 0 0 20px 20px;
-}
-
-/* Logo styling without shadow */
-header img.logo {
-  height: 40px;
-  user-select: none;
-  pointer-events: none;
-}header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 64px;
-
-  /* Glassmorphism background */
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
-
-  /* Subtle red border only, no shadow */
-  border-bottom: 1px solid rgba(255, 59, 59, 0.1);
-
-  /* Layout */
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding: 0 1rem;
-
-  z-index: 1000;
-
-  /* Smooth rounded bottom corners */
-  border-radius: 0 0 20px 20px;
-}
-
-/* Logo styling without shadow */
-header img.logo {
-  height: 40px;
-  user-select: none;
-  pointer-events: none;
-}
-}
-    #sidebar.open {
+      transition: transform 0.3s ease;
+    }
+    #sidebar.translate-x-0 {
       transform: translateX(0);
     }
     #sidebar ul { padding: 0; margin: 0; list-style: none;}
     #sidebar li + li { margin-top: 1.25rem;}
-
     #sidebar a, #sidebar button {
       font-size: 1.125rem;
       font-weight: 600;
@@ -173,6 +110,61 @@ header img.logo {
     #socials-toggle i { transition: transform 0.3s ease;}
     #socials-toggle.open i { transform: rotate(180deg); }
 
+    /* Desktop nav styles (for Tailwind nav) */
+    .desktop-nav a, .desktop-nav button {
+      font-size: 1.08rem;
+      font-weight: 600;
+      color: #eee;
+      background: none;
+      border: none;
+      cursor: pointer;
+      transition: color 0.3s;
+      outline: none;
+    }
+    .desktop-nav a:hover, .desktop-nav button:hover {
+      color: #ff3b3b;
+    }
+    .desktop-nav .group:hover ul {
+      display: block;
+    }
+    .desktop-nav ul {
+      display: none;
+      position: absolute;
+      top: 2rem;
+      left: 0;
+      background: rgba(0,0,0,0.95);
+      border-radius: 12px;
+      min-width: 180px;
+      padding: 0.5rem 1rem;
+      box-shadow: 0 2px 12px rgba(255,59,59,0.13);
+      z-index: 100;
+    }
+    .desktop-nav ul li {
+      margin: 0.5rem 0;
+    }
+    .desktop-nav ul a {
+      color: #eee;
+      font-size: 1rem;
+    }
+    .desktop-nav ul a:hover {
+      color: #ff3b3b;
+    }
+
+    /* Hamburger */
+    #menu-toggle {
+      font-size: 1.8rem;
+      color: #ff3b3b;
+      background: none;
+      border: none;
+      cursor: pointer;
+      user-select: none;
+      transition: transform 0.3s ease;
+      z-index: 1101;
+      display: flex;
+      align-items: center;
+    }
+
+    /* Responsive adjustments */
     main {
       margin-top: 64px;
       margin-left: 0;
@@ -182,9 +174,10 @@ header img.logo {
       transition: margin-left 0.3s ease;
     }
     @media(min-width: 1024px) {
-      #sidebar { transform: translateX(0);}
-      main { margin-left: 280px; max-width: calc(100% - 280px); padding: 2rem;}
+      #sidebar { display: none !important; }
+      main { margin-left: 0; max-width: 100%; padding: 2rem;}
       #menu-toggle { display: none;}
+      .desktop-nav { display: flex !important; }
     }
 
     .hero {
@@ -356,14 +349,33 @@ header img.logo {
   </style>
 </head>
 <body>
+  <!-- Modern Navbar -->
   <header>
-    <button id="menu-toggle" aria-label="Toggle Menu" aria-haspopup="true" aria-expanded="false">
+    <div class="flex items-center space-x-3">
+      <img src="assets/navbar/logo.png" alt="Esportive Logo" class="logo h-10 select-none pointer-events-none" />
+      <span class="text-lg font-bold text-red-600 tracking-wide">Esportive</span>
+    </div>
+    <nav class="desktop-nav hidden lg:flex items-center space-x-6 font-semibold text-gray-200 relative">
+      <a href="mailto:support@espotive.in" class="hover:text-red-400 transition">Contact Us</a>
+      <a href="mailto:work@espotive.in" class="hover:text-red-400 transition">Work With Us</a>
+      <div class="group relative">
+        <button class="hover:text-red-400 transition focus:outline-none">Our Socials <i class="fas fa-chevron-down"></i></button>
+        <ul class="absolute bg-black bg-opacity-90 rounded-lg mt-2 py-2 px-4 space-y-2 shadow-lg">
+          <li><a href="#" class="hover:text-red-400">Instagram</a></li>
+          <li><a href="#" class="hover:text-red-400">Discord</a></li>
+          <li><a href="#" class="hover:text-red-400">YouTube</a></li>
+          <li><a href="#" class="hover:text-red-400">X</a></li>
+          <li><a href="#" class="hover:text-red-400">WhatsApp Channel</a></li>
+        </ul>
+      </div>
+    </nav>
+    <!-- Mobile Hamburger Menu -->
+    <button id="menu-toggle" aria-label="Toggle Menu" class="lg:hidden text-2xl text-red-600 focus:outline-none">
       <i id="menu-icon" class="fas fa-bars"></i>
     </button>
-    <img src="assets/navbar/logo.png" alt="Esportive Logo" class="logo" />
-    <div style="width: 2rem;"></div>
   </header>
 
+  <!-- Mobile Sidebar -->
   <nav id="sidebar" aria-label="Sidebar Navigation" role="navigation" tabindex="-1">
     <ul>
       <li><a href="mailto:support@espotive.in">Contact Us</a></li>
@@ -459,7 +471,8 @@ header img.logo {
     const menuIcon = document.getElementById('menu-icon');
 
     menuToggle.addEventListener('click', () => {
-      sidebar.classList.toggle('open');
+      sidebar.classList.toggle('translate-x-0');
+      sidebar.classList.toggle('-translate-x-full');
       menuIcon.classList.toggle('fa-bars');
       menuIcon.classList.toggle('fa-times');
     });
@@ -474,18 +487,18 @@ header img.logo {
     // Close sidebar on clicking a link for better UX on mobile
     sidebar.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', () => {
-        if (sidebar.classList.contains('open')) {
-          sidebar.classList.remove('open');
-          menuIcon.classList.add('fa-bars');
-          menuIcon.classList.remove('fa-times');
-        }
+        sidebar.classList.remove('translate-x-0');
+        sidebar.classList.add('-translate-x-full');
+        menuIcon.classList.add('fa-bars');
+        menuIcon.classList.remove('fa-times');
       });
     });
 
     // Close sidebar on clicking outside
     document.addEventListener('click', (e) => {
-      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open');
+      if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('translate-x-0')) {
+        sidebar.classList.remove('translate-x-0');
+        sidebar.classList.add('-translate-x-full');
         menuIcon.classList.add('fa-bars');
         menuIcon.classList.remove('fa-times');
       }
