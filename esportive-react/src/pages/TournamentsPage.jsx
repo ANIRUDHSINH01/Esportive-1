@@ -123,6 +123,7 @@ const TournamentCard = ({ tournament }) => {
   );
 };
 
+// eslint-disable-next-line no-unused-vars
 const TournamentDetails = ({ tournament, close }) => {
   // ... (logic for displaying details, social sharing, etc.)
   return (
