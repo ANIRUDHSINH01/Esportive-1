@@ -1,0 +1,78 @@
+import React from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Navbar from './components/Navbar';
+import Footer from './components/Footer';
+import CookieConsent from './components/CookieConsent';
+import Home from './pages/Home';
+import Login from './pages/Login';
+import TournamentsPage from './pages/TournamentsPage';
+
+function App() {
+  return (
+    <Router>
+      <div id="root">
+        <style>
+          {`
+            html, body {
+              margin: 0;
+              padding: 0;
+              min-height: 100vh;
+              font-family: 'Zalando Sans Expanded', sans-serif;
+              color: #eee;
+              overflow-x: hidden;
+              background: #16181c;
+              background-image:
+                repeating-linear-gradient(to right, rgba(148, 149, 156, 0.21) 0 3px, transparent 3px 78px),
+                repeating-linear-gradient(to bottom, rgba(148, 149, 156, 0.18) 0 3px, transparent 3px 78px),
+                linear-gradient(135deg, #23243a 0%, #16181c 100%);
+              background-size: 78px 78px;
+              animation: moveGrid 15s linear infinite;
+              box-sizing: border-box;
+            }
+            @keyframes moveGrid {
+              0% { background-position: 0 0, 0 0, 0 0; }
+              100% { background-position: 78px 78px, 78px 78px, 0 0; }
+            }
+            body::before {
+              content: "";
+              position: fixed;
+              inset: 0;
+              background: rgba(0,0,0,0.6);
+              backdrop-filter: blur(16px);
+              z-index: -1;
+            }
+            #root {
+              min-height: 100vh;
+              display: flex;
+              flex-direction: column;
+            }
+            .glass {
+              background: rgba(30, 32, 41, 0.44);
+              box-shadow: 0 4px 32px rgba(255, 59, 59, 0.1);
+              border-radius: 22px;
+              border: 1.5px solid rgba(255, 59, 59, 0.13);
+              backdrop-filter: blur(24px);
+              -webkit-backdrop-filter: blur(24px);
+            }
+            .rotate-180 {
+              transform: rotate(180deg);
+              transition: transform 0.2s ease;
+            }
+          `}
+        </style>
+        <Navbar />
+        <main className="flex-grow p-4 lg:p-6">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/tournaments" element={<TournamentsPage />} />
+          </Routes>
+        </main>
+        <Footer />
+        <CookieConsent />
+      </div>
+    </Router>
+  );
+}
+
+export default App;
